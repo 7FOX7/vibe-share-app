@@ -9,8 +9,8 @@ function Login() {
         flexDirection: "column",
         width: "100vw", 
         height: "100vh", 
-        background: "green", 
-        paddingBlock: "20px", 
+        paddingTop: "50px", 
+        paddingBottom: "10px", 
         paddingInline: "10px"}}>
             <WelcomeSection />
             <InputSection />

@@ -1,7 +1,8 @@
+import { forwardRef } from "react"
 import { Input as BaseInput, useMediaQuery } from "@mui/material"
 import theme from "../theme/theme"
 
-const CustomInput = (props) => {
+const CustomInput = forwardRef(function CustomInput(props, ref) {
     const smallScreen = useMediaQuery(theme.breakpoints.down('md')); 
     const rootStyle = {
         marginBottom: "22px", 
@@ -18,7 +19,7 @@ const CustomInput = (props) => {
     return <BaseInput slotProps={{
         root: {style: rootStyle}, 
         input: {style: inputStyle} 
-    }} {...props} />
-}
+    }} placeholder={props.placeholder} inputRef={ref} onChange={props.onChange} />
+})
 
 export default CustomInput

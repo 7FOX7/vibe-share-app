@@ -1,8 +1,7 @@
 function shiftValues(values) {
-    const copy = values; 
-    const firstValue = copy.shift(); 
-    copy.push(firstValue); 
-    return copy; 
+    const firstValue = values.shift(); 
+    values.push(firstValue); 
+    return values; 
 }
 
 export default shiftValues

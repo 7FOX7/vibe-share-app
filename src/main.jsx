@@ -7,10 +7,8 @@ import theme from './theme/theme.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
-    <React.StrictMode>
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
-    </React.StrictMode>
   </Router>
 )

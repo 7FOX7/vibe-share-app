@@ -1,3 +1,5 @@
+import {keyframes} from "@emotion/react"
+
 export const greetingAnimation_in = keyframes `
     0% {
     letter-spacing: -0.5em;

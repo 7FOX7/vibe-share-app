@@ -25,7 +25,7 @@ const greetings_source = [
     }, 
     {
         id: "#RussianGreeting", 
-        greeting: "Здравствуйте!"
+        greeting: "Привет!"
     }, 
     {
         id: "#JapaneseGreeting", 

@@ -8,17 +8,38 @@ import { greetingAnimation_in, greetingAnimation_out } from "../../animations/an
 
 function WelcomeSection() {
   const [greetings, setGreetings] = useState(greetings_source); 
-  const greeting = greetings[0].greeting; 
-  const greetingAnimated = useMemo(() => {
-    <Typography variant="h3" color="primary.main" sx={{animation: greetings}}>
-        {greeting}
+  const [showGreeting, setShowGreeting] = useState(true); 
+
+  const animatedGreeting = useMemo(() => {
+    return <Typography variant="h3" color="secondary" sx={{
+      animation: `${showGreeting ? greetingAnimation_in : greetingAnimation_out} 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both`
+    }}>
+      {greetings[0].greeting}
     </Typography>
-  }, [])
+  }, [showGreeting]); 
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowGreeting(false); 
+      setTimeout(() => {
+        const shiftedGreetings = shiftValues(greetings); 
+        setGreetings(shiftedGreetings); 
+        setShowGreeting(true)
+      }, 800)
+    }, 2200)
+
+    return () => clearInterval(interval); 
+  }, [greetings])
+
   return (
     <Box component="article" sx={{
-        flex: "1.1 1 auto"
+        flex: "1 1 auto", 
+        display: "flex", 
+        justifyContent: "center", 
+        alignItems: "center", 
+        cursor: "default",
     }}>
-        {greetingAnimated}
+        {animatedGreeting}
     </Box>
   )
 }
