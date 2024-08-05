@@ -1,8 +1,10 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useContext } from "react"
 import { Box, Typography } from "@mui/material"
 import CustomInput from "../../customs/CustomInput"
 import BottomSection from "./BottomSection"
+import AuthContext from "../../contexts/AuthContext"
 import { strongRegex, mediumRegex } from "../../data/passwordRejex"
+import { useNavigate } from "react-router-dom"
 
 function InputSection() {
   const usernameRef = useRef(null); 
@@ -13,9 +15,16 @@ function InputSection() {
   const [fillness, setFillness] = useState(null);
   const [passwordMessage, setPasswordMessage] = useState(null);  
   const [formComplete, setFormComplete] = useState(false); 
+  const setUser = useContext(AuthContext);
+  const navigate = useNavigate(); 
 
   function handleSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
+    setUser({
+      "username": usernameRef.current.value, 
+      "password": passwordRef.current.value
+    })
+    navigate("/", {relative: "route"})
   }
 
   function checkForUsername() {
