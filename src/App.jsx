@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import ProtectedRoute from './components/ProtectedRoute'
+import ProtectedRoute from './utils/ProtectedRoute'
 import './App.css'
 import NoPage from './pages/NoPage'
 import Login from './pages/Login'
