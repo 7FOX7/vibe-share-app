@@ -7,6 +7,7 @@ const AuthContext = createContext('default')
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null); 
     const [users, setUsers] = useState(null);
+    const [posts, setPosts] = useState(null); 
 
     useEffect(() => {
         axios.get("/users.json")
@@ -20,7 +21,7 @@ export const AuthProvider = ({children}) => {
             }
             else {
                 users.map((_user) => {
-                    _user.username === user[0] ? '' : updateUsers()
+                    _user.username === user[0] ? setPosts(_user.posts) : updateUsers()
                 })
             }
         }
