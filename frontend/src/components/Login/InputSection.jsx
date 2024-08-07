@@ -22,7 +22,6 @@ function InputSection() {
   function handleSubmit(e) {
     e.preventDefault();
     setUser([usernameRef.current.value, passwordRef.current.value])
-    // localStorage.setItem("userData", JSON.stringify(userData))
     navigate("/", {relative: "route"})
   }
 

@@ -7,13 +7,11 @@ const AuthContext = createContext('default')
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null); 
     const [users, setUsers] = useState(null);
-    const [posts, setPosts] = useState(null); 
 
     useEffect(() => {
-        axios.get("/users.json")
-        .then(response => setUsers(response.data))
+        fetchData()
     }, [])
-
+    
     useEffect(() => {
         if(users) {
             if(users.length === 0) {
@@ -27,6 +25,15 @@ export const AuthProvider = ({children}) => {
         }
     }, [user])
 
+    async function fetchData() {
+        axios.get("http://localhost:8080/users", {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => setUsers(response))
+    }
+
     async function updateUsers() {
         const userData = {
             id: nanoid(11), 
@@ -34,8 +41,11 @@ export const AuthProvider = ({children}) => {
             password: user[1]
         }
 
-        localStorage.setItem("userData", JSON.stringify(userData)); 
-        axios.put("/users.json", JSON.stringify(userData))
+        axios.put("/users", userData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         .then(response => console.log(response))
         .catch(error => console.log(error.message))
     }
