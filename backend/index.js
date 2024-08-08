@@ -6,7 +6,6 @@ const app = express();
 
 app.use(express.json())
 app.use(cors())
-app.use(`/users`, checkIdFormat)
 
 app.listen(8080, () => {
     console.log('Server listening on port 8080')
@@ -41,17 +40,16 @@ app.post('/users', (req, res) => {
     const q = `INSERT INTO users.users VALUES (?, ?, ?)`
     db.query(q, [id, username, password], (err) => {
         if(err) {
-            res.status(200).json('There was an error when setting a query: ' + err)
+            res.status(500).json('There was an error when setting a query: ' + err)
             return
         }
         const q2 = `SELECT * FROM users.users`
         db.query(q2, (err, data) => {
             if(err) {
-                res.status(200).json('There was an error when setting a query: ' + err)
+                res.status(500).json('There was an error when setting a query: ' + err)
                 return
             }
-            res.status(500).json(data)
-            res.send('User was added successfully')
+            res.status(200).json(data)
         })
     })
 })

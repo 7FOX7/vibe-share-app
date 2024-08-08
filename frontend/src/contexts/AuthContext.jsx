@@ -71,7 +71,7 @@ export const AuthProvider = ({children}) => {
                 navigate("/", {relative: "route"})
             }
             else {
-                console.log('this username already exists!')
+                alert('this username already exists!')
             }
         }
     }
