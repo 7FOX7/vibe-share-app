@@ -58,7 +58,7 @@ function BottomSection({displayerColor, fillness, passwordMessage, onClick, form
           border: "none", 
         }
       }}>
-        Login
+        Join!
       </Button>
     </Box>
   )

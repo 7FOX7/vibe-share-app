@@ -15,7 +15,7 @@ function Home() {
       paddingTop: "50px", 
       paddingBottom: "10px", 
       paddingInline: "10px"}}>
-        <p>hello {user}</p>
+        <p>hello {user.username}</p>
         <Header />
         <Main />
         <Footer />

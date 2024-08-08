@@ -6,13 +6,14 @@ const app = express();
 
 app.use(express.json())
 app.use(cors())
+app.use(`/users`, checkIdFormat)
 
 app.listen(8080, () => {
-    console.log('server listening on port 8080')
+    console.log('Server listening on port 8080')
 })
 
 app.get('/', (req, res) => {
-    res.send('hello from our server')
+    res.send('Hello from server')
 })
 
 const db = mysql2.createConnection({
@@ -24,22 +25,42 @@ const db = mysql2.createConnection({
 })
 
 app.get('/users', (req, res) => {
-    // const query = "SELECT * FROM users.users"; 
-    // db.query(query, (err, data) => {
-    //     if(err) {
-    //         console.log('Could not extract the data from the table')
-    //         return
-    //     }
-    //     return res.json(data)
-    // })
-    res.send('Hello, you are in the users')
+    const q = "SELECT * FROM users.users"; 
+    db.query(q, (err, data) => {
+        if(err) {
+            res.status(500).json('There was an error when setting a query: ' + err)
+        }
+        else {
+            res.json(data)
+        } 
+    })
+})
+
+app.post('/users', (req, res) => {
+    const {id, username, password} = req.body; 
+    const q = `INSERT INTO users.users VALUES (?, ?, ?)`
+    db.query(q, [id, username, password], (err) => {
+        if(err) {
+            res.status(200).json('There was an error when setting a query: ' + err)
+            return
+        }
+        const q2 = `SELECT * FROM users.users`
+        db.query(q2, (err, data) => {
+            if(err) {
+                res.status(200).json('There was an error when setting a query: ' + err)
+                return
+            }
+            res.status(500).json(data)
+            res.send('User was added successfully')
+        })
+    })
 })
 
 db.connect((err) => {
     if(err) {    
-        console.log("There an error was with connection to DB " + err.message) 
+        console.log("There an error was with connection to database" + err.message) 
         return
     } 
 
-    console.log("Connection to DB was successful")
+    console.log("Connection to database was successful")
 })

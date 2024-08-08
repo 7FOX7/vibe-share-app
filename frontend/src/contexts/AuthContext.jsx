@@ -1,55 +1,78 @@
 import {useState, useEffect, createContext, useContext} from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
-import { nanoid } from "nanoid"
 
 const AuthContext = createContext('default')
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null); 
-    const [users, setUsers] = useState(null);
+    const [users, setUsers] = useState(null); 
+    const navigate = useNavigate(); 
 
+    console.log('users: ' + users)
     useEffect(() => {
         fetchData()
     }, [])
     
     useEffect(() => {
-        if(users) {
-            if(users.length === 0) {
-                updateUsers(); 
-                return
-            }
-            users.map(_user => _user.username === user[0] ? '' : updateUsers())
-        }
+        checkUsernameAvailability(); 
     }, [user])
 
     async function fetchData() {
         try {
-            const response = await axios.get("http://localhost:8080/users", {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            setUsers(response);
-            console.log('connection was successful to the users') 
+            const response = await axios.get("http://localhost:8080/users")
+            setUsers(response.data);
+            console.log('Data was fetched successfully: ' +  response.statusText) 
         }
         catch(error) {
-            console.error(error.message)
+            if(error.response) {
+                console.log('Something is wrong with the server')
+            }
+            else if(error.request) {
+                console.log('Something is wrong with the client')
+            }
+            else {
+                console.log(error)
+            }
         }
     }
 
-    async function updateUsers() {
+    async function updateUsers() { 
+        const id = users.length > 0 ? users[users.length - 1].id + 1 : 1; 
         const userData = {
-            id: nanoid(11), 
-            username: user[0], 
-            password: user[1]
+            id, 
+            username: user.username, 
+            password: user.password
         }
 
         try {
-            const response = await axios.put("http://localhost:8080/users", userData)
-            console.log('data was put successfully ' + response)
+            const response = await axios.post(`http://localhost:8080/users`, userData)
+            setUsers(response.data); 
         }
         catch(error) {
-            console.error('There was an error: ' + error.message)
+            if(error.response) {
+                console.log('Something is wrong with the server')
+            }
+            else if(error.request) {
+                console.log('Something is wrong with the client')
+            }
+            else {
+                console.log(error)
+            }
+        }
+    }
+
+    function checkUsernameAvailability() {
+        if(user) {
+            const requestedUsername = user.username; 
+            const existingUsername = users.find(_user => _user.username === requestedUsername)
+            if(typeof(existingUsername) === "undefined") {
+                updateUsers(); 
+                navigate("/", {relative: "route"})
+            }
+            else {
+                console.log('this username already exists!')
+            }
         }
     }
 
