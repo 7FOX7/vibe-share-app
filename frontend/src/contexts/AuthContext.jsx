@@ -16,22 +16,25 @@ export const AuthProvider = ({children}) => {
         if(users) {
             if(users.length === 0) {
                 updateUsers(); 
+                return
             }
-            else {
-                users.map((_user) => {
-                    _user.username === user[0] ? setPosts(_user.posts) : updateUsers()
-                })
-            }
+            users.map(_user => _user.username === user[0] ? '' : updateUsers())
         }
     }, [user])
 
     async function fetchData() {
-        axios.get("http://localhost:8080/users", {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => setUsers(response))
+        try {
+            const response = await axios.get("http://localhost:8080/users", {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            setUsers(response);
+            console.log('connection was successful to the users') 
+        }
+        catch(error) {
+            console.error(error.message)
+        }
     }
 
     async function updateUsers() {
@@ -41,13 +44,13 @@ export const AuthProvider = ({children}) => {
             password: user[1]
         }
 
-        axios.put("/users", userData, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => console.log(response))
-        .catch(error => console.log(error.message))
+        try {
+            const response = await axios.put("http://localhost:8080/users", userData)
+            console.log('data was put successfully ' + response)
+        }
+        catch(error) {
+            console.error('There was an error: ' + error.message)
+        }
     }
 
     return <AuthContext.Provider value={{user, setUser}}>{children}</AuthContext.Provider>
