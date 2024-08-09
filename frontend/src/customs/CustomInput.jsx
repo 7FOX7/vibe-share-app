@@ -19,7 +19,7 @@ const CustomInput = forwardRef(function CustomInput(props, ref) {
     return <BaseInput slotProps={{
         root: {style: rootStyle}, 
         input: {style: inputStyle} 
-    }} placeholder={props.placeholder} inputRef={ref} onChange={props.onChange} />
+    }} required placeholder={props.placeholder} inputRef={ref} onChange={props.onChange} />
 })
 
 export default CustomInput

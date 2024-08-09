@@ -1,15 +1,8 @@
 import Box from "@mui/material/Box"
-import posts from "../../data/posts"
+import CustomAppBar from "../../customs/CustomAppbar"
 
 function Header() {
-  const sortedPosts = posts.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate)); 
-  return (
-    <Box>
-        {sortedPosts.map((post) => {
-            return <p key={post.id}>{post.name}</p>
-        })}
-    </Box>
-  )
+  return <CustomAppBar />
 }
 
 export default Header

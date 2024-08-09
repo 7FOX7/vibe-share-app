@@ -5,6 +5,7 @@ import axios from "axios"
 const AuthContext = createContext('default')
 
 export const AuthProvider = ({children}) => {
+    // TODO: dont forget to set user to null
     const [user, setUser] = useState(null); 
     const [users, setUsers] = useState(null); 
     const navigate = useNavigate(); 

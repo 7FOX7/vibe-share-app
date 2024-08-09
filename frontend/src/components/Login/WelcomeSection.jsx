@@ -11,7 +11,7 @@ function WelcomeSection() {
   const [showGreeting, setShowGreeting] = useState(true); 
 
   const animatedGreeting = useMemo(() => {
-    return <Typography variant="h3" color="secondary" sx={{
+    return <Typography variant="h3" color="contrastColors.black.main" sx={{
       animation: `${showGreeting ? greetingAnimation_in : greetingAnimation_out} 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both`
     }}>
       {greetings[0].greeting}

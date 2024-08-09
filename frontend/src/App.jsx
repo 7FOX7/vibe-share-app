@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import './App.css'
@@ -7,22 +7,22 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import { AuthProvider } from './contexts/AuthContext'
 
-function App() {
-  // const [user, setUser] = useState(null); 
+function App() { 
   return (
-    <>
+    <React.StrictMode>
       <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          } />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
-      </AuthProvider>
-    </>
+          <Routes>
+            {/* <Route path="/login" element={<Login />} />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            } /> */}
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NoPage />} />
+          </Routes>
+        </AuthProvider>
+    </React.StrictMode>
   )
 }
 
