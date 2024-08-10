@@ -19,12 +19,12 @@ const db = mysql2.createConnection({
     host: "localhost", 
     user: "root", 
     password: "jericka1292065A", 
-    database: "users", 
+    database: "testdb", 
     port: 3306
 })
 
 app.get('/users', (req, res) => {
-    const q = "SELECT * FROM users.users"; 
+    const q = "SELECT * FROM users"; 
     db.query(q, (err, data) => {
         if(err) {
             res.status(500).json('There was an error when setting a query: ' + err)
@@ -37,13 +37,13 @@ app.get('/users', (req, res) => {
 
 app.post('/users', (req, res) => {
     const {id, username, password} = req.body; 
-    const q = `INSERT INTO users.users VALUES (?, ?, ?)`
+    const q = `INSERT INTO users VALUES (?, ?, ?)`
     db.query(q, [id, username, password], (err) => {
         if(err) {
             res.status(500).json('There was an error when setting a query: ' + err)
             return
         }
-        const q2 = `SELECT * FROM users.users`
+        const q2 = `SELECT * FROM users`
         db.query(q2, (err, data) => {
             if(err) {
                 res.status(500).json('There was an error when setting a query: ' + err)

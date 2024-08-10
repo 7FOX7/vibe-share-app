@@ -1,9 +1,7 @@
+import Posts from "./Posts"
 
-
-function Main() {
-  return (
-    <div>Main</div>
-  )
+const Main = () => {
+  return <Posts />
 }
 
 export default Main

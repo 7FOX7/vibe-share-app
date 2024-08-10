@@ -5,8 +5,7 @@ import greetings_source from "../../data/greetings_source"
 import shiftValues from "../../functionalities/shiftValues"
 import { greetingAnimation_in, greetingAnimation_out } from "../../animations/animations"
 
-
-function WelcomeSection() {
+const WelcomeSection = () => {
   const [greetings, setGreetings] = useState(greetings_source); 
   const [showGreeting, setShowGreeting] = useState(true); 
 

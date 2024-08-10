@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box"
 import CustomAppBar from "../../customs/CustomAppbar"
 
-function Header() {
+const Header = () => {
   return <CustomAppBar />
 }
 

@@ -1,9 +1,8 @@
 import Box from "@mui/material/Box";
 import Header from "../components/Home/Header";
 import Main from "../components/Home/Main";
-import Footer from "../components/Home/Footer";
 
-function Home() {
+const Home = () => {
   return (
     <Box sx={{
       display: "flex", 
@@ -14,7 +13,6 @@ function Home() {
       paddingInline: "10px"}}>
         <Header />
         <Main />
-        <Footer />
     </Box>
   )
 }

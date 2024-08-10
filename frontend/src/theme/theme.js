@@ -10,6 +10,7 @@ const theme = createTheme({
         }, 
         secondary: {
             main: orange[50], 
+            dark: orange[100]
         }, 
         tertiary: {
             main: pink[400],
@@ -19,7 +20,6 @@ const theme = createTheme({
             white: {
                 main: "#fff"
             }, 
-
             black: {
                 main: "#000"
             }, 
@@ -28,6 +28,7 @@ const theme = createTheme({
             main: "rgba(0, 0, 0, 0.4)"
         }
     }, 
+    
     typography: {
         mainContent: {
             fontFamily: '"Poppins", sans-serif', 

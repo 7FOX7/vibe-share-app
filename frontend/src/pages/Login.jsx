@@ -2,7 +2,7 @@ import Box from "@mui/material/Box"
 import WelcomeSection from "../components/Login/WelcomeSection"
 import InputSection from "../components/Login/InputSection"
 
-function Login() {
+const Login = () => {
   return (
     <Box sx={{
       display: "flex", 

@@ -8,6 +8,8 @@ export const AuthProvider = ({children}) => {
     // TODO: dont forget to set user to null
     const [user, setUser] = useState(null); 
     const [users, setUsers] = useState(null); 
+    const [userAdded, setUserAdded] = useState(false); 
+
     const navigate = useNavigate(); 
 
     console.log('users: ' + users)
@@ -69,6 +71,7 @@ export const AuthProvider = ({children}) => {
             const existingUsername = users.find(_user => _user.username === requestedUsername)
             if(typeof(existingUsername) === "undefined") {
                 updateUsers(); 
+                setUserAdded(true)
                 navigate("/", {relative: "route"})
             }
             else {
@@ -77,7 +80,7 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    return <AuthContext.Provider value={{user, setUser}}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{user, setUser, userAdded}}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

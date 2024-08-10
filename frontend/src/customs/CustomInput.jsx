@@ -3,7 +3,7 @@ import { Input as BaseInput, useMediaQuery } from "@mui/material"
 import theme from "../theme/theme"
 
 const CustomInput = forwardRef(function CustomInput(props, ref) {
-    const smallScreen = useMediaQuery(theme.breakpoints.down('md')); 
+    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
     const rootStyle = {
         marginBottom: "22px", 
         width: `${smallScreen ? "75%" : "25%"}`, 

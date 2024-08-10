@@ -1,9 +1,8 @@
 import { Box, Button, useMediaQuery, Typography } from "@mui/material"
 import theme from "../../theme/theme"
 
-function BottomSection({displayerColor, fillness, passwordMessage, onClick, formComplete, displayerVisibility}) {
-  const smallScreen = useMediaQuery(theme.breakpoints.down('md'));  
-
+const BottomSection = ({displayerColor, fillness, passwordMessage, onClick, formComplete, displayerVisibility}) => {
+  const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
   return (
     <Box sx={{
       width: `${smallScreen ? "75%" : "25%"}`,
@@ -36,6 +35,7 @@ function BottomSection({displayerColor, fillness, passwordMessage, onClick, form
       <Button onClick={onClick} type="submit" disabled={!formComplete} sx={{ 
         marginTop: "25px", 
         background: "#000", 
+        color: "contrastColors.white.main", 
         borderRadius: "50px",
         transition: "0.5s", 
         ":hover": {

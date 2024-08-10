@@ -5,7 +5,7 @@ import BottomSection from "./BottomSection"
 import { useAuth } from "../../contexts/AuthContext"
 import { strongRegex, mediumRegex } from "../../data/passwordRejex"
 
-function InputSection() { 
+const InputSection = () => { 
   const usernameRef = useRef(null); 
   const passwordRef = useRef(null);
   const errorMessageRef = useRef(null); 
