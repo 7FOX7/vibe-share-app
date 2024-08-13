@@ -26,7 +26,7 @@ const theme = createTheme({
         }, 
         semiTransparentBlack: {
             main: "rgba(0, 0, 0, 0.4)"
-        }
+        }, 
     }, 
     
     typography: {
@@ -41,6 +41,10 @@ const theme = createTheme({
             fontSize: "1.2rem", 
             fontWeight: "500", 
             fontStyle: "cursive"
+        }, 
+        stepLabel: {
+            fontSize: "0.8rem", 
+            fontWeight: "600"
         }
     }
 })

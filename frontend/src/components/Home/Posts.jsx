@@ -6,7 +6,7 @@ import theme from "../../theme/theme";
 const Posts = () => {  
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
     return (
-        <Box sx={{marginTop: "50px"}}>
+        <Box>
             <ImageList cols={smallScreen ? 2 : 4} gap={6} sx={{ 
             width: "100%",   
             overflow: "hidden"
@@ -14,39 +14,39 @@ const Posts = () => {
                 <ImageListItem>
                     <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
                         width: "100%", 
-                        height: "170px"
-                    }}/>
+                        height: `${smallScreen ? "200px" : "215px"}`
+                    }} />
                     <ImageListItemBar title="hello" />
                 </ImageListItem>
                 <ImageListItem>
                     <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
                         width: "100%", 
-                        height: "170px"
-                    }}/>
+                        height: `${smallScreen ? "200px" : "215px"}`
+                    }} />
                 </ImageListItem>
                 <ImageListItem>
                     <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
                         width: "100%", 
-                        height: "170px"
-                    }}/>
+                        height: `${smallScreen ? "200px" : "215px"}`
+                    }} />
                 </ImageListItem>
                 <ImageListItem>
                     <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
                         width: "100%", 
-                        height: "170px"
-                    }}/>
+                        height: `${smallScreen ? "200px" : "215px"}`
+                    }} />
                 </ImageListItem>
                 <ImageListItem>
                     <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
                         width: "100%", 
-                        height: "170px"
-                    }}/>
+                        height: `${smallScreen ? "200px" : "215px"}`
+                    }} />
                 </ImageListItem>
                 <ImageListItem>
                     <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
                         width: "100%", 
-                        height: "170px"
-                    }}/>
+                        height: `${smallScreen ? "200px" : "215px"}`
+                    }} />
                 </ImageListItem>
             </ImageList>  
         </Box>      

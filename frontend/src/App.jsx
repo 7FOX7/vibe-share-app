@@ -1,45 +1,39 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import './App.css'
+import CreatePost from './pages/CreatePost'
 import NoPage from './pages/NoPage'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import { AuthProvider } from './contexts/AuthContext'
-import Footer from './components/Shared/Footer'
-import { ScreenHeightProvider } from './contexts/ScreenHeightContext'
+import { PostModeProvider } from './contexts/PostModeContext'
+import Layer from './components/Shared/Layer'
 
 const App = () => { 
-  const [screenHeight, setScreenHeight] = useState(innerHeight); 
-
-  useEffect(() => {
-    function handleResize() {
-      const height = innerHeight
-      console.log('height was updated to ' + height)
-      setScreenHeight(height)
-    }
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
   return (
     <React.StrictMode>
       <AuthProvider>
-        <Routes>
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }></Route> */}
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
-        <ScreenHeightProvider screenHeight={screenHeight}>
-          <Footer />
-        </ScreenHeightProvider>
+        <PostModeProvider>
+          <Layer>
+            <Routes>
+              {/* <Route path="/login" element={<Login />} />
+                <Route path="/" element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                } />
+                <Route path="/create-post" element={
+                  <ProtectedRoute>
+                    <CreatePost />
+                  </ProtectedRoute>
+                } /> */}
+              <Route path="/" element={<Home />} />
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="*" element={<NoPage />} />
+            </Routes>
+          </Layer>
+        </PostModeProvider>
       </AuthProvider>
     </React.StrictMode>
   )

@@ -27,7 +27,7 @@ app.get('/users', (req, res) => {
     const q = "SELECT * FROM users"; 
     db.query(q, (err, data) => {
         if(err) {
-            res.status(500).json('There was an error when setting a query: ' + err)
+            res.status(500).send('There was an error when setting a query: ' + err)
         }
         else {
             res.json(data)
@@ -40,14 +40,12 @@ app.post('/users', (req, res) => {
     const q = `INSERT INTO users VALUES (?, ?, ?)`
     db.query(q, [id, username, password], (err) => {
         if(err) {
-            res.status(500).json('There was an error when setting a query: ' + err)
-            return
+            return res.status(500).send('There was an error when setting a query: ' + err)
         }
         const q2 = `SELECT * FROM users`
         db.query(q2, (err, data) => {
             if(err) {
-                res.status(500).json('There was an error when setting a query: ' + err)
-                return
+                return res.status(500).send('There was an error when setting a query: ' + err)
             }
             res.status(200).json(data)
         })
@@ -56,8 +54,8 @@ app.post('/users', (req, res) => {
 
 db.connect((err) => {
     if(err) {    
-        console.log("There an error was with connection to database" + err.message) 
-        return
+        return console.log("There an error was with connection to database" + err.message) 
+        
     } 
 
     console.log("Connection to database was successful")
