@@ -8,7 +8,6 @@ export const ScreenHeightProvider = ({children}) => {
     useEffect(() => {
       function handleResize() {
         const height = innerHeight
-        console.log('height was updated to ' + height)
         setScreenHeight(height)
       }
       window.addEventListener('resize', handleResize)

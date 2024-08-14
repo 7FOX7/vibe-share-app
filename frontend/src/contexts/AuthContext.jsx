@@ -8,18 +8,47 @@ export const AuthProvider = ({children}) => {
     // TODO: dont forget to set user to null
     const [user, setUser] = useState(null); 
     const [users, setUsers] = useState(null); 
-    const [userAdded, setUserAdded] = useState(false); 
+    const [authSucceded, setAuthSucceded] = useState(false); 
 
     const navigate = useNavigate(); 
-
-    console.log('users: ' + users)
     useEffect(() => {
         fetchData()
     }, [])
     
     useEffect(() => {
-        checkUsernameAvailability(); 
+        if(user) {
+            const isLoginMode = user.isLoginMode
+            isLoginMode ? handleLogin(user) : handleRegister(user) 
+        }
+        // checkUsernameAvailability(); 
     }, [user])
+
+    function handleRegister(user) {
+        const requestedUsername = user.username; 
+        const existingUsername = users.find(_user => _user.username === requestedUsername)
+        if(typeof(existingUsername) === "undefined") {
+            updateUsers(); 
+            setAuthSucceded(true)
+            navigate("/", {relative: "route"})
+        }
+        else {
+            alert('this username already exists!')
+        }
+    }
+
+    function handleLogin(user) {
+        const {isLoginMode, ...userData} = user; 
+        const requestedUsername = userData.username
+
+        const existingUser = users.find(_user => _user.username === requestedUsername)
+        if(typeof(existingUser) !== "undefined" && existingUser.password === userData.password) {
+            setAuthSucceded(true)
+            navigate("/", {relative: "route"})
+        }
+        else {
+            alert('user is not found!')
+        }
+    }
 
     async function fetchData() {
         try {
@@ -65,22 +94,41 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    function checkUsernameAvailability() {
-        if(user) {
-            const requestedUsername = user.username; 
-            const existingUsername = users.find(_user => _user.username === requestedUsername)
-            if(typeof(existingUsername) === "undefined") {
-                updateUsers(); 
-                setUserAdded(true)
-                navigate("/", {relative: "route"})
-            }
-            else {
-                alert('this username already exists!')
-            }
-        }
-    }
+    // async function checkUsernameAvailability() {
+    //     if(user) {
+    //         const requestedUsername = user.username; 
+    //         const existingUsername = users.find(_user => _user.username === requestedUsername)
+    //         if(typeof(existingUsername) === "undefined") {
+    //             updateUsers(); 
+    //             setUserAdded(true)
+    //             navigate("/", {relative: "route"})
+    //         }
+    //         else {
+    //             alert('this username already exists!')
+    //         }
+    //     }
 
-    return <AuthContext.Provider value={{user, setUser, userAdded}}>{children}</AuthContext.Provider>
+    //     if(user) {
+    //         const isLoginMode = user.isLoginMode
+    //         const requestedUsername = user.username; 
+    //         const existingUsername = await users.find(_user => _user.username === requestedUsername)
+    //         if(typeof(existingUsername) === "undefined") {
+    //             if(!isLoginMode) {    
+    //                 updateUsers(); 
+    //                 setUserAdded(true)
+    //                 navigate("/", {relative: "route"})
+    //             }
+    //             else {
+    //                 const matchingPassword = await users.find(_)
+    //             }
+    //         }
+    //         else {
+    //             alert('this username already exists!')
+    //         }
+    //     }
+    // }
+
+    return <AuthContext.Provider value={{user, setUser, authSucceded}}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

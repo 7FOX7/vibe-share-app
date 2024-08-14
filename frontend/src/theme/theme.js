@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material"
-import { purple, orange, pink } from "@mui/material/colors"
+import { purple, orange, pink, blue } from "@mui/material/colors"
 
 const theme = createTheme({
     palette: {
@@ -27,6 +27,10 @@ const theme = createTheme({
         semiTransparentBlack: {
             main: "rgba(0, 0, 0, 0.4)"
         }, 
+        linkColor: {
+            main: blue[600], 
+            light: blue[400]
+        }
     }, 
     
     typography: {

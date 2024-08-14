@@ -5,9 +5,9 @@ import { ScreenHeightProvider } from "../../contexts/ScreenHeightContext"
 import { usePostMode } from "../../contexts/PostModeContext"
 
 const Layer = ({children}) => {
-    const {userAdded} = useAuth(); 
+    const {authSucceded} = useAuth(); 
     const {postMode} = usePostMode(); 
-    if(!userAdded) {
+    if(authSucceded) {
         return (
             <>
                 <CustomAppBar />

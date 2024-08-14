@@ -4,9 +4,10 @@ import ProtectedRoute from './utils/ProtectedRoute'
 import './App.css'
 import CreatePost from './pages/CreatePost'
 import NoPage from './pages/NoPage'
-import Login from './pages/Login'
+import Registration from './pages/Registration'
 import Home from './pages/Home'
 import { AuthProvider } from './contexts/AuthContext'
+import { LoginModeProvider } from './contexts/LoginModeContext'
 import { PostModeProvider } from './contexts/PostModeContext'
 import Layer from './components/Shared/Layer'
 
@@ -17,17 +18,22 @@ const App = () => {
         <PostModeProvider>
           <Layer>
             <Routes>
-              {/* <Route path="/login" element={<Login />} />
-                <Route path="/" element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                } />
-                <Route path="/create-post" element={
-                  <ProtectedRoute>
-                    <CreatePost />
-                  </ProtectedRoute>
-                } /> */}
+              <Route path="/registration" element={
+                <LoginModeProvider>
+                  <Registration />
+                </LoginModeProvider>
+                } 
+              />
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              } />
+              <Route path="/create-post" element={
+                <ProtectedRoute>
+                  <CreatePost />
+                </ProtectedRoute>
+              } />
               <Route path="/" element={<Home />} />
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="*" element={<NoPage />} />
