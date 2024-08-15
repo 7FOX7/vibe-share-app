@@ -7,7 +7,8 @@ import { usePostMode } from "../../contexts/PostModeContext"
 const Layer = ({children}) => {
     const {authSucceded} = useAuth(); 
     const {postMode} = usePostMode(); 
-    if(authSucceded) {
+    // ! ! !  dont forget to remove '!' when you want to test app with 'Registration' 
+    if(!authSucceded) {
         return (
             <>
                 <CustomAppBar />

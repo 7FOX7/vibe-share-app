@@ -1,14 +1,27 @@
-import { Box, Button } from "@mui/material"
+import { useMemo } from "react"
+import Button from "@mui/material/Button"
 
-const Buttons = ({handlePrevStep, handleNextStep, stepLabels, activeStep}) => {
-    return (
-        <Box sx={{
-            display: "flex"
-        }}>
-            <Button onClick={handlePrevStep} disabled={activeStep === 0}>Back</Button>
-            <Button onClick={handleNextStep}>{activeStep === stepLabels.length - 1 ? "Publish" : "Next"}</Button>
-        </Box>
-    )
+const Buttons = ({activeStep, handlePrevStep, handleNextStep, handlePublish}) => {
+    const buttons = useMemo(() => {
+        if(activeStep === 0 || activeStep === 1) {
+            return (
+                <>
+                    <Button onClick={handlePrevStep} disabled={activeStep === 0}>Back</Button>
+                    <Button onClick={handleNextStep}>Next</Button>
+                </>
+            )
+        }
+        else {
+            return (
+                <>
+                    <Button onClick={handlePrevStep}>Back</Button>
+                    <Button onClick={handlePublish}>Publish</Button>
+                </>
+            )
+        }
+    }, [activeStep])
+
+    return buttons
 }
 
 export default Buttons

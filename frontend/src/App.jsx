@@ -18,7 +18,7 @@ const App = () => {
         <PostModeProvider>
           <Layer>
             <Routes>
-              <Route path="/registration" element={
+              {/* <Route path="/registration" element={
                 <LoginModeProvider>
                   <Registration />
                 </LoginModeProvider>
@@ -33,7 +33,7 @@ const App = () => {
                 <ProtectedRoute>
                   <CreatePost />
                 </ProtectedRoute>
-              } />
+              } /> */}
               <Route path="/" element={<Home />} />
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="*" element={<NoPage />} />

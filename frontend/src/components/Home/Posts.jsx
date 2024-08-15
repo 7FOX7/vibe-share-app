@@ -12,38 +12,38 @@ const Posts = () => {
             overflow: "hidden"
             }}>
                 <ImageListItem>
-                    <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
+                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
                         width: "100%", 
                         height: `${smallScreen ? "200px" : "215px"}`
                     }} />
                     <ImageListItemBar title="hello" />
                 </ImageListItem>
                 <ImageListItem>
-                    <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
+                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
                         width: "100%", 
                         height: `${smallScreen ? "200px" : "215px"}`
                     }} />
                 </ImageListItem>
                 <ImageListItem>
-                    <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
+                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
                         width: "100%", 
                         height: `${smallScreen ? "200px" : "215px"}`
                     }} />
                 </ImageListItem>
                 <ImageListItem>
-                    <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
+                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
                         width: "100%", 
                         height: `${smallScreen ? "200px" : "215px"}`
                     }} />
                 </ImageListItem>
                 <ImageListItem>
-                    <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
+                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
                         width: "100%", 
                         height: `${smallScreen ? "200px" : "215px"}`
                     }} />
                 </ImageListItem>
                 <ImageListItem>
-                    <Box component="img" src="../../../public/images/IMG_6948.JPG" sx={{
+                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
                         width: "100%", 
                         height: `${smallScreen ? "200px" : "215px"}`
                     }} />

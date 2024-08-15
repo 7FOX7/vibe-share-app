@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import Stepper from "@mui/material/Stepper"
 import Step from "@mui/material/Step"
 import StepLabel from "@mui/material/StepLabel"
@@ -7,9 +8,14 @@ import Typography from "@mui/material/Typography"
 import stepLabels from "../../data/stepLabels"
 import Content from "./Content"
 import Buttons from "./Buttons"
+import CustomBackdrop from "../../customs/CustomBackdrop"
+import axios from "axios"
 
 const VerticalStepper = () => {
+    const [loading, setLoading] = useState(false); 
     const [activeStep, setActiveStep] = useState(0); 
+    const navigate = useNavigate(); 
+
     function handleNextStep() {
         setActiveStep((prevStep) => prevStep + 1)
     }
@@ -18,8 +24,48 @@ const VerticalStepper = () => {
         setActiveStep((prevStep) => prevStep - 1)
     }
 
+    async function handlePublish() {
+        const storedText = sessionStorage.getItem('text') 
+        const storedImage = sessionStorage.getItem('image')
+        const currentDate = new Date().toISOString().split('T')[0]
+
+        const postData = {
+            publishDate: currentDate, 
+            text: storedText, 
+            imageUrl: storedImage, 
+        }
+        if(storedText && storedImage) {
+            setLoading(true)
+            try { 
+                const response = await axios.post("http://localhost:8080/posts", postData)
+                console.log(response.statusText)
+                await new Promise((resolve) => setTimeout(resolve, 500))
+            }
+            catch (err) {
+                if(err.response) {
+                    console.log('Something is wrong with the server: ' + err.response.data)
+                }
+                else if(err.request) {
+                    console.log('Something is wrong with the client')
+                }
+                else {
+                    console.log(err)
+                }
+            }
+            finally {
+                setActiveStep((prevStep) => prevStep + 1)
+                setLoading(false)
+                navigate("/", {relative: "route"})
+            }
+        }
+        else {
+            alert('Please, make sure to submit at least one image and a text')
+        }
+    }
+
     return (
         <>
+            {loading ? <CustomBackdrop /> : ''}
             <Stepper orientation="vertical" activeStep={activeStep} sx={{width: "80%"}}>
                 {stepLabels.map(stepLabel => {
                     return (
@@ -31,7 +77,7 @@ const VerticalStepper = () => {
                             </StepLabel>
                             <StepContent>
                                 <Content activeStep={activeStep} />
-                                <Buttons handlePrevStep={handlePrevStep} handleNextStep={handleNextStep} stepLabels={stepLabels} activeStep={activeStep} />
+                                <Buttons activeStep={activeStep} handlePrevStep={handlePrevStep} handleNextStep={handleNextStep} handlePublish={handlePublish} />
                             </StepContent>
                         </Step>
                     )

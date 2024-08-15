@@ -52,6 +52,17 @@ app.post('/users', (req, res) => {
     })
 })
 
+app.post('/posts', (req, res) => {
+    const {publishDate, text, imageUrl} = req.body; 
+    const q = `INSERT INTO posts (publish_date, text, image_url) VALUES (?, ?, ?)`
+    db.query(q, [publishDate, text, imageUrl], (err) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        return res.status(200).send('Table was updated successfully')
+    })
+})
+
 db.connect((err) => {
     if(err) {    
         return console.log("There an error was with connection to database" + err.message) 

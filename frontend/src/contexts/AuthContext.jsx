@@ -56,15 +56,15 @@ export const AuthProvider = ({children}) => {
             setUsers(response.data);
             console.log('Data was fetched successfully: ' +  response.statusText) 
         }
-        catch(error) {
-            if(error.response) {
+        catch(err) {
+            if(err.response) {
                 console.log('Something is wrong with the server')
             }
-            else if(error.request) {
+            else if(err.request) {
                 console.log('Something is wrong with the client')
             }
             else {
-                console.log(error)
+                console.log(err)
             }
         }
     }
@@ -81,15 +81,15 @@ export const AuthProvider = ({children}) => {
             const response = await axios.post(`http://localhost:8080/users`, userData)
             setUsers(response.data); 
         }
-        catch(error) {
-            if(error.response) {
+        catch(err) {
+            if(err.response) {
                 console.log('Something is wrong with the server')
             }
-            else if(error.request) {
+            else if(err.request) {
                 console.log('Something is wrong with the client')
             }
             else {
-                console.log(error)
+                console.log(err)
             }
         }
     }
