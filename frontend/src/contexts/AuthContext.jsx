@@ -19,8 +19,7 @@ export const AuthProvider = ({children}) => {
         if(user) {
             const isLoginMode = user.isLoginMode
             isLoginMode ? handleLogin(user) : handleRegister(user) 
-        }
-        // checkUsernameAvailability(); 
+        } 
     }, [user])
 
     function handleRegister(user) {

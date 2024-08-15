@@ -7,31 +7,38 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
-import { usePostMode } from "../contexts/PostModeContext";
+import { useRoute } from "../contexts/RouteContext";
 
 const CustomNavBar = () => {
-    const {setPostMode} = usePostMode(); 
+    const {setRoute} = useRoute(); 
     const navigate = useNavigate(); 
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
     const top = `${Math.floor(useScreenHeight() - 55)}px`; 
 
-    function changePostMode() {
-        setPostMode(true)
-        navigate("/create-post", {relative: "route"})
+    function changeRoute(e) {
+        const id = e.currentTarget.id
+        const routeName = id.split('N')[0]
+        if(routeName) {
+            setRoute(`${routeName}`)
+            navigate(`/${routeName === 'home' ? '' : routeName}`, {relative: "route"})
+        }
+        else {
+            navigate(`/non-existing-page`, {relative: "route"})
+        }
     }
 
     return (
         <Paper sx={{position: "fixed", width: "100vw", top: {top}, backgroundColor: "secondary.dark"}} elevation={4}>
             <Box sx={{position: "fixed", bottom: "4%", left: `${smallScreen ? "42.5%" : "48%"}`}}>
-                <Fab color="primary" onClick={changePostMode}>
-                    <AddIcon fontSize="large" />
+                <Fab color="primary" id="create-postNavigation" onClick={changeRoute}>
+                    <AddIcon id="create-postNavigation" fontSize="large" />
                 </Fab>
             </Box>
             <BottomNavigation showLabels sx={{backgroundColor: "inherit", justifyContent: "space-around"}}>
-                <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-                <BottomNavigationAction label="Groups" icon={<GroupsIcon />} />
-                <BottomNavigationAction label="Notifications" icon={<NotificationsIcon />} />
-                <BottomNavigationAction label="Chats" icon={<TelegramIcon />} />
+                <BottomNavigationAction id="homeNavigation" onClick={changeRoute} label="Home" icon={<HomeIcon />} />
+                <BottomNavigationAction id="groupsNavigation" onClick={changeRoute} label="Groups" icon={<GroupsIcon />} />
+                <BottomNavigationAction id="notificationsNavigation" onClick={changeRoute} label="Notifications" icon={<NotificationsIcon />} />
+                <BottomNavigationAction id="chatsNavigation" onClick={changeRoute} label="Chats" icon={<TelegramIcon />} />
             </BottomNavigation>
         </Paper>
     )

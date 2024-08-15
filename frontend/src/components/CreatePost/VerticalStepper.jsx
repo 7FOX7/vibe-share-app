@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useRoute } from "../../contexts/RouteContext"
 import Stepper from "@mui/material/Stepper"
 import Step from "@mui/material/Step"
 import StepLabel from "@mui/material/StepLabel"
@@ -12,6 +13,7 @@ import CustomBackdrop from "../../customs/CustomBackdrop"
 import axios from "axios"
 
 const VerticalStepper = () => {
+    const {setRoute} = useRoute(); 
     const [loading, setLoading] = useState(false); 
     const [activeStep, setActiveStep] = useState(0); 
     const navigate = useNavigate(); 
@@ -55,7 +57,8 @@ const VerticalStepper = () => {
             finally {
                 setActiveStep((prevStep) => prevStep + 1)
                 setLoading(false)
-                navigate("/", {relative: "route"})
+                setRoute('home')
+                navigate(-1)
             }
         }
         else {

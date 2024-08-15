@@ -8,14 +8,14 @@ import Registration from './pages/Registration'
 import Home from './pages/Home'
 import { AuthProvider } from './contexts/AuthContext'
 import { LoginModeProvider } from './contexts/LoginModeContext'
-import { PostModeProvider } from './contexts/PostModeContext'
+import { RouteProvider } from './contexts/RouteContext'
 import Layer from './components/Shared/Layer'
 
 const App = () => { 
   return (
     <React.StrictMode>
       <AuthProvider>
-        <PostModeProvider>
+        <RouteProvider>
           <Layer>
             <Routes>
               {/* <Route path="/registration" element={
@@ -39,7 +39,7 @@ const App = () => {
               <Route path="*" element={<NoPage />} />
             </Routes>
           </Layer>
-        </PostModeProvider>
+        </RouteProvider>
       </AuthProvider>
     </React.StrictMode>
   )
