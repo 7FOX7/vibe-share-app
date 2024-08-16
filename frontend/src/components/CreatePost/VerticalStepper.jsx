@@ -27,16 +27,16 @@ const VerticalStepper = () => {
     }
 
     async function handlePublish() {
-        const storedText = sessionStorage.getItem('text') 
+        const storedContent = sessionStorage.getItem('content') 
         const storedImage = sessionStorage.getItem('image')
         const currentDate = new Date().toISOString().split('T')[0]
 
         const postData = {
             publishDate: currentDate, 
-            text: storedText, 
+            content: storedContent, 
             imageUrl: storedImage, 
         }
-        if(storedText && storedImage) {
+        if(storedContent && storedImage) {
             setLoading(true)
             try { 
                 const response = await axios.post("http://localhost:8080/posts", postData)
@@ -58,7 +58,7 @@ const VerticalStepper = () => {
                 setActiveStep((prevStep) => prevStep + 1)
                 setLoading(false)
                 setRoute('home')
-                navigate(-1)
+                navigate('/', {relative: "route"})
             }
         }
         else {

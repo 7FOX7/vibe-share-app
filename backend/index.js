@@ -36,9 +36,9 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/users', (req, res) => {
-    const {id, username, password} = req.body; 
-    const q = `INSERT INTO users VALUES (?, ?, ?)`
-    db.query(q, [id, username, password], (err) => {
+    const {username, password} = req.body; 
+    const q = `INSERT INTO users (username, password) VALUES (?, ?)`
+    db.query(q, [username, password], (err) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }
@@ -52,10 +52,11 @@ app.post('/users', (req, res) => {
     })
 })
 
+
 app.post('/posts', (req, res) => {
-    const {publishDate, text, imageUrl} = req.body; 
-    const q = `INSERT INTO posts (publish_date, text, image_url) VALUES (?, ?, ?)`
-    db.query(q, [publishDate, text, imageUrl], (err) => {
+    const {publishDate, content, imageUrl} = req.body; 
+    const q = `INSERT INTO posts (publish_date, content, image_url) VALUES (?, ?, ?)`
+    db.query(q, [publishDate, content, imageUrl], (err) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }

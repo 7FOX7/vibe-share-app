@@ -5,10 +5,10 @@ import { ScreenHeightProvider } from "../../contexts/ScreenHeightContext"
 import { useRoute } from "../../contexts/RouteContext"
 
 const Layer = ({children}) => {
-    const {authSucceded} = useAuth(); 
+    const {authSucceeded} = useAuth(); 
     const {route} = useRoute(); 
     // ! ! !  dont forget to remove '!' when you want to test app with 'Registration' 
-    if(!authSucceded) {
+    if(authSucceeded) {
         return (
             <>
                 <CustomAppBar />

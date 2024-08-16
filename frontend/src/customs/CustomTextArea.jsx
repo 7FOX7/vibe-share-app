@@ -5,8 +5,8 @@ import theme from "../theme/theme";
 const maxLength = 90; 
 
 const CustomTextArea = () => {
-    const storedText = sessionStorage.getItem("text")
-    const [textAreaValue, setTextAreaValue] = useState(storedText ? storedText : ""); 
+    const storedContent = sessionStorage.getItem("content")
+    const [textAreaValue, setTextAreaValue] = useState(storedContent ? storedContent : ""); 
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
     const textAreaStyle = {
         width: `${smallScreen ? "80%" : "40%"}`, 
@@ -23,7 +23,7 @@ const CustomTextArea = () => {
     }  
 
     function handleBlur(e) {
-        sessionStorage.setItem("text", e.target.value)
+        sessionStorage.setItem("content", e.target.value)
     }
 
     return (

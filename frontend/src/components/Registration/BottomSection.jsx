@@ -2,11 +2,11 @@ import { Box, Link, useMediaQuery } from "@mui/material"
 import PasswordStrengthBar from "./PasswordStrengthBar"
 import CustomSubmitButton from "../../customs/CustomSubmitButton"
 import theme from "../../theme/theme"
-import { useLoginMode } from "../../contexts/LoginModeContext"
+import { useAuth } from "../../contexts/AuthContext"
 
 const BottomSection = ({displayerColor, fillness, passwordMessage, displayerVisibility, onClick, formComplete}) => {
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
-    const {isLoginMode, setIsLoginMode} = useLoginMode(); 
+    const {isLoginMode, setIsLoginMode} = useAuth(); 
 
     function handleClick() {
         setIsLoginMode((prevMode) => !prevMode)

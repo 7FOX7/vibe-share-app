@@ -37,8 +37,8 @@ const CustomAppBar = () => {
 
     const content = useMemo(() => {
         const matchingRoute = routes.find(_route => _route.routeName === route)
-        const route_appBarContent = matchingRoute.routeName; 
-        if(typeof(route_appBarContent) !== "undefined") {
+        if(typeof(matchingRoute) !== "undefined") {
+            const route_appBarContent = matchingRoute.routeName; 
             if(route_appBarContent === "home") {
                 return (
                     <>
@@ -54,7 +54,8 @@ const CustomAppBar = () => {
                             alignItems: "center", 
                             padding: "6px", 
                             backgroundColor: "tertiary.light",
-                            borderRadius: "50px", 
+                            borderRadius: "50px",
+                            cursor: "pointer" 
                         }}>
                             <AccountCircleOutlinedIcon sx={{color: "primary.dark"}}/>
                         </Box>
@@ -88,7 +89,7 @@ const CustomAppBar = () => {
             <p>no matching content for appbar is found</p>
         }
 
-    }, [route])
+    }, [route, anchorEl])
 
     return (
         <AppBar position="fixed" color="secondary" elevation={0}>

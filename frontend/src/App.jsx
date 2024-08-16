@@ -7,7 +7,6 @@ import NoPage from './pages/NoPage'
 import Registration from './pages/Registration'
 import Home from './pages/Home'
 import { AuthProvider } from './contexts/AuthContext'
-import { LoginModeProvider } from './contexts/LoginModeContext'
 import { RouteProvider } from './contexts/RouteContext'
 import Layer from './components/Shared/Layer'
 
@@ -18,12 +17,7 @@ const App = () => {
         <RouteProvider>
           <Layer>
             <Routes>
-              {/* <Route path="/registration" element={
-                <LoginModeProvider>
-                  <Registration />
-                </LoginModeProvider>
-                } 
-              />
+              <Route path="/registration" element={<Registration />} />
               <Route path="/" element={
                 <ProtectedRoute>
                   <Home />
@@ -33,10 +27,10 @@ const App = () => {
                 <ProtectedRoute>
                   <CreatePost />
                 </ProtectedRoute>
-              } /> */}
-              <Route path="/" element={<Home />} />
+              } />
+              {/* <Route path="/" element={<Home />} />
               <Route path="/create-post" element={<CreatePost />} />
-              <Route path="*" element={<NoPage />} />
+              <Route path="*" element={<NoPage />} /> */}
             </Routes>
           </Layer>
         </RouteProvider>

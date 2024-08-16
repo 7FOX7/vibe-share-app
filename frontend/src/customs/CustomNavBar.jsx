@@ -19,8 +19,9 @@ const CustomNavBar = () => {
         const id = e.currentTarget.id
         const routeName = id.split('N')[0]
         if(routeName) {
+            const formattedRoute = routeName === 'home' ? '/' : `/${routeName}`
             setRoute(`${routeName}`)
-            navigate(`/${routeName === 'home' ? '' : routeName}`, {relative: "route"})
+            navigate(formattedRoute, {relative: "route"})
         }
         else {
             navigate(`/non-existing-page`, {relative: "route"})

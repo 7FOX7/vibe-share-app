@@ -5,7 +5,7 @@ import theme from "../../theme/theme"
 
 const PostPreview = () => {
     const storedImage = sessionStorage.getItem("image"); 
-    const storedText = sessionStorage.getItem("text"); 
+    const storedContent = sessionStorage.getItem("content"); 
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
     return (
         <Box sx={{
@@ -35,7 +35,7 @@ const PostPreview = () => {
                 textAlign: "center"
             }}>
                 <Typography color="contrastColors.white.main">
-                    {storedText ? storedText : ""}
+                    {storedContent ? storedContent : ""}
                 </Typography>
             </Box>
         </Box>

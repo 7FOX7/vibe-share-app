@@ -4,7 +4,6 @@ import BottomSection from "./BottomSection"
 import CustomInput from "../../customs/CustomInput"
 import { useAuth } from "../../contexts/AuthContext"
 import { strongRegex, mediumRegex } from "../../data/passwordRejex"
-import { useLoginMode } from "../../contexts/LoginModeContext"
 
 const InputSection = () => { 
   const usernameRef = useRef(null); 
@@ -14,23 +13,13 @@ const InputSection = () => {
   const [fillness, setFillness] = useState(null);
   const [passwordMessage, setPasswordMessage] = useState(null);  
   const [formComplete, setFormComplete] = useState(false); 
-  const {setUser} = useAuth();
-  const {isLoginMode} = useLoginMode(); 
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   setUser({
-  //     "username": usernameRef.current.value, 
-  //     "password": passwordRef.current.value
-  //   }); 
-  // }
+  const {setUser, isLoginMode} = useAuth();
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     setUser({
       "username": usernameRef.current.value, 
-      "password": passwordRef.current.value, 
-      "isLoginMode": isLoginMode
+      "password": passwordRef.current.value
     }); 
   }, [isLoginMode])
 

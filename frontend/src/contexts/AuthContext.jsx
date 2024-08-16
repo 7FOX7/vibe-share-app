@@ -8,7 +8,8 @@ export const AuthProvider = ({children}) => {
     // TODO: dont forget to set user to null
     const [user, setUser] = useState(null); 
     const [users, setUsers] = useState(null); 
-    const [authSucceded, setAuthSucceded] = useState(false); 
+    const [isLoginMode, setIsLoginMode] = useState(false); 
+    const [authSucceeded, setAuthSucceeded] = useState(false); 
 
     const navigate = useNavigate(); 
     useEffect(() => {
@@ -16,18 +17,17 @@ export const AuthProvider = ({children}) => {
     }, [])
     
     useEffect(() => {
-        if(user) {
-            const isLoginMode = user.isLoginMode
+        if(user && !authSucceeded) {
             isLoginMode ? handleLogin(user) : handleRegister(user) 
         } 
     }, [user])
 
     function handleRegister(user) {
-        const requestedUsername = user.username; 
-        const existingUsername = users.find(_user => _user.username === requestedUsername)
-        if(typeof(existingUsername) === "undefined") {
-            updateUsers(); 
-            setAuthSucceded(true)
+        const {username} = user
+        const existingUser = users.find(_user => _user.username === username)
+        if(typeof(existingUser) === "undefined") {
+            updateUsers();
+            setAuthSucceeded(true) 
             navigate("/", {relative: "route"})
         }
         else {
@@ -36,12 +36,11 @@ export const AuthProvider = ({children}) => {
     }
 
     function handleLogin(user) {
-        const {isLoginMode, ...userData} = user; 
-        const requestedUsername = userData.username
-
-        const existingUser = users.find(_user => _user.username === requestedUsername)
-        if(typeof(existingUser) !== "undefined" && existingUser.password === userData.password) {
-            setAuthSucceded(true)
+        const {username, password} = user
+        const existingUser = users.find(_user => _user.username === username)
+        if(typeof(existingUser) !== "undefined" && existingUser.password === password) {
+            setUser(existingUser)
+            setAuthSucceeded(true)
             navigate("/", {relative: "route"})
         }
         else {
@@ -68,17 +67,18 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    async function updateUsers() { 
-        const id = users.length > 0 ? users[users.length - 1].id + 1 : 1; 
+    async function updateUsers() {  
         const userData = {
-            id, 
             username: user.username, 
             password: user.password
         }
 
         try {
             const response = await axios.post(`http://localhost:8080/users`, userData)
-            setUsers(response.data); 
+            const users = response.data
+            const newUser = users.find(_user => _user.username === userData.username)
+            setUser(newUser)
+            setUsers(users); 
         }
         catch(err) {
             if(err.response) {
@@ -93,41 +93,7 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    // async function checkUsernameAvailability() {
-    //     if(user) {
-    //         const requestedUsername = user.username; 
-    //         const existingUsername = users.find(_user => _user.username === requestedUsername)
-    //         if(typeof(existingUsername) === "undefined") {
-    //             updateUsers(); 
-    //             setUserAdded(true)
-    //             navigate("/", {relative: "route"})
-    //         }
-    //         else {
-    //             alert('this username already exists!')
-    //         }
-    //     }
-
-    //     if(user) {
-    //         const isLoginMode = user.isLoginMode
-    //         const requestedUsername = user.username; 
-    //         const existingUsername = await users.find(_user => _user.username === requestedUsername)
-    //         if(typeof(existingUsername) === "undefined") {
-    //             if(!isLoginMode) {    
-    //                 updateUsers(); 
-    //                 setUserAdded(true)
-    //                 navigate("/", {relative: "route"})
-    //             }
-    //             else {
-    //                 const matchingPassword = await users.find(_)
-    //             }
-    //         }
-    //         else {
-    //             alert('this username already exists!')
-    //         }
-    //     }
-    // }
-
-    return <AuthContext.Provider value={{user, setUser, authSucceded}}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{user, setUser, isLoginMode, setIsLoginMode, authSucceeded}}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {

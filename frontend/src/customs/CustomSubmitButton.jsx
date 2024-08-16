@@ -1,8 +1,8 @@
 import Button from "@mui/material/Button"
-import { useLoginMode } from "../contexts/LoginModeContext"
+import { useAuth } from "../contexts/AuthContext"
 
 const CustomSubmitButton = ({onClick, formComplete}) => {
-    const { isLoginMode } = useLoginMode(); 
+    const { isLoginMode } = useAuth(); 
     return (
         <>
           <Button onClick={onClick} type="submit" disabled={!formComplete} sx={{ 
