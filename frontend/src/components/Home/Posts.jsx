@@ -2,8 +2,12 @@ import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 import Box from "@mui/material/Box"; 
 import useMediaQuery from "@mui/material/useMediaQuery"; 
 import theme from "../../theme/theme";
+import { usePosts } from "../../contexts/PostsContext";
+import { nanoid } from "nanoid";
 
-const Posts = () => {  
+const Posts = () => {
+    const {posts} = usePosts();    
+
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
     return (
         <Box>
@@ -11,43 +15,17 @@ const Posts = () => {
             width: "100%",   
             overflow: "hidden"
             }}>
-                <ImageListItem>
-                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
-                        width: "100%", 
-                        height: `${smallScreen ? "200px" : "215px"}`
-                    }} />
-                    <ImageListItemBar title="hello" />
-                </ImageListItem>
-                <ImageListItem>
-                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
-                        width: "100%", 
-                        height: `${smallScreen ? "200px" : "215px"}`
-                    }} />
-                </ImageListItem>
-                <ImageListItem>
-                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
-                        width: "100%", 
-                        height: `${smallScreen ? "200px" : "215px"}`
-                    }} />
-                </ImageListItem>
-                <ImageListItem>
-                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
-                        width: "100%", 
-                        height: `${smallScreen ? "200px" : "215px"}`
-                    }} />
-                </ImageListItem>
-                <ImageListItem>
-                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
-                        width: "100%", 
-                        height: `${smallScreen ? "200px" : "215px"}`
-                    }} />
-                </ImageListItem>
-                <ImageListItem>
-                    <Box component="img" src="/images/IMG_6948.JPG" sx={{
-                        width: "100%", 
-                        height: `${smallScreen ? "200px" : "215px"}`
-                    }} />
-                </ImageListItem>
+                {posts && posts.map((post) => {
+                    return (
+                        <ImageListItem key={nanoid(6)}>
+                            <Box component="img" src={`${post.imageUrl}`} sx={{
+                                width: "100%", 
+                                height: `${smallScreen ? "200px" : "215px"}`
+                            }} />
+                            <ImageListItemBar title={`${post.username}`} />
+                        </ImageListItem>
+                    )
+                })}
             </ImageList>  
         </Box>      
     )
@@ -61,7 +39,7 @@ export default Posts
     id - INT
     publish_date - CURRENT_DATE
     content - VARCHAR(120)
-    image_url - IMAGE_SOURCE
+    imageUrl - IMAGE_SOURCE
     likes_amount - INT
     shares_amount - INT
 

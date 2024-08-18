@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useRoute } from "../../contexts/RouteContext"
+import { useAuth } from "../../contexts/AuthContext"
+import { usePosts } from "../../contexts/PostsContext"
 import Stepper from "@mui/material/Stepper"
 import Step from "@mui/material/Step"
 import StepLabel from "@mui/material/StepLabel"
@@ -11,11 +13,15 @@ import Content from "./Content"
 import Buttons from "./Buttons"
 import CustomBackdrop from "../../customs/CustomBackdrop"
 import axios from "axios"
+import arrayBufferToFile from "../../functionalities/arrayBufferToFile"
+import base64ToArrayBuffer from "../../functionalities/base64ToArrayBuffer"
 
 const VerticalStepper = () => {
     const {setRoute} = useRoute(); 
     const [loading, setLoading] = useState(false); 
-    const [activeStep, setActiveStep] = useState(0); 
+    const [activeStep, setActiveStep] = useState(0);
+    const {user} = useAuth(); 
+    const {setPosts} = usePosts(); 
     const navigate = useNavigate(); 
 
     function handleNextStep() {
@@ -28,19 +34,35 @@ const VerticalStepper = () => {
 
     async function handlePublish() {
         const storedContent = sessionStorage.getItem('content') 
-        const storedImage = sessionStorage.getItem('image')
-        const currentDate = new Date().toISOString().split('T')[0]
+        const storedFileData = JSON.parse(sessionStorage.getItem('fileData'))
 
-        const postData = {
-            publishDate: currentDate, 
-            content: storedContent, 
-            imageUrl: storedImage, 
-        }
-        if(storedContent && storedImage) {
+        if(storedContent && storedFileData) {
             setLoading(true)
+            const {base64, fileName} = storedFileData; 
+            const arrayBuffer = base64ToArrayBuffer(base64)
+            const file = arrayBufferToFile(arrayBuffer, fileName)
+            const currentDate = new Date().toISOString().split('T')[0]
+            const formData = new FormData();
+            formData.append('image', file)
             try { 
+                const uploadResponse = await axios.post("http://localhost:8080/upload", formData, {
+                    headers: {
+                        "Content-Type": 'multipart/form-data'
+                    }
+                })
+                const imageUrl = uploadResponse.data
+                const postData = {
+                    publishDate: currentDate, 
+                    content: storedContent, 
+                    imageUrl: imageUrl, 
+                    userId: user.id
+                }
                 const response = await axios.post("http://localhost:8080/posts", postData)
                 console.log(response.statusText)
+                setPosts((prevPosts) => [
+                    ...prevPosts, 
+                    {id: response.data[0].id, username: user.username, ...postData}
+                ])
                 await new Promise((resolve) => setTimeout(resolve, 500))
             }
             catch (err) {

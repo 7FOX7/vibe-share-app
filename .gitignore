@@ -28,3 +28,6 @@ typings/
 
 # Output of 'npm pack'
 *.tgz
+
+# Node.js
+.env
