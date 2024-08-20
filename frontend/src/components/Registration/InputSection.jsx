@@ -3,7 +3,7 @@ import Box from "@mui/material/Box"
 import BottomSection from "./BottomSection"
 import CustomInput from "../../customs/CustomInput"
 import { useAuth } from "../../contexts/AuthContext"
-import { strongRegex, mediumRegex } from "../../data/passwordRejex"
+import { strongRegex, mediumRegex } from "../../data/passwordRegex"
 
 const InputSection = () => { 
   const usernameRef = useRef(null); 

@@ -13,7 +13,7 @@ const Layer = ({children}) => {
             <>
                 <CustomAppBar />
                 {children}
-                {route === "create-post" ? 
+                {route === "create-post" || route === "post-view" ? 
                 '' 
                 : <ScreenHeightProvider>
                     <CustomNavBar />

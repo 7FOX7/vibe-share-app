@@ -10,6 +10,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { RouteProvider } from './contexts/RouteContext'
 import Layer from './components/Shared/Layer'
 import { PostsProvider } from './contexts/PostsContext'
+import PostView from './pages/PostView'
 
 const App = () => { 
   return (
@@ -25,14 +26,17 @@ const App = () => {
                     <Home />
                   </ProtectedRoute>
                 } />
+                <Route path="/post-view/:id/:username" element={
+                  <ProtectedRoute>
+                    <PostView />
+                  </ProtectedRoute>
+                } />
                 <Route path="/create-post" element={
                   <ProtectedRoute>
                     <CreatePost />
                   </ProtectedRoute>
                 } />
-                {/* <Route path="/" element={<Home />} />
-                <Route path="/create-post" element={<CreatePost />} />
-                <Route path="*" element={<NoPage />} /> */}
+                <Route path="*" element={<NoPage />} />
               </Routes>
             </Layer>
           </PostsProvider>
@@ -45,11 +49,20 @@ const App = () => {
 export default App
 
 /*
-  assuming we are in our App.jsx file: 
+    <Route path='/' element=home />
+    <Route path='/posts/:postId' element=PostLarge />
 
-  <ProtectedRoute>
-    <Route path="/" element={<Home />}>
-    
-    </Route>
-  </ProtectedRoute>
+    const PostLarge = () => {
+      const {postId} = useParams()
+
+      function extractPost() {
+
+      }
+
+      return (
+        <div>
+
+        </div>
+      )
+    }
 */

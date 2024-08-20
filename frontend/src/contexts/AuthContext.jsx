@@ -54,7 +54,7 @@ export const AuthProvider = ({children}) => {
             setUsers(response.data);
             console.log('Data was fetched successfully: ' +  response.statusText) 
         }
-        catch(err) {
+        catch (err) {
             if(err.response) {
                 console.log('Something is wrong with the server')
             }

@@ -55,7 +55,8 @@ const VerticalStepper = () => {
                     publishDate: currentDate, 
                     content: storedContent, 
                     imageUrl: imageUrl, 
-                    userId: user.id
+                    userId: user.id, 
+                    likes: 0
                 }
                 const response = await axios.post("http://localhost:8080/posts", postData)
                 console.log(response.statusText)

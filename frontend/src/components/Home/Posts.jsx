@@ -3,21 +3,29 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery"; 
 import theme from "../../theme/theme";
 import { usePosts } from "../../contexts/PostsContext";
-import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
+import { useRoute } from "../../contexts/RouteContext";
 
 const Posts = () => {
+    const {setRoute} = useRoute(); 
+    const navigate = useNavigate(); 
     const {posts} = usePosts();    
-
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
+
+    function handleOpen(id, username) {
+        setRoute('post-view')
+        navigate(`/post-view/${id}/${username}`, {relative: "route"})
+    }
+
     return (
         <Box>
             <ImageList cols={smallScreen ? 2 : 4} gap={6} sx={{ 
-            width: "100%",   
-            overflow: "hidden"
+                width: "100%",   
+                overflow: "hidden"
             }}>
                 {posts && posts.map((post) => {
                     return (
-                        <ImageListItem key={nanoid(6)}>
+                        <ImageListItem key={post.id} id={post.id} onClick={() => handleOpen(post.id, post.username)}>
                             <Box component="img" src={`${post.imageUrl}`} sx={{
                                 width: "100%", 
                                 height: `${smallScreen ? "200px" : "215px"}`
@@ -26,7 +34,7 @@ const Posts = () => {
                         </ImageListItem>
                     )
                 })}
-            </ImageList>  
+            </ImageList> 
         </Box>      
     )
 }
@@ -34,47 +42,26 @@ const Posts = () => {
 export default Posts
 
 /*
-    1. assuming we will have a TABLE named 'posts' with the following COLUMNS: 
-
-    id - INT
-    publish_date - CURRENT_DATE
-    content - VARCHAR(120)
-    imageUrl - IMAGE_SOURCE
-    likes_amount - INT
-    shares_amount - INT
-
-    1. the way im going to get ALL posts and display them on the home page: 
-    
-    (frontend): 
-    const response = await axios.get('/home')
-    setPosts(response.data); 
-
-    ...
-    posts.map((post) => {
-        <Box sx={{backgroundImage: post.postImage}}>
-            <Box>
-                post.postContent
-            </Box>
-        <Box>
-    })
-
-    (backend): 
-    app.get('/home', (req, res) => {
-        const q = "SELECT * FROM posts.posts"; 
-        db.query(q, (err, data) => {
-            if(err) {
-                res.json('Error occured: ' + err)
-                return
-            }    
-            res.json(data)
-        })
-    })
-
-    2. we need to figure out the way we are going to store images in db: 
-    but first we need to find out how we are going to generate those images
-    
-    when clicking on 'create posts' the following will happen; 
-    we ask the user to choose an image by: 
-
-
+    <Box>
+        {open ? 
+        <> 
+            <PostPage params/>
+        </> : 
+        <ImageList cols={smallScreen ? 2 : 4} gap={6} sx={{ 
+            width: "100%",   
+            overflow: "hidden"
+        }}>
+            {posts && posts.map((post, index) => {
+                return (
+                    <ImageListItem key={index} id={index} onClick={() => handleOpen(index)}>
+                        <Box component="img" src={`${post.imageUrl}`} sx={{
+                            width: "100%", 
+                            height: `${smallScreen ? "200px" : "215px"}`
+                        }} />
+                        <ImageListItemBar title={`${post.username}`} />
+                    </ImageListItem>
+                )
+            })}
+        </ImageList> } 
+    </Box> 
 */

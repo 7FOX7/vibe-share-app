@@ -6,6 +6,10 @@ const routes = [
     {
         id: "_postRoute", 
         routeName: "create-post", 
+    }, 
+    {
+        id: "_postViewRoute", 
+        routeName: "post-view"
     }
 ]
 

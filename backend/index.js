@@ -1,7 +1,7 @@
 const express = require('express'); 
 const mysql2 = require('mysql2'); 
 const cors = require('cors'); 
-const multer = require('multer'); 
+const multer = require('multer');
 const dotenv = require('dotenv'); 
 const {Storage} = require('@google-cloud/storage'); 
 
@@ -13,9 +13,9 @@ const upload = multer({
 })
 
 const app = express(); 
-app.use(express.json())
-dotenv.config()
-app.use(cors())
+app.use(express.json()); 
+dotenv.config(); 
+app.use(cors()); 
 
 app.listen(8080, () => {
     console.log('Server listening on port 8080')
@@ -71,7 +71,7 @@ app.post('/users', (req, res) => {
 
 app.get('/posts', (req, res) => {
     const q = `
-        SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, users.username FROM posts
+        SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, posts.likes, users.username FROM posts
         JOIN users ON users.id = posts.userId
     `
     db.query(q, (err, data) => {
@@ -83,19 +83,6 @@ app.get('/posts', (req, res) => {
         }
     })
 })
-
-// app.get('/posts', (req, res) => {
-//     const q = `
-//         SELECT id, publishDate, content, imageUrl FROM posts`
-//     db.query(q, (err, data) => {
-//         if(err) {
-//             res.status(500).send('There was an error when setting a query: ' + err)
-//         }
-//         else {
-//             res.json(data)
-//         }
-//     })
-// })
 
 app.post('/posts', (req, res) => {
     const {publishDate, content, imageUrl, userId} = req.body; 
@@ -141,10 +128,26 @@ app.post('/upload', upload.single("image"), (req, res) => {
     }
 })
 
+app.post('/likes', (req, res) => {
+    const {id} = req.body; 
+    const q = `UPDATE posts SET likes = likes + 1 WHERE id=?`
+    db.query(q, [id], (err) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        const q2 = `SELECT likes FROM posts WHERE id=?`
+        db.query(q2, [id], (err, data) => {
+            if(err) {
+                return res.status(500).send('There was an error when setting a query: ' + err)
+            }
+            res.status(200).json(data)
+        })
+    })
+})
+
 db.connect((err) => {
     if(err) {    
         return console.log("There an error was with connection to database" + err.message) 
-        
     } 
 
     console.log("Connection to database was successful")
