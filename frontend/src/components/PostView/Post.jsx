@@ -23,9 +23,9 @@ const Post = () => {
         return <SlideButtons handlePrevious={handlePrevious} handleNext={handleNext} />
     }, [])
 
-    const actionButtons = useMemo(() => {
-        return <ActionButtons post={post} posts={posts} setPosts={setPosts} />
-    }, [])
+    // const actionButtons = useMemo(() => {
+    //     return <ActionButtons post={post} posts={posts} setPosts={setPosts} />
+    // }, [posts])
 
     useEffect(() => {
         navigate(`/post-view/${post.id}/${post.username}`, {relative: "route"})
@@ -49,7 +49,7 @@ const Post = () => {
                 backgroundSize: "100% 100%", 
                 backgroundRepeat: "no-repeat"
             }} />
-            {actionButtons}
+            <ActionButtons post={post} posts={posts} setPosts={setPosts} />
         </>
     )
 }

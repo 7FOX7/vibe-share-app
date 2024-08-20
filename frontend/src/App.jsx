@@ -49,20 +49,7 @@ const App = () => {
 export default App
 
 /*
-    <Route path='/' element=home />
-    <Route path='/posts/:postId' element=PostLarge />
-
-    const PostLarge = () => {
-      const {postId} = useParams()
-
-      function extractPost() {
-
-      }
-
-      return (
-        <div>
-
-        </div>
-      )
-    }
+    the problems: 
+    1. when we delete a liked post from the 'liked_post' table, the id is not reset, it is increasing 
+    everytime the user is liking/unliking the post
 */

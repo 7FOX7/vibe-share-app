@@ -1,12 +1,55 @@
+import { useState, useEffect } from "react"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import axios from "axios"
+import { useAuth } from "../../contexts/AuthContext"
 
 const ActionButtons = ({post, posts, setPosts}) => {
+    const {user} = useAuth(); 
+    const [backgroundColor, setBackgroundColor] = useState('tertiary.light'); 
+    const [isLiked, setIsLiked] = useState(false); 
+
+    useEffect(() => {
+        setInitialBackgroundColor()
+    }, [post])
+
+    async function setInitialBackgroundColor() {
+        const postIsLiked = await checkIfPostIsLiked()
+        setIsLiked(postIsLiked)
+        setBackgroundColor(postIsLiked ? "tertiary.main" : "tertiary.light")
+    }
+
+    async function checkIfPostIsLiked() {
+        try {
+            const response = await axios.get('http://localhost:8080/likes', {
+                params: {
+                    userId: user.id, 
+                    postId: post.id
+                }
+            })
+            return response.data
+        }
+        catch (err) {
+            if(err.response) {
+                console.log('Something is wrong with the server: ' + err)
+            }
+            else if(err.request) {
+                console.log('Something is wrong with the client: ' + err)
+            }
+            else {
+                console.log(err)
+            }
+        }
+    }
+
     async function handleLike() {
         if(post) {
-            const data = {id: post.id}
             try {
+                const data = {
+                    userId: user.id, 
+                    postId: post.id, 
+                    isLiked: isLiked
+                }
                 const response = await axios.post('http://localhost:8080/likes', data, {
                     headers: {
                         'Content-Type': 'application/json'
@@ -30,9 +73,10 @@ const ActionButtons = ({post, posts, setPosts}) => {
                 else {
                     console.log(err)
                 }
-            }
+            } 
         }
     }
+
     return (
         <>
             <Box sx={{
@@ -45,11 +89,11 @@ const ActionButtons = ({post, posts, setPosts}) => {
                     alignItems: "center", 
                     paddingBlock: "9px", 
                     paddingInline: "9%", 
-                    backgroundColor: "tertiary.light",
+                    backgroundColor: backgroundColor,
                     borderRadius: "50px",
                     cursor: "pointer", 
                     ":hover": {
-                        backgroundColor: "tertiary.main" 
+                        backgroundColor: backgroundColor 
                     }
                 }} onClick={handleLike}>Like {post.likes}</Button>
                 <Button sx={{
@@ -57,11 +101,11 @@ const ActionButtons = ({post, posts, setPosts}) => {
                     alignItems: "center", 
                     paddingBlock: "9px", 
                     paddingInline: "9%", 
-                    backgroundColor: "tertiary.light",
+                    backgroundColor: backgroundColor,
                     borderRadius: "50px",
                     cursor: "pointer", 
                     ":hover": {
-                        backgroundColor: "tertiary.main" 
+                        backgroundColor: backgroundColor 
                     }
                 }}>Chat</Button>
             </Box>
@@ -71,25 +115,10 @@ const ActionButtons = ({post, posts, setPosts}) => {
 
 export default ActionButtons
 
-
 /*
-    const array = [
-        {id: 1, username: "john"}, 
-        {id: 2, username: "mike"}, 
-        {id: 3, username: "peter"}
-    ]
+    the problem: 
+    we need to figure out: when the user is opening the post he already liked, he can see that the post is liked, 
+    and those posts will be displayed in the 'liked' section
 
-    and I have an object: 
-    
-    const myObj = {id: 2, username: "pavel"}
 
-    and I want to replace the object in the array which has id 2 with 'myObj', so the final result is: 
-
-    const array = [
-        {id: 1, username: "john"}, 
-        {id: 2, username: "pavel"}, 
-        {id: 3, username: "peter"}
-    ]
-
-    how can I do that?
 */

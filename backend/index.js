@@ -85,9 +85,9 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/posts', (req, res) => {
-    const {publishDate, content, imageUrl, userId} = req.body; 
-    const q = `INSERT INTO posts (publishDate, content, imageUrl, userId) VALUES (?, ?, ?, ?)`
-    db.query(q, [publishDate, content, imageUrl, userId], (err) => {
+    const {publishDate, content, imageUrl, userId, likes} = req.body; 
+    const q = `INSERT INTO posts (publishDate, content, imageUrl, userId, likes) VALUES (?, ?, ?, ?, ?)`
+    db.query(q, [publishDate, content, imageUrl, userId, likes], (err) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }
@@ -128,22 +128,68 @@ app.post('/upload', upload.single("image"), (req, res) => {
     }
 })
 
-app.post('/likes', (req, res) => {
-    const {id} = req.body; 
-    const q = `UPDATE posts SET likes = likes + 1 WHERE id=?`
-    db.query(q, [id], (err) => {
+app.get('/likes', (req, res) => {
+    const {userId, postId} = req.query
+    const q = `
+        SELECT postId FROM liked_posts
+        WHERE userId=? AND postId=?
+    `
+    db.query(q, [userId, postId], (err, data) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }
-        const q2 = `SELECT likes FROM posts WHERE id=?`
-        db.query(q2, [id], (err, data) => {
-            if(err) {
-                return res.status(500).send('There was an error when setting a query: ' + err)
-            }
-            res.status(200).json(data)
-        })
+        else {
+            return res.status(200).send(data.length !== 0)
+        }
     })
 })
+
+app.post('/likes', (req, res) => {
+    const {userId, postId, isLiked} = req.body; 
+    if(!isLiked) {
+        const q = `INSERT INTO liked_posts (userId, postId) VALUES(?, ?)`   
+        db.query(q, [userId, postId], (err) => {
+            if(err) {
+                return res.status(500).send('There was an error when setting a query: ' + err)
+            }    
+            const q2 = `UPDATE posts SET likes = likes + 1 WHERE id=?`
+            db.query(q2, [postId], (err) => {
+                if(err) {
+                    return res.status(500).send('There was an error when setting a query: ' + err)
+                }  
+                const q3 = `SELECT likes FROM posts WHERE id=?`
+                db.query(q3, [postId], (err, data) => {
+                    if(err) {
+                        return res.status(500).send('There was an error when setting a query: ' + err)
+                    }   
+                    res.status(200).json(data) 
+                })  
+            })
+        })  
+    }
+    else {
+        const q = `DELETE FROM liked_posts WHERE userId=? AND postId=?`   
+        db.query(q, [userId, postId], (err) => {
+            if(err) {
+                return res.status(500).send('There was an error when setting a query: ' + err)
+            }    
+            const q2 = `UPDATE posts SET likes = likes - 1 WHERE id=?`
+            db.query(q2, [postId], (err) => {
+                if(err) {
+                    return res.status(500).send('There was an error when setting a query: ' + err)
+                }  
+                const q3 = `SELECT likes FROM posts WHERE id=?`
+                db.query(q3, [postId], (err, data) => {
+                    if(err) {
+                        return res.status(500).send('There was an error when setting a query: ' + err)
+                    }   
+                    res.status(200).json(data) 
+                })  
+            })
+        })
+    }
+})
+
 
 db.connect((err) => {
     if(err) {    
@@ -152,3 +198,59 @@ db.connect((err) => {
 
     console.log("Connection to database was successful")
 })
+
+/*
+    Assuming we have 3 tables: users, posts, likedPosts
+    likedPost table will look like following: 
+
+    id | publishDate | content | userId | postId
+    1  |  2020-01-07 |  'some' |   1    |    3
+    2  |  2021-10-10 |  'what' |   4    |    16
+    3  |  2024-05-16 |  'ifia' |   10   |    10
+    4  |  2020-01-07 |  'some' |   1    |    6
+    5  |  2021-10-10 |  'what' |   10   |    10
+    6  |  2024-05-16 |  'ifia' |   10   |    7
+
+
+    which provides the data of what post were liked by a particular user. 
+    now, we need to somehow interact with that table: how we are going to fill it with users and post data.
+
+
+    ActionButtons.jsx: 
+    async function handleLike() {
+        const isLiked = await checkIfPostIsLiked() 
+
+        if(!isLiked) {
+            const data = {
+                userId: user.id, 
+                postId: post.id
+            }
+            const response = await axios.post('localhost:8080/likes', data)
+        }
+    }
+
+
+    index.js: 
+    app.post('/likes', (req, res) => {
+        const {userId, postId} = req.body; 
+        const q = INSERT INTO liked_posts (userId, postId) VALUES(?, ?)   
+        db.query(q, [userId, postId], (err, data) => {
+            if(err) {
+                // handle error
+            }    
+            const q2 = `UPDATE posts SET likes = likes + 1 WHERE id=?`
+            db.query(q2, [postId], (err) => {
+                if(err) {
+                    // handle error
+                }  
+                const q3 = `SELECT likes FROM posts WHERE id=?`
+                db.query(q3, [postId], (err, data) => {
+                    if(err) {
+                        // handle error
+                    }   
+                    res.status(200).json(data) 
+                })  
+            })
+        })  
+    })
+*/
