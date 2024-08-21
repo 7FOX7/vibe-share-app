@@ -11,7 +11,7 @@ const CreatePost = () => {
     return (
         <Box sx={{
             backgroundColor: "secondary.main", 
-            width: "100vw", 
+            width: "100%", 
             height: "100vh", 
             paddingInline: "10px", 
             paddingTop: "50px"}}>

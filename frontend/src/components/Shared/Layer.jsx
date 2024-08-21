@@ -7,7 +7,6 @@ import { useRoute } from "../../contexts/RouteContext"
 const Layer = ({children}) => {
     const {authSucceeded} = useAuth(); 
     const {route} = useRoute(); 
-    // ! ! !  dont forget to remove '!' when you want to test app with 'Registration' 
     if(authSucceeded) {
         return (
             <>

@@ -7,8 +7,8 @@ const Home = () => {
       display: "flex", 
       flexDirection: "column",
       backgroundColor: "secondary.main", 
-      width: "100vw", 
-      height: "100vh", 
+      width: "100%", 
+      height: "100%", 
       paddingInline: "10px", 
       paddingTop: "50px"}}>
         <Posts />

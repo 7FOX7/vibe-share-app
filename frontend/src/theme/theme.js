@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material"
-import { purple, orange, pink, blue } from "@mui/material/colors"
+import { purple, orange, brown, pink, blue } from "@mui/material/colors"
 
 const theme = createTheme({
     palette: {
@@ -23,6 +23,9 @@ const theme = createTheme({
             black: {
                 main: "#000"
             }, 
+        }, 
+        itemBarTextColor: {
+            main: brown[300]
         }, 
         semiTransparentBlack: {
             main: "rgba(0, 0, 0, 0.4)"
@@ -49,6 +52,17 @@ const theme = createTheme({
         stepLabel: {
             fontSize: "0.8rem", 
             fontWeight: "600"
+        },
+        usernameAppBar: {
+            fontSize: "1.3rem", 
+            fontWeight: "500"
+        }, 
+        postTextPreview: {
+            fontSize: "1.1rem"
+        }, 
+        postTextWideView: {
+            fontSize: "1.45rem", 
+            fontWeight: "500"
         }
     }
 })

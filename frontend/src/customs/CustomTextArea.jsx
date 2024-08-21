@@ -14,7 +14,8 @@ const CustomTextArea = () => {
         borderRadius: "5px", 
         outline: "none", 
         paddingInline: "7px", 
-        paddingBlock: "4px", 
+        paddingBlock: "5px",
+        fontSize: "1rem", 
         resize: "none"
     }
 

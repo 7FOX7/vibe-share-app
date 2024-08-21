@@ -10,8 +10,8 @@ const PostPreview = () => {
     return (
         <Box sx={{
             position: "relative", 
-            width: `${smallScreen ? "60%" : "22%"}`, 
-            height: `${smallScreen ? "200px" : "215px"}`,
+            width: `${smallScreen ? "72%" : "28%"}`, 
+            height: `${smallScreen ? "220px" : "265px"}`,
             overflow: "hidden"
         }}>
             <Box sx={{
@@ -28,13 +28,13 @@ const PostPreview = () => {
                 top: 0, 
                 width: "100%", 
                 height: "100%", 
-                padding: `${smallScreen ? "3px" : "8px"}`, 
+                padding: "4px", 
                 display: "flex", 
                 alignItems: "center", 
                 justifyContent: "center", 
                 textAlign: "center"
             }}>
-                <Typography color="contrastColors.white.main">
+                <Typography color="contrastColors.white.main" typography="postTextPreview">
                     {storedContent ? storedContent : ""}
                 </Typography>
             </Box>

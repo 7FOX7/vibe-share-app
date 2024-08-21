@@ -1,19 +1,25 @@
+import useMediaQuery from "@mui/material/useMediaQuery"; 
 import Box from "@mui/material/Box";
+import theme from "../../theme/theme";
 
 const Layer = ({children}) => {
+    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
     return (
         <Box sx={{
             backgroundColor: "secondary.main", 
+            display: "flex", 
+            justifyContent: "center", 
             width: "100vw", 
             height: "100vh", 
-            paddingInline: "50px", 
+            paddingInline: `${smallScreen ? "50px" : "80px"}`, 
             paddingTop: "50px"
         }}>
             <Box sx={{
                 display: "flex", 
                 flexDirection: "column", 
-                justifyContent: "space-around", 
-                width: "100%", 
+                alignItems: "center", 
+                justifyContent: "space-evenly", 
+                width: `${smallScreen ? "100%" : "55%"}`, 
                 height: "100%"
             }}>
                 {children}

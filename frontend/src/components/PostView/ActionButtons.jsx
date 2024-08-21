@@ -82,7 +82,7 @@ const ActionButtons = ({post, posts, setPosts}) => {
             <Box sx={{
                 width: "100%", 
                 display: "flex", 
-                justifyContent: "space-around"
+                justifyContent: "space-evenly"
             }}>
                 <Button sx={{
                     display: "flex", 
@@ -101,11 +101,11 @@ const ActionButtons = ({post, posts, setPosts}) => {
                     alignItems: "center", 
                     paddingBlock: "9px", 
                     paddingInline: "9%", 
-                    backgroundColor: backgroundColor,
+                    backgroundColor: "tertiary.light",
                     borderRadius: "50px",
                     cursor: "pointer", 
                     ":hover": {
-                        backgroundColor: backgroundColor 
+                        backgroundColor: "tertiary.light" 
                     }
                 }}>Chat</Button>
             </Box>

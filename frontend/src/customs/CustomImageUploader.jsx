@@ -59,8 +59,8 @@ const CustomImageUploader = () => {
     }
     return (
         <Box sx={{
-            width: `${smallScreen ? "60%" : "22%"}`, 
-            height: `${smallScreen ? "200px" : "215px"}`, 
+            width: `${smallScreen ? "72%" : "28%"}`, 
+            height: `${smallScreen ? "220px" : "265px"}`, 
         }}>
             <Box sx={{
                 position: "relative", 
