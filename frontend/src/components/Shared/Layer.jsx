@@ -1,8 +1,9 @@
 import { useAuth } from "../../contexts/AuthContext"
+import { useRoute } from "../../contexts/RouteContext"
+import { ScreenHeightProvider } from "../../contexts/ScreenHeightContext"
 import CustomAppBar from "../../customs/CustomAppBar"
 import CustomNavBar from "../../customs/CustomNavBar"
-import { ScreenHeightProvider } from "../../contexts/ScreenHeightContext"
-import { useRoute } from "../../contexts/RouteContext"
+import noNavBarRoutes from "../../data/noNavBarRoute"
 
 const Layer = ({children}) => {
     const {authSucceeded} = useAuth(); 
@@ -12,7 +13,7 @@ const Layer = ({children}) => {
             <>
                 <CustomAppBar />
                 {children}
-                {route === "create-post" || route === "post-view" ? 
+                {noNavBarRoutes.includes(route) ? 
                 '' 
                 : <ScreenHeightProvider>
                     <CustomNavBar />

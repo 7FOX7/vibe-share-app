@@ -64,7 +64,7 @@ const CustomAppBar = () => {
                             borderRadius: "50px",
                             cursor: "pointer" 
                         }}>
-                            <AccountCircleOutlinedIcon sx={{color: "primary.dark"}}/>
+                            <AccountCircleOutlinedIcon color="primary" />
                         </Box>
                         <Menu
                             id="headerMenu"
@@ -83,6 +83,17 @@ const CustomAppBar = () => {
                 )
             }
             else if(route_appBarContent === "create-post") {
+                return (
+                    <>
+                        <Box onClick={goToPreviousRoute} sx={{
+                            cursor: "pointer"
+                        }}>
+                            <ArrowBackIosIcon />
+                        </Box>
+                    </>
+                )
+            }
+            else if(route_appBarContent === "create-video") {
                 return (
                     <>
                         <Box onClick={goToPreviousRoute} sx={{

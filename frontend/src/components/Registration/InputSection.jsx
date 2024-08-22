@@ -80,9 +80,33 @@ const InputSection = () => {
         flexDirection: "column", 
         alignItems: "center", 
     }}>
-        <CustomInput placeholder="Enter username" ref={usernameRef} />
-        <CustomInput placeholder="Enter password" onChange={checkForPasswordStrength} ref={passwordRef} />
-        <BottomSection displayerColor={displayerColor} fillness={fillness} passwordMessage={passwordMessage} displayerVisibility={displayerVisibility} onClick={handleSubmit} formComplete={formComplete} />
+        <CustomInput 
+          placeholder="Enter username" 
+          width="75%" 
+          borderRadius="15px" 
+          border="1px solid" 
+          fontSize="1.3rem" 
+          padding="4px 8px" 
+          ref={usernameRef} 
+        />
+        <CustomInput 
+          placeholder="Enter password" 
+          width="75%" 
+          borderRadius="15px" 
+          border="1px solid" 
+          fontSize="1.3rem" 
+          padding="4px 8px" 
+          onChange={checkForPasswordStrength} 
+          ref={passwordRef} 
+        />
+        <BottomSection 
+          displayerColor={displayerColor} 
+          fillness={fillness} 
+          passwordMessage={passwordMessage} 
+          displayerVisibility={displayerVisibility} 
+          onClick={handleSubmit} 
+          formComplete={formComplete} 
+        />
     </Box>
   )
 }

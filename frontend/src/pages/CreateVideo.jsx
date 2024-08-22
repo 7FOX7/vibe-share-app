@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import Box from "@mui/material/Box"
-import PostTemplate from "../components/CreatePost/PostTemplate"
+import Main from "../components/CreateVideo/Main"
 
-const CreatePost = () => {
+const CreateVideo = () => {
     useEffect(() => {
         return () => {
             sessionStorage.clear()
@@ -13,13 +13,13 @@ const CreatePost = () => {
         <Box sx={{
             width: "100%", 
             height: "100vh", 
-            backgroundColor: "secondary.main", 
+            backgroundColor: "primary.main", 
             paddingInline: "10px", 
             paddingTop: "50px"
         }}>
-            <PostTemplate />
+            <Main />
         </Box>
     )
 }
 
-export default CreatePost
+export default CreateVideo

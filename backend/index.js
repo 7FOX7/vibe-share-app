@@ -1,8 +1,9 @@
 const express = require('express'); 
 const mysql2 = require('mysql2'); 
 const cors = require('cors'); 
+const dotenv = require('dotenv');
 const multer = require('multer');
-const dotenv = require('dotenv'); 
+const Cron = require('croner');  
 const {Storage} = require('@google-cloud/storage'); 
 
 const upload = multer({
@@ -190,6 +191,76 @@ app.post('/likes', (req, res) => {
     }
 })
 
+app.get('/videos', (req, res) => {
+    const q = `SELECT * FROM videos`; 
+    db.query(q, (err, data) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+app.post('/videos', (req, res) => {
+    const {publishDate, videoUrl, username} = req.body; 
+    const q1 = `SELECT COUNT(*) AS count FROM videos`
+    db.query(q1, (err, data) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a q1: ' + err)
+        }
+        else {
+            const count = data[0].count
+            if(typeof(count) === "number") {
+                const q2 = count === 0 ? `INSERT INTO videos (publishDate, videoUrl, username) VALUES (?, ?, ?)` : `INSERT INTO pending_videos (publishDate, videoUrl, username) VALUES (?, ?, ?)`
+                db.query(q2, [publishDate, videoUrl, username], (err) => {
+                    if(err) {
+                        return res.status(500).send('There was an error when setting a q2: ' + err)
+                    }
+                    return res.status(200).send('Your video has been put in a queue!')
+                }) 
+            }
+            else {
+                return res.status(500).send('count does not return a number')
+            }
+        }
+    })
+})
+
+const job = Cron("0 0 * * *", () => {
+    try {
+        const q1 = "TRUNCATE TABLE videos"
+        db.query(q1, (err) => {
+            if(err) {
+                console.log('There was an error when setting a q1 (Cron): ' + err)
+            }
+            else {
+                const q2 = "SELECT * FROM pending_videos LIMIT 1"
+                db.query(q2, (err, data) => {
+                    if(err) {
+                        console.log('There was an error when setting a q2 (Cron): ' + err)
+                    }
+                    else {
+                        if(data.length > 0) {
+                            const {publishDate, videoUrl, username} = data
+                            const q3 = "INSERT INTO videos (publishDate, videoUrl, username) VALUES (?, ?, ?)"
+                            db.query(q3, [publishDate, videoUrl, username], (err) => {
+                                console.log('There was an error when setting a q3 (Cron): ' + err)
+                            })
+                        }
+                        else {
+                            console.log('pending_videos table does not contain any videos (Cron)')
+                        }
+                    }
+                })
+            }
+        })
+    }
+    catch (err) {
+        console.log("There was an error when setting queries (Cron): " + err)
+    }
+})
 
 db.connect((err) => {
     if(err) {    

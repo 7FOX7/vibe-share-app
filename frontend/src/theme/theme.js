@@ -1,12 +1,12 @@
 import { createTheme } from "@mui/material"
-import { purple, orange, brown, pink, blue } from "@mui/material/colors"
+import { deepPurple, orange, brown, pink, blue } from "@mui/material/colors"
 
 const theme = createTheme({
     palette: {
         primary: {
-            main: purple[600],
-            light: purple[300], 
-            dark: purple[800] 
+            main: deepPurple[700],
+            light: deepPurple[300], 
+            dark: deepPurple[900] 
         }, 
         secondary: {
             main: orange[50], 
@@ -24,6 +24,17 @@ const theme = createTheme({
                 main: "#000"
             }, 
         }, 
+        goldColors: {
+            goldDefault: {
+                main: "#ffc400"
+            }, 
+            goldLight: {
+                main: "#ffcf33"
+            }, 
+            goldDark: {
+                main: "#b28900"
+            }
+        }, 
         itemBarTextColor: {
             main: brown[300]
         }, 
@@ -33,7 +44,7 @@ const theme = createTheme({
         linkColor: {
             main: blue[600], 
             light: blue[400]
-        }
+        }, 
     }, 
     
     typography: {
@@ -63,6 +74,10 @@ const theme = createTheme({
         postTextWideView: {
             fontSize: "1.45rem", 
             fontWeight: "500"
+        }, 
+        postVideoButton: {
+            fontSize: "1.15rem", 
+            fontWeight: "600"
         }
     }
 })
