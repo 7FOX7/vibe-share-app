@@ -1,11 +1,16 @@
-import Layer from "../components/PostView/Layer";
-import Post from "../components/PostView/Post";
+import { Suspense, lazy } from "react";
+const Layer = lazy(() => import("../components/PostView/Layer"));
+const Post = lazy(() => import("../components/PostView/Post"));
 
 const PostView = () => {
     return (
-        <Layer>
-            <Post />
-        </Layer>
+        <>
+            <Suspense fallback={<div>Loading</div>}>
+                <Layer>
+                    <Post />
+                </Layer>
+            </Suspense>
+        </>
     )
 }
 

@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import CreatePost from './pages/CreatePost'
 import CreateVideo from './pages/CreateVideo'
 import PostView from './pages/PostView'
+import VideoView from './pages/VideoView'
 import NoPage from './pages/NoPage'
 import { AuthProvider } from './contexts/AuthContext'
 import { RouteProvider } from './contexts/RouteContext'
@@ -32,6 +33,11 @@ const App = () => {
                   <Route path="/post-view/:id/:username" element={
                     <ProtectedRoute>
                       <PostView />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/post-view" element={
+                    <ProtectedRoute>
+                      <VideoView />
                     </ProtectedRoute>
                   } />
                   <Route path="/create-post" element={

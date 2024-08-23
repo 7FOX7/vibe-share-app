@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState }from "react";
+import { useMemo } from "react";
 import CustomInput from "../../customs/CustomInput"
 import CustomTextArea from "../../customs/CustomTextArea"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -7,8 +8,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 const InputFields = ({urlInputRef}) => {
     const [inputValue, setInputValue] = useState("")
 
-    function handleInput(e) {
-        setInputValue(e.currentTarget.value) 
+    function handleInput() {
+        setInputValue(urlInputRef.current.value) 
     }
 
     function clearInputField(e) {
@@ -40,7 +41,7 @@ const InputFields = ({urlInputRef}) => {
                 padding="4px 6px" 
                 color="#fff" 
                 icon={
-                    urlInputRef.current.value === "" ? 
+                    urlInputRef.current.value === "" || !urlInputRef.current ? 
                     <ContentCopyIcon sx={{
                         color: "goldColors.goldLight.main",
                     }} />

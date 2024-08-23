@@ -1,15 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
 
 const VideosContext = createContext(null); 
 
 export const VideosProvider = ({children}) => {
     const [videos, setVideos] = useState(null); 
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     async function fetchData() {
         try {
             const response = await axios.get('http://localhost:8080/videos'); 
             setVideos(response.data)
+            console.log('videos were fetched successfully: ' +  response.statusText)
         }
         catch (err) {
             if(err.response) {

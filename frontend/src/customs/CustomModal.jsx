@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const CustomModal = ({open, handleClose, message}) => {
     return (

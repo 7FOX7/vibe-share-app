@@ -3,6 +3,7 @@ const mysql2 = require('mysql2');
 const cors = require('cors'); 
 const dotenv = require('dotenv');
 const multer = require('multer');
+const sharp = require('sharp'); 
 const Cron = require('croner');  
 const {Storage} = require('@google-cloud/storage'); 
 
@@ -102,24 +103,31 @@ app.post('/posts', (req, res) => {
     })
 })
 
-app.post('/upload', upload.single("image"), (req, res) => {
+app.post('/upload', upload.single("image"), async (req, res) => {
     if(!req.file) {
         return res.status(500).send('Please, select a file')
     }
 
     try {
-        const blob = bucket.file(req.file.originalname)
-        const blobStream = blob.createWriteStream({
-            resumable: false
-        })
-        blobStream.on('error', (err) => {
-            res.status(500).send(err.message)
-        })
-        blobStream.on('finish', () => {
-            const publicUrl = `https://storage.cloud.google.com/${bucket.name}/${blob.name}`
-            res.status(200).json(publicUrl)
-        })
-        blobStream.end(req.file.buffer)
+        const processImageBuffer = sharp(req.file.buffer)
+            .toFormat('webp')
+            .resize(380)
+            .toBuffer()
+            .then((data) => {
+                const blob = bucket.file(req.file.originalname)
+                const blobStream = blob.createWriteStream({
+                    resumable: false, 
+                    contentType: "image/webp"
+                })
+                blobStream.on('error', (err) => {
+                    res.status(500).send(err.message)
+                })
+                blobStream.on('finish', () => {
+                    const publicUrl = `https://storage.cloud.google.com/${bucket.name}/${blob.name}`
+                    res.status(200).json(publicUrl)
+                })
+                blobStream.end(data)
+            })
     }
     catch(err) {
         if(err.code === "LIMIT_FILE_SIZE") {

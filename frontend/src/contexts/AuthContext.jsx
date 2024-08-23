@@ -52,7 +52,7 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await axios.get("http://localhost:8080/users")
             setUsers(response.data);
-            console.log('Data was fetched successfully: ' +  response.statusText) 
+            console.log('user data was fetched successfully: ' +  response.statusText) 
         }
         catch (err) {
             if(err.response) {

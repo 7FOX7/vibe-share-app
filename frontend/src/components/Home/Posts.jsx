@@ -1,10 +1,13 @@
-import { ImageList, ImageListItem, ImageListItemBar, Typography } from "@mui/material";
-import Box from "@mui/material/Box"; 
-import useMediaQuery from "@mui/material/useMediaQuery"; 
-import theme from "../../theme/theme";
 import { usePosts } from "../../contexts/PostsContext";
 import { useNavigate } from "react-router-dom";
 import { useRoute } from "../../contexts/RouteContext";
+import Box from "@mui/material/Box"; 
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery"; 
+import theme from "../../theme/theme";
 import daysSinceLastPublish from "../../functionalities/daysSinceLastPublish";
 
 const Posts = () => {
@@ -26,31 +29,25 @@ const Posts = () => {
             }}>
                 {posts && posts.map((post) => {
                     return (
-                        <ImageListItem key={post.id} id={post.id} onClick={() => handleOpen(post.id, post.username)} sx={{
-                            cursor: "pointer", 
-                            overflow: "hidden"
-                        }}>
-                            <Box component="img" src={`${post.imageUrl}`} sx={{
-                                width: "100%", 
-                                height: `${smallScreen ? "220px" : "265px"}`, 
-                                borderRadius: "10px"
-                            }} />
-                            {/* <Box sx={{
-                                position: "absolute", 
-                                left: 0, 
-                                top: 0, 
-                                width: "100%", 
-                                height: "100%", 
-                                padding: "4px", 
-                                display: "flex", 
-                                alignItems: "center", 
-                                justifyContent: "center", 
-                                textAlign: "center"
-                            }}>
-                            <Typography color="contrastColors.white.main" typography="postText">
-                                {post.content}
-                            </Typography>
-                            </Box> */}
+                        <ImageListItem 
+                            key={post.id} 
+                            id={post.id} 
+                            onClick={() => handleOpen(post.id, post.username)} 
+                            sx={{
+                                cursor: "pointer", 
+                                overflow: "hidden"
+                            }
+                        }>
+                            <Box 
+                                component="img" 
+                                src={`${post.imageUrl}`} 
+                                loading="lazy"
+                                sx={{
+                                    width: "100%", 
+                                    height: `${smallScreen ? "220px" : "265px"}`, 
+                                    borderRadius: "10px"
+                                }} 
+                            />
                             <ImageListItemBar 
                                 title={
                                     <Box sx={{

@@ -1,13 +1,18 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState } from "react";
+import { useMemo } from "react";
+import { useCallback } from "react";
+import { useRoute } from "../contexts/RouteContext";
+import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box"; 
-import { AppBar, Toolbar, Typography } from "@mui/material";
-import { Menu, MenuItem } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import filterButtons from "../data/filterButtons";
 import CustomButton from "./CustomButton";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { useRoute } from "../contexts/RouteContext";
-import { useLocation, useNavigate } from "react-router-dom";
 import routes from "../data/routes";
 import urlRegex from "../data/urlRegex";
 
@@ -50,8 +55,30 @@ const CustomAppBar = () => {
                 return (
                     <>
                         {filterButtons.map((filterButton) => {
+                            function handleClick() {
+                                switch(filterButton.title) {
+                                    case "Popular": 
+                                        console.log('you clicked POPULAR button')
+                                        break; 
+                                    case "Watch": 
+                                        console.log('you clicked WATCH button')
+                                        break; 
+                                    case "Recent": 
+                                        console.log('you clicked RECENT button')
+                                        break;
+                                    case "Local": 
+                                        console.log('you clicked LOCAL button')
+                                        break;
+                                }
+                            }
                             return (
-                                <CustomButton key={filterButton.id} id={filterButton.id} title={filterButton.title} icon={filterButton.icon}>
+                                <CustomButton 
+                                    key={filterButton.id} 
+                                    id={filterButton.id} 
+                                    title={filterButton.title} 
+                                    icon={filterButton.icon}
+                                    onClick={handleClick}
+                                >
                                     {filterButton.title}
                                 </CustomButton>
                             )

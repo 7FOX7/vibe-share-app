@@ -5,7 +5,7 @@ import axios from "axios";
 const PostsContext = createContext(null)
 
 export const PostsProvider = ({children}) => {
-    const [posts, setPosts] = useState(null)
+    const [posts, setPosts] = useState(null); 
     useEffect(() => {
         fetchData()
     }, [])
@@ -14,6 +14,7 @@ export const PostsProvider = ({children}) => {
         try {
             const response = await axios.get("http://localhost:8080/posts"); 
             setPosts(response.data)
+            console.log('posts were fetched successfully: ' +  response.statusText)
         }
         catch(err) {
             if(err.response) {

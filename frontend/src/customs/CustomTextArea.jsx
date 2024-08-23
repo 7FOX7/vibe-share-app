@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { TextareaAutosize as TextArea, Typography } from "@mui/material"; 
+import { TextareaAutosize as TextArea } from "@mui/material"; 
+import Typography from "@mui/material/Typography"; 
 import theme from "../theme/theme";
 
 const maxLength = 90; 

@@ -1,4 +1,5 @@
-import { useMediaQuery, Box } from "@mui/material"
+import Box from "@mui/material/Box"; 
+import useMediaQuery from "@mui/material/useMediaQuery"; 
 import theme from "../theme/theme";
 
 const CustomButton = ({id, title, icon}) => {

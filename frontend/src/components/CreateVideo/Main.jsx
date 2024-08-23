@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useRef } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import Box from "@mui/material/Box"; 
 import PostButton from "./PostButton"; 
@@ -20,8 +21,6 @@ const Main = () => {
     function handleClose() {
         setOpen(false)
     }
-
-
 
     async function handleSubmit(e) {
         e.preventDefault();

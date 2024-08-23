@@ -1,18 +1,22 @@
-import Box from "@mui/material/Box";
-import Posts from "../components/Home/Posts";
+import { Suspense, lazy } from "react";
+
+const Box = lazy(() => import("@mui/material/Box")); 
+const Posts = lazy(() => import("../components/Home/Posts")); 
 
 const Home = () => {
   return (
-    <Box sx={{
+    <Suspense fallback={<div>Loading</div>}>
+      <Box sx={{
       display: "flex", 
       flexDirection: "column",
       backgroundColor: "secondary.main", 
       width: "100%", 
-      height: "100%", 
+      height: "100vh", 
       paddingInline: "10px", 
       paddingTop: "50px"}}>
         <Posts />
-    </Box>
+      </Box>
+    </Suspense>
   )
 }
 

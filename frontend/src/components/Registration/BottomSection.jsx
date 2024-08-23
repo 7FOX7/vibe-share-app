@@ -1,8 +1,10 @@
-import { Box, Link, useMediaQuery } from "@mui/material"
+import { useAuth } from "../../contexts/AuthContext"
+import Box from "@mui/material/Box"
+import Link from "@mui/material/Link"
+import useMediaQuery from "@mui/material/useMediaQuery"
 import PasswordStrengthBar from "./PasswordStrengthBar"
 import CustomSubmitButton from "../../customs/CustomSubmitButton"
 import theme from "../../theme/theme"
-import { useAuth } from "../../contexts/AuthContext"
 
 const BottomSection = ({displayerColor, fillness, passwordMessage, displayerVisibility, onClick, formComplete}) => {
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));

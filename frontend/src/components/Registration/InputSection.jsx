@@ -1,8 +1,11 @@
-import { useState, useRef, useEffect, useCallback } from "react"
+import { useState } from "react"
+import { useRef } from "react"
+import { useEffect } from "react"
+import { useCallback } from "react"
+import { useAuth } from "../../contexts/AuthContext"
 import Box from "@mui/material/Box"
 import BottomSection from "./BottomSection"
 import CustomInput from "../../customs/CustomInput"
-import { useAuth } from "../../contexts/AuthContext"
 import { strongRegex, mediumRegex } from "../../data/passwordRegex"
 
 const InputSection = () => { 
@@ -62,13 +65,11 @@ const InputSection = () => {
 
     userData.forEach((_userData) => {
       _userData.addEventListener("input", checkForFormComplete)
-      console.log('useEffect executed!')
     })
 
     return () => {
       userData.forEach((_userData) => {
         _userData.removeEventListener("input", checkForFormComplete)
-        console.log('useEffect cleared')
       })
     }
   }, [isLoginMode])

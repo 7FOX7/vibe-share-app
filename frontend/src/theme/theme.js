@@ -1,5 +1,9 @@
 import { createTheme } from "@mui/material"
-import { deepPurple, orange, brown, pink, blue } from "@mui/material/colors"
+import deepPurple from "@mui/material/colors/deepPurple"
+import orange from "@mui/material/colors/orange"
+import brown from "@mui/material/colors/brown"
+import pink from "@mui/material/colors/pink"
+import blue from "@mui/material/colors/blue"
 
 const theme = createTheme({
     palette: {

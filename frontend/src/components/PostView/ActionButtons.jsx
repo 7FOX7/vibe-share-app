@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import { useEffect } from "react"
+import { useAuth } from "../../contexts/AuthContext"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import axios from "axios"
-import { useAuth } from "../../contexts/AuthContext"
 
 const ActionButtons = ({post, posts, setPosts}) => {
     const {user} = useAuth(); 
