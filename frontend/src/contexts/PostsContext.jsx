@@ -7,10 +7,10 @@ const PostsContext = createContext(null)
 export const PostsProvider = ({children}) => {
     const [posts, setPosts] = useState(null); 
     useEffect(() => {
-        fetchData()
+        fetchPosts()
     }, [])
 
-    async function fetchData() {
+    async function fetchPosts() {
         try {
             const response = await axios.get("http://localhost:8080/posts"); 
             setPosts(response.data)

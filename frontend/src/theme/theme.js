@@ -82,6 +82,15 @@ const theme = createTheme({
         postVideoButton: {
             fontSize: "1.15rem", 
             fontWeight: "600"
+        }, 
+        publisherInfo: {
+            username: {
+                fontSize: "1.35rem", 
+                fontWeight: "600"
+            }, 
+            publishDate: {
+                fontStyle: "italic"
+            }
         }
     }
 })

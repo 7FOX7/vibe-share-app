@@ -21,23 +21,3 @@ const Home = () => {
 }
 
 export default Home
-
-/*
-    assuming we are using 'create-post' route: 
-
-    inside App.jsx: 
-    <Route path="/create-post" element={<CreatePost />} />
-
-    inside CreatePost.jsx: 
-    const [activeStep, setActiveStep] = useState('text-input')
-    
-    const content = useMemo(() => {
-      activeStep === "text-input" ? <Box>text input</Box> : <Box>image input</Box>  
-    })
-    
-    <Box>
-      content
-    </Box>
-
-
-*/

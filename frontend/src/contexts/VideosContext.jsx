@@ -1,15 +1,12 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, createContext, useContext } from "react";
 import axios from "axios";
 
 const VideosContext = createContext(null); 
 
 export const VideosProvider = ({children}) => {
     const [videos, setVideos] = useState(null); 
-    useEffect(() => {
-        fetchData()
-    }, [])
 
-    async function fetchData() {
+    async function fetchVideos() {
         try {
             const response = await axios.get('http://localhost:8080/videos'); 
             setVideos(response.data)
@@ -28,7 +25,7 @@ export const VideosProvider = ({children}) => {
         }
     }
 
-    return <VideosContext.Provider value={{videos, fetchData}}>{children}</VideosContext.Provider>
+    return <VideosContext.Provider value={{videos, fetchVideos}}>{children}</VideosContext.Provider>
 }
 
 export const useVideos = () => {

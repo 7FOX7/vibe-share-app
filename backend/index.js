@@ -17,7 +17,11 @@ const upload = multer({
 const app = express(); 
 app.use(express.json()); 
 dotenv.config(); 
-app.use(cors()); 
+app.use(cors({
+    origin: "http://localhost:3000", 
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+})); 
 
 app.listen(8080, () => {
     console.log('Server listening on port 8080')

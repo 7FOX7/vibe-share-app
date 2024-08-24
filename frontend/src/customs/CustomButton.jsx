@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery"; 
 import theme from "../theme/theme";
 
-const CustomButton = ({id, title, icon}) => {
+const CustomButton = ({id, title, icon, onClick}) => {
     const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
     const buttonStyle = {
         width: `${smallScreen ? "auto" : "fit-content"}`, 
@@ -22,7 +22,7 @@ const CustomButton = ({id, title, icon}) => {
     }
 
     return (
-        <Box id={id} sx={buttonStyle} component="button">
+        <Box id={id} sx={buttonStyle} component="button" onClick={onClick}>
             {title}
             <Box sx={{marginLeft: "2px", color: "contrastColors.white.main"}} component="span">{icon}</Box>
         </Box>

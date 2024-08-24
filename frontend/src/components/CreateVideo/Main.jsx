@@ -26,10 +26,13 @@ const Main = () => {
         e.preventDefault();
         const url = urlInputRef.current.value; 
         if(isValidUrl(url)) {
+            const videoId = url.match(youtubeRegex)[1]
+            const formattedVideoId = videoId.split('?')[0]
+            const formattedVideoUrl = `https://www.youtube.com/embed/${formattedVideoId}?autoplay=1`
             const currentDate = new Date().toISOString().split('T')[0]
             const data = {
                 publishDate: currentDate, 
-                videoUrl: url, 
+                videoUrl: formattedVideoUrl, 
                 username: user.username, 
             }
             try {

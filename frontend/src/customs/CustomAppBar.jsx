@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMemo } from "react";
 import { useCallback } from "react";
 import { useRoute } from "../contexts/RouteContext";
+import { useVideos } from "../contexts/VideosContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box"; 
 import AppBar from "@mui/material/AppBar";
@@ -21,6 +22,7 @@ const CustomAppBar = () => {
     const {route, setRoute} = useRoute(); 
     const navigate = useNavigate(); 
     const location = useLocation(); 
+    const {fetchVideos} = useVideos(); 
     const pathName = location.pathname;
 
     const open = Boolean(anchorEl)
@@ -55,18 +57,24 @@ const CustomAppBar = () => {
                 return (
                     <>
                         {filterButtons.map((filterButton) => {
-                            function handleClick() {
+                            async function handleClick() {
                                 switch(filterButton.title) {
                                     case "Popular": 
+                                        location.pathname !== "/" && navigate("/", {relative: "route"})
                                         console.log('you clicked POPULAR button')
                                         break; 
                                     case "Watch": 
-                                        console.log('you clicked WATCH button')
+                                        if(location.pathname !== "/post-view") {
+                                            await fetchVideos();
+                                            navigate("/video-view", {relative: "route"})
+                                        }
                                         break; 
                                     case "Recent": 
+                                        location.pathname !== "/" && navigate("/", {relative: "route"})
                                         console.log('you clicked RECENT button')
                                         break;
                                     case "Local": 
+                                        location.pathname !== "/" && navigate("/", {relative: "route"})
                                         console.log('you clicked LOCAL button')
                                         break;
                                 }
@@ -109,18 +117,7 @@ const CustomAppBar = () => {
                     </>
                 )
             }
-            else if(route_appBarContent === "create-post") {
-                return (
-                    <>
-                        <Box onClick={goToPreviousRoute} sx={{
-                            cursor: "pointer"
-                        }}>
-                            <ArrowBackIosIcon />
-                        </Box>
-                    </>
-                )
-            }
-            else if(route_appBarContent === "create-video") {
+            else if(route_appBarContent === "create-post" || route_appBarContent === "create-video") {
                 return (
                     <>
                         <Box onClick={goToPreviousRoute} sx={{
