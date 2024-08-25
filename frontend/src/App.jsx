@@ -13,20 +13,20 @@ import NoPage from './pages/NoPage'
 import Layer from './components/Shared/Layer'
 import { ScreenSizeProvider } from './contexts/ScreenSizeContext'
 import { AuthProvider } from './contexts/AuthContext'
-import { RouteProvider } from './contexts/RouteContext'
 import { PostsProvider } from './contexts/PostsContext'
 import { VideosProvider } from './contexts/VideosContext'
 import { CommentsProvider } from './contexts/CommentsContext'
+import { PostAuthorProvider } from './contexts/PostAuthorContext'
 
 const App = () => { 
   return (
     <React.StrictMode>
       <ScreenSizeProvider>
         <AuthProvider>
-          <RouteProvider>
-            <CommentsProvider>
-              <PostsProvider>
-                <VideosProvider>
+          <CommentsProvider>
+            <PostsProvider>
+              <VideosProvider>
+                <PostAuthorProvider>
                   <Layer>
                     <Routes>
                       <Route path="/registration" element={<Registration />} />
@@ -35,7 +35,7 @@ const App = () => {
                           <Home />
                         </ProtectedRoute>
                       } />
-                      <Route path="/post-view/:id/:username" element={
+                      <Route path="/post-view/:id/:author" element={
                         <ProtectedRoute>
                           <PostView />
                         </ProtectedRoute>
@@ -63,10 +63,10 @@ const App = () => {
                       <Route path="*" element={<NoPage />} />
                     </Routes>
                   </Layer>
-                </VideosProvider>
-              </PostsProvider>
-            </CommentsProvider>
-          </RouteProvider>
+                </PostAuthorProvider>
+              </VideosProvider>
+            </PostsProvider>
+          </CommentsProvider>
         </AuthProvider>
       </ScreenSizeProvider>
     </React.StrictMode>

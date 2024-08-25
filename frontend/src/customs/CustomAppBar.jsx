@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useMemo } from "react";
 import { useCallback } from "react";
-import { useRoute } from "../contexts/RouteContext";
-import { useVideos } from "../contexts/VideosContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { usePostAuthor } from "../contexts/PostAuthorContext";
 import Box from "@mui/material/Box"; 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,16 +13,15 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import filterButtons from "../data/filterButtons";
 import CustomButton from "./CustomButton";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import routes from "../data/routes";
-import urlRegex from "../data/urlRegex";
+import authorAppBar from "../data/authorAppBar";
 
 const CustomAppBar = () => { 
     const [anchorEl, setAnchorEl] = useState(null);
-    const {route, setRoute} = useRoute(); 
+    const {author} = usePostAuthor(); 
     const navigate = useNavigate(); 
     const location = useLocation(); 
-    const {fetchVideos} = useVideos(); 
     const pathName = location.pathname;
+    const formattedRoute = pathName.substring(1, pathName.length).split('/')[0]
 
     const open = Boolean(anchorEl)
 
@@ -32,7 +30,6 @@ const CustomAppBar = () => {
     }, [])
 
     const goToPreviousRoute = useCallback(() => {
-        setRoute('home')
         navigate('/', {relative: "route"})
     }, [])
 
@@ -40,116 +37,89 @@ const CustomAppBar = () => {
         setAnchorEl(null)
     }, [])
 
-    const username = useMemo(() => {
-        if(pathName.match(urlRegex)) {
-            const usernamePart = pathName.split('/post-view/')[1]
-            const username = usernamePart.split('/')[1]
-            return username
-        }
-        return 'User'
-    }, [route, pathName])
-
     const content = useMemo(() => {
-        const matchingRoute = routes.find(_route => _route.routeName === route)
-        if(typeof(matchingRoute) !== "undefined") {
-            const route_appBarContent = matchingRoute.routeName; 
-            if(route_appBarContent === "home") {
-                return (
-                    <>
-                        {filterButtons.map((filterButton) => {
-                            async function handleClick() {
-                                switch(filterButton.title) {
-                                    case "Popular": 
-                                        location.pathname !== "/" && navigate("/", {relative: "route"})
-                                        console.log('you clicked POPULAR button')
-                                        break; 
-                                    case "Watch": 
-                                        if(location.pathname !== "/post-view") {
-                                            await fetchVideos();
-                                            navigate("/video-view", {relative: "route"})
-                                        }
-                                        break; 
-                                    case "Recent": 
-                                        location.pathname !== "/" && navigate("/", {relative: "route"})
-                                        console.log('you clicked RECENT button')
-                                        break;
-                                    case "Local": 
-                                        location.pathname !== "/" && navigate("/", {relative: "route"})
-                                        console.log('you clicked LOCAL button')
-                                        break;
-                                }
+        if(pathName === "/") {
+            return (
+                <>
+                    {filterButtons.map((filterButton) => {
+                        async function handleClick() {
+                            switch(filterButton.title) {
+                                case "Popular": 
+                                    pathName !== "/" && navigate("/", {relative: "route"})
+                                    console.log('you clicked POPULAR button')
+                                    break; 
+                                case "Watch": 
+                                    if(pathName !== "/post-view") {
+                                        navigate("/video-view", {relative: "route"})
+                                    }
+                                    break; 
+                                case "Recent": 
+                                    pathName !== "/" && navigate("/", {relative: "route"})
+                                    console.log('you clicked RECENT button')
+                                    break;
+                                case "Local": 
+                                    pathName !== "/" && navigate("/", {relative: "route"})
+                                    console.log('you clicked LOCAL button')
+                                    break;
                             }
-                            return (
-                                <CustomButton 
-                                    key={filterButton.id} 
-                                    id={filterButton.id} 
-                                    title={filterButton.title} 
-                                    icon={filterButton.icon}
-                                    onClick={handleClick}
-                                >
-                                    {filterButton.title}
-                                </CustomButton>
-                            )
-                        })}
-                        <Box onClick={handleClick} sx={{
-                            display: "flex", 
-                            alignItems: "center", 
-                            padding: "6px", 
-                            backgroundColor: "tertiary.light",
-                            borderRadius: "50px",
-                            cursor: "pointer" 
-                        }}>
-                            <AccountCircleOutlinedIcon color="primary" />
-                        </Box>
-                        <Menu
-                            id="headerMenu"
-                            anchorEl={anchorEl}
-                            onClose={handleClose}
-                            open={open}
-                        >
-                            <MenuItem>
-                                settings
-                            </MenuItem>
-                            <MenuItem>
-                                dark mode
-                            </MenuItem>
-                        </Menu>
-                    </>
-                )
-            }
-            else if(route_appBarContent === "create-post" || route_appBarContent === "create-video") {
-                return (
-                    <>
-                        <Box onClick={goToPreviousRoute} sx={{
-                            cursor: "pointer"
-                        }}>
-                            <ArrowBackIosIcon />
-                        </Box>
-                    </>
-                )
-            }
-            else if(route_appBarContent === "post-view") {
-                return (
-                    <>
-                        <Box onClick={goToPreviousRoute} sx={{
-                            display: "flex", 
-                            alignItems: "center", 
-                            cursor: "pointer" 
-                        }}>
-                            <ArrowBackIosIcon />
-                            <Typography typography="usernameAppBar">
-                                {username}
-                            </Typography>
-                        </Box>
-                    </>
-                )
-            }
-        } 
-        else {
-            <p>no matching content for appbar is found</p>
+                        }
+                        return (
+                            <CustomButton 
+                                key={filterButton.id} 
+                                id={filterButton.id} 
+                                title={filterButton.title} 
+                                icon={filterButton.icon}
+                                onClick={handleClick}
+                            >
+                                {filterButton.title}
+                            </CustomButton>
+                        )
+                    })}
+                    <Box onClick={handleClick} sx={{
+                        display: "flex", 
+                        alignItems: "center", 
+                        padding: "6px", 
+                        backgroundColor: "tertiary.light",
+                        borderRadius: "50px",
+                        cursor: "pointer" 
+                    }}>
+                        <AccountCircleOutlinedIcon color="primary" />
+                    </Box>
+                    <Menu
+                        id="headerMenu"
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        open={open}
+                    >
+                        <MenuItem>
+                            settings
+                        </MenuItem>
+                        <MenuItem>
+                            dark mode
+                        </MenuItem>
+                    </Menu>
+                </>
+            )
         }
-
-    }, [route, anchorEl, location])
+        else {
+            return (
+                <>
+                    <Box onClick={goToPreviousRoute} sx={{
+                        display: "flex", 
+                        alignItems: "center", 
+                        cursor: "pointer" 
+                    }}>
+                        <ArrowBackIosIcon />
+                        {authorAppBar.includes(formattedRoute) && 
+                            <Typography typography="usernameAppBar">
+                                {author}
+                            </Typography>
+                        }
+                    </Box>
+                </>
+            )
+        }
+    }, [anchorEl, location])
 
     return (
         <AppBar position="fixed" color="secondary" elevation={0}>

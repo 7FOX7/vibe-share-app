@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRoute } from "../contexts/RouteContext";
 import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import Paper from "@mui/material/Paper"; 
@@ -21,7 +20,6 @@ import AddIcon from '@mui/icons-material/Add';
 
 const CustomNavBar = () => {
     const [open, setOpen] = useState(false); 
-    const {setRoute} = useRoute(); 
     const navigate = useNavigate(); 
     const {screenHeight, isSmallScreen} = useScreenSize(); 
     const top = `${Math.floor(screenHeight - 55)}px`; 
@@ -39,7 +37,6 @@ const CustomNavBar = () => {
         const routeName = id.split('N')[0]
         if(routeName) {
             const formattedRoute = routeName === 'home' ? '/' : `/${routeName}`
-            setRoute(`${routeName}`)
             navigate(formattedRoute, {relative: "route"})
         }
         else {

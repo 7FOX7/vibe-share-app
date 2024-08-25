@@ -1,7 +1,7 @@
 import { usePosts } from "../../contexts/PostsContext";
 import { useNavigate } from "react-router-dom";
-import { useRoute } from "../../contexts/RouteContext";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
+import { usePostAuthor } from "../../contexts/PostAuthorContext";
 import Box from "@mui/material/Box"; 
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -9,14 +9,14 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Typography from "@mui/material/Typography";
 import daysSinceLastPublish from "../../functionalities/daysSinceLastPublish";
 
-const Posts = () => {
-    const {setRoute} = useRoute(); 
+const Posts = () => { 
     const navigate = useNavigate(); 
     const {posts} = usePosts();    
     const {isSmallScreen} = useScreenSize();  
+    const {setAuthor} = usePostAuthor(); 
 
     function handleOpen(id, username) {
-        setRoute('post-view')
+        setAuthor(username)
         navigate(`/post-view/${id}/${username}`, {relative: "route"})
     }
 

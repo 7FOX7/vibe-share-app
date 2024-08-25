@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useRoute } from "../../contexts/RouteContext"
 import { useAuth } from "../../contexts/AuthContext"
 import { usePosts } from "../../contexts/PostsContext"
 import Stepper from "@mui/material/Stepper"
@@ -17,7 +16,6 @@ import arrayBufferToFile from "../../functionalities/arrayBufferToFile"
 import base64ToArrayBuffer from "../../functionalities/base64ToArrayBuffer"
 
 const VerticalStepper = () => {
-    const {setRoute} = useRoute(); 
     const [loading, setLoading] = useState(false); 
     const [activeStep, setActiveStep] = useState(0);
     const {user} = useAuth(); 
@@ -80,7 +78,6 @@ const VerticalStepper = () => {
             finally {
                 setActiveStep((prevStep) => prevStep + 1)
                 setLoading(false)
-                setRoute('home')
                 navigate('/', {relative: "route"})
             }
         }

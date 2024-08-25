@@ -1,21 +1,18 @@
+import { useLocation } from "react-router-dom"
 import { useAuth } from "../../contexts/AuthContext"
-import { useRoute } from "../../contexts/RouteContext"
 import CustomAppBar from "../../customs/CustomAppBar"
 import CustomNavBar from "../../customs/CustomNavBar"
-import noNavBarRoutes from "../../data/noNavBarRoute"
+import navBarRoutes from "../../data/navBarRoutes"
 
 const Layer = ({children}) => {
     const {authSucceeded} = useAuth(); 
-    const {route} = useRoute(); 
+    const location = useLocation(); 
     if(authSucceeded) {
         return (
             <>
                 <CustomAppBar />
                 {children}
-                {noNavBarRoutes.includes(route) ? 
-                '' 
-                : <CustomNavBar />
-                }
+                {navBarRoutes.includes(location.pathname) && <CustomNavBar />}
             </>
         )
     }
