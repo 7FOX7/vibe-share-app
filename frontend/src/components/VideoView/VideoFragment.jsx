@@ -1,8 +1,7 @@
 import { useVideos } from "../../contexts/VideosContext";
 import PublisherInfo from "./PublisherInfo";
 import Box from "@mui/material/Box";
-
-const defaultVideoUrl = "https://www.youtube.com/embed/yxTNZdirshQ?autoplay=1"
+import defaultVideoUrl from "../../data/defaultVideoUrl";
 
 const VideoFragment = () => {
     const {videos} = useVideos(); 

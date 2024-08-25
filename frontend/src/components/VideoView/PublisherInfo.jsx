@@ -1,11 +1,14 @@
-import { useScreenHeight } from "../../contexts/ScreenHeightContext"; 
+import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import Typography from "@mui/material/Typography";
+import defaultPublisherInfo from "../../data/defaultPublisherInfo";
 
 const PublisherInfo = ({videos}) => {
-    const publishDate = videos[0].publishDate; 
-    const username = videos[0].username; 
-    const top = `${Math.floor(useScreenHeight() - 140)}px`; 
+    const {screenHeight} = useScreenSize(); 
+    const content = videos.length === 0 ? defaultPublisherInfo : videos; 
+    const publishDate = content[0].publishDate; 
+    const username = content[0].username; 
+    const top = `${Math.floor(screenHeight - 140)}px`; 
     return (
             <Box sx={{
                 position: "absolute",

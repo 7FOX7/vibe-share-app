@@ -1,12 +1,11 @@
+import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import theme from "../theme/theme";
 
 const CustomModal = ({open, handleClose, message}) => {
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
+    const {isSmallScreen} = useScreenSize(); 
     return (
         <Modal open={open} onClose={handleClose}>
             <Box sx={{
@@ -18,7 +17,7 @@ const CustomModal = ({open, handleClose, message}) => {
                 flexDirection: "column", 
                 justifyContent: "space-between", 
                 alignItems: "center", 
-                width: `${smallScreen ? "350px" : "400px"}`,
+                width: `${isSmallScreen ? "350px" : "400px"}`,
                 backgroundColor: 'contrastColors.white.main',
                 border: '1px solid',
                 boxShadow: 24,

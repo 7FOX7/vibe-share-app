@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRoute } from "../contexts/RouteContext";
-import { useScreenHeight } from "../contexts/ScreenHeightContext"; 
+import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import Paper from "@mui/material/Paper"; 
 import BottomNavigation from "@mui/material/BottomNavigation"; 
@@ -12,21 +12,19 @@ import DialogTitle from "@mui/material/DialogTitle";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
 import HomeIcon from '@mui/icons-material/Home';
 import GroupsIcon from '@mui/icons-material/Groups';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import AddIcon from '@mui/icons-material/Add';
-import theme from "../theme/theme";
 
 const CustomNavBar = () => {
     const [open, setOpen] = useState(false); 
     const {setRoute} = useRoute(); 
     const navigate = useNavigate(); 
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
-    const top = `${Math.floor(useScreenHeight() - 55)}px`; 
+    const {screenHeight, isSmallScreen} = useScreenSize(); 
+    const top = `${Math.floor(screenHeight - 55)}px`; 
 
     function handleOpen() {
         setOpen(true)
@@ -65,7 +63,7 @@ const CustomNavBar = () => {
                 </Typography>
             </Dialog>
             <Paper sx={{position: "fixed", width: "100vw", top: {top}, backgroundColor: "secondary.dark"}} elevation={4}>
-                <Box sx={{position: "fixed", bottom: "4%", left: `${smallScreen ? "42.5%" : "48%"}`}}>
+                <Box sx={{position: "fixed", bottom: "4%", left: `${isSmallScreen ? "42.5%" : "48%"}`}}>
                     <Fab color="primary" onClick={handleOpen}>
                         <AddIcon fontSize="large" />
                     </Fab>

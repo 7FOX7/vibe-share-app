@@ -1,17 +1,16 @@
+import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import Typography from "@mui/material/Typography"
-import useMediaQuery from "@mui/material/useMediaQuery"
 import Box from "@mui/material/Box"
-import theme from "../../theme/theme"
 
 const PostPreview = () => {
     const storedImage = sessionStorage.getItem("image"); 
     const storedContent = sessionStorage.getItem("content"); 
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
+    const {isSmallScreen} = useScreenSize()
     return (
         <Box sx={{
             position: "relative", 
-            width: `${smallScreen ? "72%" : "28%"}`, 
-            height: `${smallScreen ? "220px" : "265px"}`,
+            width: `${isSmallScreen ? "72%" : "28%"}`, 
+            height: `${isSmallScreen ? "220px" : "265px"}`,
             overflow: "hidden"
         }}>
             <Box sx={{

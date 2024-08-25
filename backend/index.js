@@ -240,6 +240,28 @@ app.post('/videos', (req, res) => {
     })
 })
 
+app.get('/comments', (req, res) => {
+    const {id, postType} = req.query; 
+    const q = postType === "post" ? `SELECT * FROM post_comments WHERE postId=?` : `SELECT * FROM video_comments WHERE videoId=?`; 
+    db.query(q, [id], (err, data) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        res.status(200).json(data)
+    })
+})
+
+app.post('/comments', (req, res) => {
+    const {publishDate, author, content, id, postType} = req.body; 
+    const q = postType === "post" ? `INSERT INTO post_comments (publishDate, author, content, postId) VALUES(?, ?, ?, ?)` : `INSERT INTO video_comments (publishDate, author, content, videoId) VALUES(?, ?, ?, ?)`
+    db.query(q, [publishDate, author, content, id], (err) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        return res.status(200)
+    })
+})
+
 const job = Cron("0 0 * * *", () => {
     try {
         const q1 = "TRUNCATE TABLE videos"

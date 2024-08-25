@@ -1,14 +1,13 @@
+import { useScreenSize } from "../contexts/ScreenSizeContext"
 import { forwardRef } from "react"
 import { Input as BaseInput } from "@mui/material"
 import InputAdornment from "@mui/material/InputAdornment"
-import useMediaQuery from "@mui/material/useMediaQuery"
-import theme from "../theme/theme"
 
 const CustomInput = forwardRef(function CustomInput(props, ref) {
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
+    const {isSmallScreen} = useScreenSize();  
     const rootStyle = {
         marginBottom: "22px", 
-        width: `${smallScreen ? props.width : "25%"}`, 
+        width: `${isSmallScreen ? props.width : "25%"}`, 
         border: props.border, 
         borderRadius: props.borderRadius, 
         fontSize: props.fontSize, 

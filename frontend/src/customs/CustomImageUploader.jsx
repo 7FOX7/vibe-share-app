@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { useRef } from "react";
+import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import Fab from "@mui/material/Fab"; 
-import useMediaQuery from "@mui/material/useMediaQuery"; 
-import theme from "../theme/theme";
 import AddIcon from '@mui/icons-material/Add';
 import arrayBufferToBase64 from "../functionalities/arrayBufferToBase64";
 
 const CustomImageUploader = () => {
     const storedImage = sessionStorage.getItem("image")
     const [backgroundImage, setBackgroundImage] = useState(storedImage ? storedImage : null); 
-    const inputFileRef = useRef(null)
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
+    const inputFileRef = useRef(null); 
+    const {isSmallScreen} = useScreenSize(); 
 
     function handleClick() {
         inputFileRef.current.click()
@@ -62,8 +61,8 @@ const CustomImageUploader = () => {
     }
     return (
         <Box sx={{
-            width: `${smallScreen ? "72%" : "28%"}`, 
-            height: `${smallScreen ? "220px" : "265px"}`, 
+            width: `${isSmallScreen ? "72%" : "28%"}`, 
+            height: `${isSmallScreen ? "220px" : "265px"}`, 
         }}>
             <Box sx={{
                 position: "relative", 

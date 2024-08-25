@@ -1,20 +1,19 @@
 import { usePosts } from "../../contexts/PostsContext";
 import { useNavigate } from "react-router-dom";
 import { useRoute } from "../../contexts/RouteContext";
+import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Typography from "@mui/material/Typography";
-import useMediaQuery from "@mui/material/useMediaQuery"; 
-import theme from "../../theme/theme";
 import daysSinceLastPublish from "../../functionalities/daysSinceLastPublish";
 
 const Posts = () => {
     const {setRoute} = useRoute(); 
     const navigate = useNavigate(); 
     const {posts} = usePosts();    
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
+    const {isSmallScreen} = useScreenSize();  
 
     function handleOpen(id, username) {
         setRoute('post-view')
@@ -23,7 +22,7 @@ const Posts = () => {
 
     return (
         <Box>
-            <ImageList cols={smallScreen ? 2 : 4} gap={8} sx={{ 
+            <ImageList cols={isSmallScreen ? 2 : 4} gap={8} sx={{ 
                 width: "100%",   
                 overflow: "hidden"
             }}>
@@ -44,7 +43,7 @@ const Posts = () => {
                                 loading="lazy"
                                 sx={{
                                     width: "100%", 
-                                    height: `${smallScreen ? "220px" : "265px"}`, 
+                                    height: `${isSmallScreen ? "220px" : "265px"}`, 
                                     borderRadius: "10px"
                                 }} 
                             />

@@ -1,13 +1,12 @@
+import { useScreenSize } from "../../contexts/ScreenSizeContext"
 import { useAuth } from "../../contexts/AuthContext"
 import Box from "@mui/material/Box"
 import Link from "@mui/material/Link"
-import useMediaQuery from "@mui/material/useMediaQuery"
 import PasswordStrengthBar from "./PasswordStrengthBar"
 import CustomSubmitButton from "../../customs/CustomSubmitButton"
-import theme from "../../theme/theme"
 
 const BottomSection = ({displayerColor, fillness, passwordMessage, displayerVisibility, onClick, formComplete}) => {
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
+    const {isSmallScreen} = useScreenSize(); 
     const {isLoginMode, setIsLoginMode} = useAuth(); 
 
     function handleClick() {
@@ -16,7 +15,7 @@ const BottomSection = ({displayerColor, fillness, passwordMessage, displayerVisi
 
     return (
         <Box sx={{
-            width: `${smallScreen ? "75%" : "25%"}`,
+            width: `${isSmallScreen ? "75%" : "25%"}`,
             display: "flex", 
             flexDirection: "column"
         }}>

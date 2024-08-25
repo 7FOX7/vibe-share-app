@@ -8,58 +8,67 @@ import CreatePost from './pages/CreatePost'
 import CreateVideo from './pages/CreateVideo'
 import PostView from './pages/PostView'
 import VideoView from './pages/VideoView'
+import Comments from './pages/Comments'
 import NoPage from './pages/NoPage'
-import { ScreenHeightProvider } from './contexts/ScreenHeightContext'
+import Layer from './components/Shared/Layer'
+import { ScreenSizeProvider } from './contexts/ScreenSizeContext'
 import { AuthProvider } from './contexts/AuthContext'
 import { RouteProvider } from './contexts/RouteContext'
-import Layer from './components/Shared/Layer'
 import { PostsProvider } from './contexts/PostsContext'
 import { VideosProvider } from './contexts/VideosContext'
+import { CommentsProvider } from './contexts/CommentsContext'
 
 const App = () => { 
   return (
     <React.StrictMode>
-      <ScreenHeightProvider>
+      <ScreenSizeProvider>
         <AuthProvider>
           <RouteProvider>
-            <PostsProvider>
-              <VideosProvider>
-                <Layer>
-                  <Routes>
-                    <Route path="/registration" element={<Registration />} />
-                    <Route path="/" element={
-                      <ProtectedRoute>
-                        <Home />
-                      </ProtectedRoute>
-                    } />
-                    <Route path="/post-view/:id/:username" element={
-                      <ProtectedRoute>
-                        <PostView />
-                      </ProtectedRoute>
-                    } />
-                    <Route path="/video-view" element={
-                      <ProtectedRoute>
-                        <VideoView />
-                      </ProtectedRoute>
-                    } />
-                    <Route path="/create-post" element={
-                      <ProtectedRoute>
-                        <CreatePost />
-                      </ProtectedRoute>
-                    } />
-                    <Route path="/create-video" element={
-                      <ProtectedRoute>
-                        <CreateVideo />
-                      </ProtectedRoute>
-                    } />
-                    <Route path="*" element={<NoPage />} />
-                  </Routes>
-                </Layer>
-              </VideosProvider>
-            </PostsProvider>
+            <CommentsProvider>
+              <PostsProvider>
+                <VideosProvider>
+                  <Layer>
+                    <Routes>
+                      <Route path="/registration" element={<Registration />} />
+                      <Route path="/" element={
+                        <ProtectedRoute>
+                          <Home />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="/post-view/:id/:username" element={
+                        <ProtectedRoute>
+                          <PostView />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="/video-view" element={
+                        <ProtectedRoute>
+                          <VideoView />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="/create-post" element={
+                        <ProtectedRoute>
+                          <CreatePost />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="/create-video" element={
+                        <ProtectedRoute>
+                          <CreateVideo />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="/comments/:type/:id/:author" element={
+                        <ProtectedRoute>
+                          <Comments />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="*" element={<NoPage />} />
+                    </Routes>
+                  </Layer>
+                </VideosProvider>
+              </PostsProvider>
+            </CommentsProvider>
           </RouteProvider>
         </AuthProvider>
-      </ScreenHeightProvider>
+      </ScreenSizeProvider>
     </React.StrictMode>
   )
 }

@@ -1,11 +1,10 @@
+import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
-import useMediaQuery from "@mui/material/useMediaQuery"; 
-import theme from "../theme/theme";
 
 const CustomButton = ({id, title, icon, onClick}) => {
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
+    const {isSmallScreen} = useScreenSize(); 
     const buttonStyle = {
-        width: `${smallScreen ? "auto" : "fit-content"}`, 
+        width: `${isSmallScreen ? "auto" : "fit-content"}`, 
         display: "flex",
         alignItems: "center", 
         justifyContent: "center", 
@@ -15,8 +14,8 @@ const CustomButton = ({id, title, icon, onClick}) => {
         color: "semiTransparentBlack.main", 
         fontFamily: "inherit", 
         paddingBlock: "7px",  
-        paddingInline: `${smallScreen ? "0" : "14px"}`, 
-        flex: `${smallScreen ? "0.2 1 auto" : "none"}`,
+        paddingInline: `${isSmallScreen ? "0" : "14px"}`, 
+        flex: `${isSmallScreen ? "0.2 1 auto" : "none"}`,
         borderRadius: "50px",
         cursor: "pointer"
     }

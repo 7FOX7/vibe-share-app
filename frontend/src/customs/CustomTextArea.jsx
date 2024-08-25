@@ -1,16 +1,15 @@
 import { useState } from "react";
+import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { TextareaAutosize as TextArea } from "@mui/material"; 
 import Typography from "@mui/material/Typography"; 
-import theme from "../theme/theme";
 
 const maxLength = 90; 
 
 const CustomTextArea = ({placeholder, width, border, background, color, minRows}) => {
     const storedContent = sessionStorage.getItem("content")
     const [textAreaValue, setTextAreaValue] = useState(storedContent ? storedContent : ""); 
-    const smallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm')); 
+    const {isSmallScreen} = useScreenSize();  
     const textAreaStyle = { 
         border: border, 
         borderRadius: "5px", 
@@ -32,7 +31,7 @@ const CustomTextArea = ({placeholder, width, border, background, color, minRows}
 
     return (
         <Box sx={{
-            width: `${smallScreen ? width : "40%"}`,
+            width: `${isSmallScreen ? width : "40%"}`,
             display: "flex", 
             flexDirection: "column"
         }}>

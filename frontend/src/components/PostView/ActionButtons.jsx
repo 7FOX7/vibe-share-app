@@ -1,12 +1,16 @@
 import { useState } from "react"
 import { useEffect } from "react"
 import { useAuth } from "../../contexts/AuthContext"
+import { useNavigate } from "react-router-dom"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import axios from "axios"
 
+const type = "post"
+
 const ActionButtons = ({post, posts, setPosts}) => {
     const {user} = useAuth(); 
+    const navigate = useNavigate(); 
     const [backgroundColor, setBackgroundColor] = useState('tertiary.light'); 
     const [isLiked, setIsLiked] = useState(false); 
 
@@ -78,6 +82,12 @@ const ActionButtons = ({post, posts, setPosts}) => {
         }
     }
 
+    async function handleComments() {
+        const id = post.id; 
+        const author = post.username; 
+        navigate(`/comments/${type}/${id}/${author}`)
+    }
+
     return (
         <>
             <Box sx={{
@@ -108,7 +118,7 @@ const ActionButtons = ({post, posts, setPosts}) => {
                     ":hover": {
                         backgroundColor: "tertiary.light" 
                     }
-                }}>Chat</Button>
+                }} onClick={handleComments}>Chat</Button>
             </Box>
         </>
     )
