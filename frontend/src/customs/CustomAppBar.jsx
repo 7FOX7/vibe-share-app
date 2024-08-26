@@ -67,9 +67,10 @@ const CustomAppBar = () => {
                                     setPosts(postsCopy)
                                     setChosenButton("Recent")
                                     navigate("/", {relative: "route"})
+                                    break; 
                                 case "Local": 
-                                    pathName !== "/" && navigate("/", {relative: "route"})
-                                    setChosenButton(filterButton.title)
+                                    setChosenButton("Local")
+                                    navigate("/", {relative: "route"})
                                     break;
                             }
                         }
