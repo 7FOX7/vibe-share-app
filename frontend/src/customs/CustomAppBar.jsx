@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { usePostAuthor } from "../contexts/PostAuthorContext";
+import { usePosts } from "../contexts/PostsContext";
 import Box from "@mui/material/Box"; 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,6 +18,8 @@ import authorAppBar from "../data/authorAppBar";
 
 const CustomAppBar = () => { 
     const [anchorEl, setAnchorEl] = useState(null);
+    const {posts, setPosts} = usePosts(); 
+    const postsCopy = [...posts]; 
     const {author} = usePostAuthor(); 
     const navigate = useNavigate(); 
     const location = useLocation(); 
@@ -45,18 +48,21 @@ const CustomAppBar = () => {
                         async function handleClick() {
                             switch(filterButton.title) {
                                 case "Popular": 
-                                    pathName !== "/" && navigate("/", {relative: "route"})
-                                    console.log('you clicked POPULAR button')
+                                    postsCopy.sort((currentPost, nextPost) => nextPost.likes - currentPost.likes)
+                                    setPosts(postsCopy)
+                                    navigate("/", {relative: "route"})
                                     break; 
                                 case "Watch": 
-                                    if(pathName !== "/post-view") {
-                                        navigate("/video-view", {relative: "route"})
-                                    }
+                                    pathName !== "/post-view" && navigate("/video-view", {relative: "route"})
                                     break; 
                                 case "Recent": 
-                                    pathName !== "/" && navigate("/", {relative: "route"})
-                                    console.log('you clicked RECENT button')
-                                    break;
+                                    postsCopy.sort((currentPost, nextPost) => {
+                                        const currentPostDate = new Date(currentPost.publishDate); 
+                                        const nextPostDate = new Date(nextPost.publishDate); 
+                                        return (nextPostDate - currentPostDate)
+                                    })
+                                    setPosts(postsCopy)
+                                    navigate("/", {relative: "route"})
                                 case "Local": 
                                     pathName !== "/" && navigate("/", {relative: "route"})
                                     console.log('you clicked LOCAL button')
