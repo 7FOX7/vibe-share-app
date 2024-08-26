@@ -18,6 +18,7 @@ import authorAppBar from "../data/authorAppBar";
 
 const CustomAppBar = () => { 
     const [anchorEl, setAnchorEl] = useState(null);
+    const [chosenButton, setChosenButton] = useState(filterButtons[0].title);
     const {posts, setPosts} = usePosts(); 
     const postsCopy = [...posts]; 
     const {author} = usePostAuthor(); 
@@ -41,7 +42,7 @@ const CustomAppBar = () => {
     }, [])
 
     const content = useMemo(() => {
-        if(pathName === "/") {
+        if(pathName === "/" || pathName === "/video-view") {
             return (
                 <>
                     {filterButtons.map((filterButton) => {
@@ -50,9 +51,11 @@ const CustomAppBar = () => {
                                 case "Popular": 
                                     postsCopy.sort((currentPost, nextPost) => nextPost.likes - currentPost.likes)
                                     setPosts(postsCopy)
+                                    setChosenButton("Popular")
                                     navigate("/", {relative: "route"})
                                     break; 
                                 case "Watch": 
+                                    setChosenButton("Watch")
                                     pathName !== "/post-view" && navigate("/video-view", {relative: "route"})
                                     break; 
                                 case "Recent": 
@@ -62,10 +65,11 @@ const CustomAppBar = () => {
                                         return (nextPostDate - currentPostDate)
                                     })
                                     setPosts(postsCopy)
+                                    setChosenButton("Recent")
                                     navigate("/", {relative: "route"})
                                 case "Local": 
                                     pathName !== "/" && navigate("/", {relative: "route"})
-                                    console.log('you clicked LOCAL button')
+                                    setChosenButton(filterButton.title)
                                     break;
                             }
                         }
@@ -75,6 +79,7 @@ const CustomAppBar = () => {
                                 id={filterButton.id} 
                                 title={filterButton.title} 
                                 icon={filterButton.icon}
+                                backgroundColor={chosenButton === filterButton.title ? "primary.main" : "contrastColors.white.main"}
                                 onClick={handleClick}
                             >
                                 {filterButton.title}

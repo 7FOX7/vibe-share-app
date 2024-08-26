@@ -1,14 +1,14 @@
 import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 
-const CustomButton = ({id, title, icon, onClick}) => {
+const CustomButton = ({id, title, icon, backgroundColor, onClick}) => {
     const {isSmallScreen} = useScreenSize(); 
     const buttonStyle = {
         width: `${isSmallScreen ? "auto" : "fit-content"}`, 
         display: "flex",
         alignItems: "center", 
         justifyContent: "center", 
-        backgroundColor: "contrastColors.white.main", 
+        backgroundColor: backgroundColor, 
         border: "1px solid", 
         borderColor: "contrastColors.black.main", 
         color: "semiTransparentBlack.main", 

@@ -4,6 +4,7 @@ import ProtectedRoute from './utils/ProtectedRoute'
 import './App.css'
 import Registration from './pages/Registration'
 import Home from './pages/Home'
+import Notifications from './pages/Notifications'
 import CreatePost from './pages/CreatePost'
 import CreateVideo from './pages/CreateVideo'
 import PostView from './pages/PostView'
@@ -33,6 +34,11 @@ const App = () => {
                       <Route path="/" element={
                         <ProtectedRoute>
                           <Home />
+                        </ProtectedRoute>
+                      } />
+                      <Route path="/notifications" element={
+                        <ProtectedRoute>
+                          <Notifications />
                         </ProtectedRoute>
                       } />
                       <Route path="/post-view/:id/:author" element={
