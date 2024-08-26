@@ -4,6 +4,7 @@ import CustomInput from "../../customs/CustomInput"
 import CustomTextArea from "../../customs/CustomTextArea"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { postMaxLength } from "../../data/inputMaxLength";
 
 const InputFields = ({urlInputRef}) => {
     const [inputValue, setInputValue] = useState("")
@@ -25,7 +26,8 @@ const InputFields = ({urlInputRef}) => {
                 border="3px solid #ffcf33" 
                 background="transparent" 
                 color="#fff" 
-                minRows={8} 
+                minRows={8}
+                maxLength={postMaxLength} 
             />
         )
     }, [])

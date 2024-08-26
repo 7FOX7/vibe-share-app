@@ -83,13 +83,19 @@ const theme = createTheme({
             fontSize: "1.15rem", 
             fontWeight: "600"
         }, 
-        publisherInfo: {
-            username: {
+        customContainer: {
+            mainText: {
                 fontSize: "1.35rem", 
                 fontWeight: "600"
             }, 
-            publishDate: {
+            addText: {
                 fontStyle: "italic"
+            }
+        }, 
+        commentSection: {
+            username: {
+                fontSize: "1.25rem", 
+                fontWeight: "600"
             }
         }
     }

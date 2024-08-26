@@ -1,14 +1,20 @@
-import { useParams } from "react-router-dom"
+import Box from "@mui/material/Box";
+import CommentSection from "../components/Comments/CommentSection";
 
 const Comments = () => {
-    const {type, id, author} = useParams(); 
-
     return (
-        <>
-            <p>Post type is: <strong>{type}</strong></p>
-            <p>Post id is: <strong>{id}</strong></p>
-            <p>Post author is: <strong>{author}</strong></p>
-        </>
+        <Box sx={{
+            width: "100%", 
+            height: "100vh", 
+            display: "flex", 
+            flexDirection: "column", 
+            alignItems: "center", 
+            paddingInline: "10px",
+            backgroundColor: "contrastColors.white.main",  
+            paddingTop: "70px", 
+        }}>
+            <CommentSection />
+        </Box>
     )
 }
 

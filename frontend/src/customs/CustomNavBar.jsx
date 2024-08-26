@@ -59,7 +59,13 @@ const CustomNavBar = () => {
                     </List>
                 </Typography>
             </Dialog>
-            <Paper sx={{position: "fixed", width: "100vw", top: {top}, backgroundColor: "secondary.dark"}} elevation={4}>
+            <Paper elevation={4} sx={{
+                position: "fixed", 
+                width: "100vw", 
+                top: {top}, 
+                backgroundColor: "secondary.dark", 
+                zIndex: "20"
+            }}>
                 <Box sx={{position: "fixed", bottom: "4%", left: `${isSmallScreen ? "42.5%" : "48%"}`}}>
                     <Fab color="primary" onClick={handleOpen}>
                         <AddIcon fontSize="large" />

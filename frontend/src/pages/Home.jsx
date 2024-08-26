@@ -11,7 +11,7 @@ const Home = () => {
       flexDirection: "column",
       backgroundColor: "secondary.main", 
       width: "100%", 
-      height: "100vh", 
+      height: "100%", 
       paddingInline: "10px", 
       paddingTop: "50px"}}>
         <Posts />

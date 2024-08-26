@@ -1,48 +1,24 @@
-import { useScreenSize } from "../../contexts/ScreenSizeContext";
-import Box from "@mui/material/Box"; 
-import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
+import CustomContainer from "../../customs/CustomContainer";
 import defaultPublisherInfo from "../../data/defaultPublisherInfo";
+import ChatIcon from '@mui/icons-material/Chat';
+
+const type = "video"
 
 const PublisherInfo = ({videos}) => {
-    const {screenHeight} = useScreenSize(); 
+    const navigate = useNavigate(); 
     const content = videos.length === 0 ? defaultPublisherInfo : videos; 
     const publishDate = content[0].publishDate; 
     const username = content[0].username; 
-    const top = `${Math.floor(screenHeight - 140)}px`; 
+
+    function handleClick() {
+        const id = content[0].id; 
+        const author = content[0].username; 
+        navigate(`/comments/${type}/${id}/${author}`)
+    }
+    
     return (
-            <Box sx={{
-                position: "absolute",
-                top: top, 
-                left: 0, 
-                width: "100%", 
-                height: "90px", 
-        }}>
-            <Box sx={{ 
-                width: "100%", 
-                height: "100%", 
-                backgroundColor: "primary.dark",
-                opacity: "0.6", 
-            }} />
-            <Box sx={{
-                position: "absolute", 
-                top: 0, 
-                left: 0, 
-                display: "flex", 
-                flexDirection: "column",
-                justifyContent: "space-evenly",  
-                width: "100%", 
-                height: "100%", 
-                zIndex: "10", 
-                padding: "5px 10px"
-            }}>
-                <Box>
-                    <Typography typography="publisherInfo.username" color="contrastColors.white.main">{username}</Typography>
-                </Box>
-                <Box>
-                    <Typography typography="publisherInfo.publishDate" color="contrastColors.white.main">{publishDate}</Typography>
-                </Box>
-            </Box>
-        </Box>
+        <CustomContainer mainText={username} addText={publishDate} onClick={handleClick} icon={<ChatIcon />} />
     )
 }
 

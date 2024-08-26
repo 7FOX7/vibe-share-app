@@ -264,7 +264,7 @@ app.post('/comments', (req, res) => {
 
 const job = Cron("0 0 * * *", () => {
     try {
-        const q1 = "TRUNCATE TABLE videos"
+        const q1 = "DELETE FROM videos"
         db.query(q1, (err) => {
             if(err) {
                 console.log('There was an error when setting a q1 (Cron): ' + err)
