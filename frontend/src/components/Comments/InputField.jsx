@@ -9,9 +9,13 @@ import { useScreenSize } from "../../contexts/ScreenSizeContext"
 import Box from "@mui/material/Box"
 import Avatar from "@mui/material/Avatar"
 import CustomTextArea from "../../customs/CustomTextArea"
+import CustomModal from "../../customs/CustomModal"; 
 import SendIcon from '@mui/icons-material/Send';
 
+const message = "Comment was sent sucessfully!"; 
+
 const InputField = ({id, type}) => {
+    const [open, setOpen] = useState(false); 
     const [value, setValue] = useState(''); 
     const textAreaRef = useRef(''); 
     const {isSmallScreen} = useScreenSize(); 
@@ -21,24 +25,38 @@ const InputField = ({id, type}) => {
     const {user} = useAuth(); 
 
     async function handleClick() {
-        const content = textAreaRef.current.value; 
-        const currentDate = new Date().toISOString().split('T')[0]
-        const postData = {
-            publishDate: currentDate, 
-            author: user.username, 
-            content: content, 
-            id: id, 
-            postType: type
+        try {
+            const content = textAreaRef.current.value; 
+            const currentDate = new Date().toISOString().split('T')[0]
+            const postData = {
+                publishDate: currentDate, 
+                author: user.username, 
+                content: content, 
+                id: id, 
+                postType: type
+            }
+            sendComments(postData)
         }
-        await sendComments(postData)
+        catch (err) {
+            console.log('There was an error when sending a comment')
+        }
+        finally {
+            console.log('finally was executed!')
+            setOpen(true)
+        }
     }
 
     function handleValueChange() {
         setValue(textAreaRef.current.value)
     }
 
+    function handleClose() {
+        setOpen(false)
+    }
+
     return (
         <>
+            <CustomModal open={open} handleClose={handleClose} message={message} />
             <Box sx={{
                 position: "fixed", 
                 top: "82%", 
