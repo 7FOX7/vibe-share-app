@@ -31,32 +31,6 @@ const CustomImageUploader = () => {
                 sessionStorage.setItem('fileData', fileData)
             }
             reader.readAsArrayBuffer(file)
-            // try {
-            //     const formData = new FormData(); 
-            //     formData.append('image', file)
-            //     const response = await axios.post("http://localhost:8080/upload", formData, {
-            //         headers: {
-            //             "Content-Type": 'multipart/form-data'
-            //         }
-            //     }) 
-            //     const storedImageUrl = response.data; 
-            //     sessionStorage.setItem('image', storedImageUrl)
-            // }
-            // catch (err) {
-            //     if(err.response) {
-            //         console.log('Something is wrong with the server: ' + err.response.data)
-            //     }
-            //     else if(err.request) {
-            //         console.log('Something is wrong with the client')
-            //     }
-            //     else {
-            //         console.log(err)
-            //     }
-            // }
-            // finally {
-            //     const imageUrl = URL.createObjectURL(file)
-            //     setBackgroundImage(imageUrl)
-            // }
         }
     }
     return (

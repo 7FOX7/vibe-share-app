@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { usePostAuthor } from "../contexts/PostAuthorContext";
-import { usePosts } from "../contexts/PostsContext";
+import { useSelectedButton } from "../contexts/SelectedButtonContext";
 import Box from "@mui/material/Box"; 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,19 +13,20 @@ import MenuItem from "@mui/material/MenuItem";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import filterButtons from "../data/filterButtons";
 import CustomButton from "./CustomButton";
+import CustomSlider from "./CustomSlider";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import authorAppBar from "../data/authorAppBar";
+import appBarRoutes from "../data/appBarRoutes";
+import { locationMarks } from "../data/sliderMarks";
 
 const CustomAppBar = () => { 
     const [anchorEl, setAnchorEl] = useState(null);
-    const [chosenButton, setChosenButton] = useState(filterButtons[0].title);
-    const {posts, setPosts} = usePosts(); 
-    const postsCopy = [...posts]; 
+    const {selectedButton, setSelectedButton, sliderIsVisible} = useSelectedButton();
     const {author} = usePostAuthor(); 
     const navigate = useNavigate(); 
     const location = useLocation(); 
     const pathName = location.pathname;
-    const formattedRoute = pathName.substring(1, pathName.length).split('/')[0]
+    const formattedRoute = pathName.substring(1, pathName.length).split('/')[0] 
 
     const open = Boolean(anchorEl)
 
@@ -34,7 +35,7 @@ const CustomAppBar = () => {
     }, [])
 
     const goToPreviousRoute = useCallback(() => {
-        navigate('/', {relative: "route"})
+        navigate(-1)
     }, [])
 
     const handleClose = useCallback(() => {
@@ -42,60 +43,54 @@ const CustomAppBar = () => {
     }, [])
 
     const content = useMemo(() => {
-        if(pathName === "/" || pathName === "/video-view") {
+        if(appBarRoutes.includes(pathName)) {
             return (
                 <>
-                    {filterButtons.map((filterButton) => {
-                        async function handleClick() {
-                            switch(filterButton.title) {
-                                case "Popular": 
-                                    postsCopy.sort((currentPost, nextPost) => nextPost.likes - currentPost.likes)
-                                    setPosts(postsCopy)
-                                    setChosenButton("Popular")
-                                    navigate("/", {relative: "route"})
-                                    break; 
-                                case "Watch": 
-                                    setChosenButton("Watch")
-                                    pathName !== "/post-view" && navigate("/video-view", {relative: "route"})
-                                    break; 
-                                case "Recent": 
-                                    postsCopy.sort((currentPost, nextPost) => {
-                                        const currentPostDate = new Date(currentPost.publishDate); 
-                                        const nextPostDate = new Date(nextPost.publishDate); 
-                                        return (nextPostDate - currentPostDate)
-                                    })
-                                    setPosts(postsCopy)
-                                    setChosenButton("Recent")
-                                    navigate("/", {relative: "route"})
-                                    break; 
-                                case "Local": 
-                                    setChosenButton("Local")
-                                    navigate("/", {relative: "route"})
-                                    break;
-                            }
-                        }
-                        return (
-                            <CustomButton 
-                                key={filterButton.id} 
-                                id={filterButton.id} 
-                                title={filterButton.title} 
-                                icon={filterButton.icon}
-                                backgroundColor={chosenButton === filterButton.title ? "primary.main" : "contrastColors.white.main"}
-                                onClick={handleClick}
-                            >
-                                {filterButton.title}
-                            </CustomButton>
-                        )
-                    })}
-                    <Box onClick={handleClick} sx={{
+                    <Box sx={{
+                        width: "100%", 
                         display: "flex", 
-                        alignItems: "center", 
-                        padding: "6px", 
-                        backgroundColor: "tertiary.light",
-                        borderRadius: "50px",
-                        cursor: "pointer" 
+                        justifyContent: "space-between"
                     }}>
-                        <AccountCircleOutlinedIcon color="primary" />
+                        {filterButtons.map((filterButton) => {
+                            async function handleClick() {
+                                switch(filterButton.title) {
+                                    case "Popular": 
+                                        setSelectedButton("Popular")
+                                    break; 
+                                    case "Watch": 
+                                        setSelectedButton("Watch")
+                                    break; 
+                                    case "Recent": 
+                                        setSelectedButton("Recent")
+                                    break; 
+                                    case "Local": 
+                                        setSelectedButton("Local")
+                                    break;
+                                }
+                            }
+                            return (
+                                <CustomButton 
+                                    key={filterButton.id} 
+                                    id={filterButton.id} 
+                                    title={filterButton.title} 
+                                    icon={filterButton.icon}
+                                    backgroundColor={selectedButton === filterButton.title ? "primary.main" : "contrastColors.white.main"}
+                                    onClick={handleClick}
+                                >
+                                    {filterButton.title}
+                                </CustomButton>
+                            )
+                        })}
+                        <Box onClick={handleClick} sx={{
+                            display: "flex", 
+                            alignItems: "center", 
+                            padding: "6px", 
+                            backgroundColor: "tertiary.light",
+                            borderRadius: "50px",
+                            cursor: "pointer" 
+                        }}>
+                            <AccountCircleOutlinedIcon color="primary" />
+                        </Box>
                     </Box>
                     <Menu
                         id="headerMenu"
@@ -110,6 +105,7 @@ const CustomAppBar = () => {
                             dark mode
                         </MenuItem>
                     </Menu>
+                    {sliderIsVisible && <CustomSlider marks={locationMarks} />}
                 </>
             )
         }
@@ -118,8 +114,9 @@ const CustomAppBar = () => {
                 <>
                     <Box onClick={goToPreviousRoute} sx={{
                         display: "flex", 
+                        alignSelf: "start", 
                         alignItems: "center", 
-                        cursor: "pointer" 
+                        cursor: "pointer"
                     }}>
                         <ArrowBackIosIcon />
                         {authorAppBar.includes(formattedRoute) && 
@@ -136,7 +133,12 @@ const CustomAppBar = () => {
     return (
         <AppBar position="fixed" color="secondary" elevation={0}>
             <Box>
-                <Toolbar sx={{justifyContent: "space-between", paddingInline: "3%", width: "100%"}}>
+                <Toolbar sx={{
+                    width: "100%", 
+                    paddingTop: "12px",  
+                    flexDirection: "column", 
+                    paddingInline: "3%", 
+                }}>
                     {content}
                 </Toolbar>
             </Box>
@@ -145,3 +147,27 @@ const CustomAppBar = () => {
 }
 
 export default CustomAppBar
+
+/*
+    assuming we will have some kind of global array which will contain the key functions as objects, like: 
+
+    const global = [
+        {
+            function handleSliderChange() {
+                const currentValue = e.target.value (this will give us, for example, 25 kilometers); 
+                const maxValue = maxSliderValues[currentValue]; 
+
+
+                const filteredPosts = posts.filter((post) => {
+                    const distanceInKilometers = getDistance(currentUserLocation, {post.latitude, post.longitude})
+                    return distanceInKilometers <= maxValue    
+                })
+
+                setPosts(filteredPosts)
+            }
+        }
+    ]
+
+    // with this approach we have a problem: 
+
+*/

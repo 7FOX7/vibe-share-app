@@ -1,6 +1,6 @@
 const navBarRoutes = [
     "/", 
-    "/video-view"
+    "/video-view", 
 ]
 
 export default navBarRoutes

@@ -17,10 +17,13 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import AddIcon from '@mui/icons-material/Add';
+import { useSelectedButton } from "../contexts/SelectedButtonContext";
+import filterButtons from "../data/filterButtons";
 
 const CustomNavBar = () => {
     const [open, setOpen] = useState(false); 
     const navigate = useNavigate(); 
+    const {setSelectedButton} = useSelectedButton(); 
     const {screenHeight, isSmallScreen} = useScreenSize(); 
     const top = `${Math.floor(screenHeight - 55)}px`; 
 
@@ -72,7 +75,7 @@ const CustomNavBar = () => {
                     </Fab>
                 </Box>
                 <BottomNavigation showLabels sx={{backgroundColor: "inherit", justifyContent: "space-around"}}>
-                    <BottomNavigationAction id="homeNavigation" onClick={changeRoute} label="Home" icon={<HomeIcon />} />
+                    <BottomNavigationAction id="homeNavigation" onClick={() => setSelectedButton(filterButtons[0].title)} label="Home" icon={<HomeIcon />} />
                     <BottomNavigationAction id="groupsNavigation" onClick={changeRoute} label="Groups" icon={<GroupsIcon />} />
                     <BottomNavigationAction id="notificationsNavigation" onClick={changeRoute} label="Notifications" icon={<NotificationsIcon />} />
                     <BottomNavigationAction id="chatsNavigation" onClick={changeRoute} label="Chats" icon={<TelegramIcon />} />
@@ -83,18 +86,3 @@ const CustomNavBar = () => {
 }
 
 export default CustomNavBar
-
-/*
-    PROBLEM: allow users create a new post. 
-
-    WHAT WE NEED: 
-    1. A button by clicking on which a new window will open and the user can create a post in it.
-    2. A window that will open on click
-    3. The window will contain the default text that the user can change. 
-    4. A new window will also contain the option to change the font family. 
-    5. There will be a button to change a background image. 
-    6. After that a user can create a post and that post will be then stored and extracted a db; 
-    
-    PROCEDURE: 
-    1. 
-*/
