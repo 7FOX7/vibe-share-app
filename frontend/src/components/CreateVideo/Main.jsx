@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import PostButton from "./PostButton"; 
 import InputFields from "./InputFields";
 import CustomModal from "../../customs/CustomModal";
-import youtubeRegex from "../../data/youtubeRegex";
+import youtubeRegex from "../../utils/regex/youtubeRegex";
 import axios from "axios";
 
 const Main = () => {

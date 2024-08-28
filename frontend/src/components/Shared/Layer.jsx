@@ -6,7 +6,7 @@ import navBarRoutes from "../../data/navBarRoutes"
 
 const Layer = ({children}) => {
     const {authSucceeded} = useAuth(); 
-    const location = useLocation(); 
+    const location = useLocation();
     if(authSucceeded) {
         return (
             <>

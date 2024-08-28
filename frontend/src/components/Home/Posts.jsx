@@ -8,7 +8,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Typography from "@mui/material/Typography";
-import daysSinceLastPublish from "../../functionalities/daysSinceLastPublish";
+import daysSinceLastPublish from "../../utils/functions/daysSinceLastPublish";
 
 const Posts = () => { 
     const navigate = useNavigate(); 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import ProtectedRoute from './utils/ProtectedRoute'
 import './App.css'
+import ProtectedRoute from './utils/components/ProtectedRoute'
 import Registration from './pages/Registration'
 import Home from './pages/Home'
 import Notifications from './pages/Notifications'

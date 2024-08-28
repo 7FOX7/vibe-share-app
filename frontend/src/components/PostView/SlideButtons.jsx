@@ -1,9 +1,11 @@
+import { memo } from "react";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const SlideButtons = ({handlePrevious, handleNext}) => {
+const SlideButtons = memo(function ({handlePrevious, handleNext}) {
+    console.log('Slide buttons was rerendered')
     const {isSmallScreen} = useScreenSize(); 
     return (
         <Box sx={{
@@ -31,6 +33,6 @@ const SlideButtons = ({handlePrevious, handleNext}) => {
             </Box>
         </Box>
     )
-}
+})
 
 export default SlideButtons

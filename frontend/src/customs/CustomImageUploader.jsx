@@ -4,7 +4,7 @@ import { useScreenSize } from "../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import Fab from "@mui/material/Fab"; 
 import AddIcon from '@mui/icons-material/Add';
-import arrayBufferToBase64 from "../functionalities/arrayBufferToBase64";
+import arrayBufferToBase64 from "../utils/functions/arrayBufferToBase64";
 
 const CustomImageUploader = () => {
     const storedImage = sessionStorage.getItem("image")

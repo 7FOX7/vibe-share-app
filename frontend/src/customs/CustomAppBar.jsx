@@ -129,7 +129,7 @@ const CustomAppBar = () => {
             )
         }
     }, [anchorEl, location])
-
+    
     return (
         <AppBar position="fixed" color="secondary" elevation={0}>
             <Box>

@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import greetings_source from "../../data/greetings_source"
-import shiftValues from "../../functionalities/shiftValues"
+import shiftValues from "../../utils/functions/shiftValues"
 import { greetingAnimation_in, greetingAnimation_out } from "../../animations/animations"
 
 const WelcomeSection = () => {

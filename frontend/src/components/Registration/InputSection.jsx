@@ -6,7 +6,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import Box from "@mui/material/Box"
 import BottomSection from "./BottomSection"
 import CustomInput from "../../customs/CustomInput"
-import { strongRegex, mediumRegex } from "../../data/passwordRegex"
+import { strongRegex, mediumRegex } from "../../utils/regex/passwordRegex"
 
 const InputSection = () => { 
   const usernameRef = useRef(null); 

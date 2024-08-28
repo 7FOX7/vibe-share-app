@@ -18,12 +18,11 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import AddIcon from '@mui/icons-material/Add';
-import filterButtons from "../data/filterButtons";
 
 const CustomNavBar = () => {
     const [open, setOpen] = useState(false); 
     const navigate = useNavigate(); 
-    const {setSelectedButton} = useSelectedButton(); 
+    const {selectedButton} = useSelectedButton(); 
     const {screenHeight, isSmallScreen} = useScreenSize(); 
     const top = `${Math.floor(screenHeight - 55)}px`; 
 
@@ -39,8 +38,12 @@ const CustomNavBar = () => {
         const id = e.currentTarget.id
         const routeName = id.split('N')[0]
         if(routeName) {
-            const formattedRoute = routeName === 'home' ? '/' : `/${routeName}`
-            navigate(formattedRoute, {relative: "route"})
+            if(routeName === 'home') {
+                selectedButton === "Watch" ? navigate('/video-view', {relative: "route"}) : navigate('/', {relative: "route"})
+            }
+            else {
+                navigate(routeName, {relative: "route"})
+            }
         }
         else {
             navigate(`/non-existing-page`, {relative: "route"})
@@ -75,7 +78,7 @@ const CustomNavBar = () => {
                     </Fab>
                 </Box>
                 <BottomNavigation showLabels sx={{backgroundColor: "inherit", justifyContent: "space-around"}}>
-                    <BottomNavigationAction id="homeNavigation" onClick={() => setSelectedButton(filterButtons[0].title)} label="Home" icon={<HomeIcon />} />
+                    <BottomNavigationAction id="homeNavigation" onClick={changeRoute} label="Home" icon={<HomeIcon />} />
                     <BottomNavigationAction id="groupsNavigation" onClick={changeRoute} label="Groups" icon={<GroupsIcon />} />
                     <BottomNavigationAction id="notificationsNavigation" onClick={changeRoute} label="Notifications" icon={<NotificationsIcon />} />
                     <BottomNavigationAction id="chatsNavigation" onClick={changeRoute} label="Chats" icon={<TelegramIcon />} />

@@ -13,8 +13,8 @@ import Content from "./Content"
 import Buttons from "./Buttons"
 import CustomBackdrop from "../../customs/CustomBackdrop"
 import axios from "axios"
-import arrayBufferToFile from "../../functionalities/arrayBufferToFile"
-import base64ToArrayBuffer from "../../functionalities/base64ToArrayBuffer"
+import arrayBufferToFile from "../../utils/functions/arrayBufferToFile"
+import base64ToArrayBuffer from "../../utils/functions/base64ToArrayBuffer"
 
 const VerticalStepper = () => {
     const [loading, setLoading] = useState(false); 
