@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScreenSize } from "../contexts/ScreenSizeContext";
+import { useSelectedButton } from "../contexts/SelectedButtonContext";
 import Box from "@mui/material/Box"; 
 import Paper from "@mui/material/Paper"; 
 import BottomNavigation from "@mui/material/BottomNavigation"; 
@@ -17,7 +18,6 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import AddIcon from '@mui/icons-material/Add';
-import { useSelectedButton } from "../contexts/SelectedButtonContext";
 import filterButtons from "../data/filterButtons";
 
 const CustomNavBar = () => {

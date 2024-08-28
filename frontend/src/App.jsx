@@ -10,69 +10,81 @@ import CreateVideo from './pages/CreateVideo'
 import PostView from './pages/PostView'
 import VideoView from './pages/VideoView'
 import Comments from './pages/Comments'
+import AskLocation from './pages/AskLocation'
 import NoPage from './pages/NoPage'
 import Layer from './components/Shared/Layer'
 import { ScreenSizeProvider } from './contexts/ScreenSizeContext'
 import { AuthProvider } from './contexts/AuthContext'
+import { GeolocationProvider } from './contexts/GeolocationContext'
 import { PostsProvider } from './contexts/PostsContext'
 import { VideosProvider } from './contexts/VideosContext'
 import { CommentsProvider } from './contexts/CommentsContext'
 import { PostAuthorProvider } from './contexts/PostAuthorContext'
+import { SelectedButtonProvider } from './contexts/SelectedButtonContext'
 
 const App = () => { 
   return (
     <React.StrictMode>
       <ScreenSizeProvider>
         <AuthProvider>
-          <CommentsProvider>
-            <PostsProvider>
-              <VideosProvider>
-                <PostAuthorProvider>
-                  <Layer>
-                    <Routes>
-                      <Route path="/registration" element={<Registration />} />
-                      <Route path="/" element={
-                        <ProtectedRoute>
-                          <Home />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/notifications" element={
-                        <ProtectedRoute>
-                          <Notifications />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/post-view/:id/:author" element={
-                        <ProtectedRoute>
-                          <PostView />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/video-view" element={
-                        <ProtectedRoute>
-                          <VideoView />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/create-post" element={
-                        <ProtectedRoute>
-                          <CreatePost />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/create-video" element={
-                        <ProtectedRoute>
-                          <CreateVideo />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="/comments/:type/:id/:author" element={
-                        <ProtectedRoute>
-                          <Comments />
-                        </ProtectedRoute>
-                      } />
-                      <Route path="*" element={<NoPage />} />
-                    </Routes>
-                  </Layer>
-                </PostAuthorProvider>
-              </VideosProvider>
-            </PostsProvider>
-          </CommentsProvider>
+          <GeolocationProvider>
+            <CommentsProvider>
+              <PostsProvider>
+                <VideosProvider>
+                  <PostAuthorProvider>
+                    <SelectedButtonProvider>
+                      <Layer>
+                        <Routes>
+                          <Route path="/registration" element={<Registration />} />
+                          <Route path="/" element={
+                            <ProtectedRoute>
+                              <Home />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="/notifications" element={
+                            <ProtectedRoute>
+                              <Notifications />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="/post-view/:id/:author" element={
+                            <ProtectedRoute>
+                              <PostView />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="/video-view" element={
+                            <ProtectedRoute>
+                              <VideoView />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="/create-post" element={
+                            <ProtectedRoute>
+                              <CreatePost />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="/create-video" element={
+                            <ProtectedRoute>
+                              <CreateVideo />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="/comments/:type/:id/:author" element={
+                            <ProtectedRoute>
+                              <Comments />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="/ask-location" element={
+                            <ProtectedRoute>
+                              <AskLocation />
+                            </ProtectedRoute>
+                          } />
+                          <Route path="*" element={<NoPage />} />
+                        </Routes>
+                      </Layer>
+                    </SelectedButtonProvider>
+                  </PostAuthorProvider>
+                </VideosProvider>
+              </PostsProvider>
+            </CommentsProvider>
+          </GeolocationProvider>
         </AuthProvider>
       </ScreenSizeProvider>
     </React.StrictMode>
