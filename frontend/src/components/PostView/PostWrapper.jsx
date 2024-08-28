@@ -2,34 +2,43 @@ import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom"; 
 import { usePosts } from "../../contexts/PostsContext";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
+import { useSelectedButton } from "../../contexts/SelectedButtonContext";
 import Box from "@mui/material/Box";
 import Post from "./Post";
 
 const PostWrapper = () => {
-    const {posts, setPosts} = usePosts();
+    const {posts, setPosts, geolocationFilteredPosts, setGeolocationFilteredPosts} = usePosts();
+    const {selectedButton} = useSelectedButton(); 
+    const currentPosts = selectedButton === "Local" ? geolocationFilteredPosts : posts
     const {id} = useParams(); 
     const [index, setIndex] = useState(Number(id)); 
     const {isSmallScreen} = useScreenSize(); 
     const navigate = useNavigate(); 
 
     const post = useMemo(() => {
-        const post = posts.find(_post => _post.id === index)
+        const post = currentPosts.find(_post => _post.id === index)
         if(typeof(post) !== "undefined") {
             return post
         }
         return
-    }, [index, posts])
+    }, [index, currentPosts])
 
     useEffect(() => {
         navigate(`/post-view/${post.id}/${post.username}`, {relative: "route"})
     }, [index])
 
     function handlePrevious() {
-        setIndex((prevIndex) => prevIndex === 1 ? prevIndex : prevIndex - 1)
+        const currentIndex = currentPosts.findIndex(_post => _post.id === index);
+        if (currentIndex > 0) {
+            setIndex(currentPosts[currentIndex - 1].id);
+        }
     }
 
     function handleNext() {
-        setIndex((prevIndex) => prevIndex === posts.length ? prevIndex : prevIndex + 1)
+        const currentIndex = currentPosts.findIndex(_post => _post.id === index);
+        if (currentIndex < currentPosts.length - 1) {
+            setIndex(currentPosts[currentIndex + 1].id);
+        }
     }
 
     return (
@@ -43,7 +52,9 @@ const PostWrapper = () => {
         }}>
             <Post 
                 posts={posts}
+                geolocationFilteredPosts={geolocationFilteredPosts}
                 setPosts={setPosts}
+                setGeolocationFilteredPosts={setGeolocationFilteredPosts}
                 post={post}
                 handlePrevious={handlePrevious} 
                 handleNext={handleNext} 

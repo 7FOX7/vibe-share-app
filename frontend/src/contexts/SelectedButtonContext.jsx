@@ -6,7 +6,7 @@ import filterButtons from "../data/filterButtons";
 const SelectedButtonContext = createContext(filterButtons[0].title); 
 
 export const SelectedButtonProvider = ({children}) => {
-    const {posts, setPosts} = usePosts(); 
+    const {posts, setPosts, setGeolocationFilteredPosts} = usePosts(); 
     const [selectedButton, setSelectedButton] = useState(filterButtons[0].title); 
     const [sliderIsVisible, setSliderIsVisible] = useState(false); 
     const navigate = useNavigate(); 
@@ -48,6 +48,10 @@ export const SelectedButtonProvider = ({children}) => {
                         navigate("/ask-location", {relative: "route"})
                     }
                     else {
+                        const filteredPosts = postsCopy.filter((post) => {
+                            return post.latitude && post.longitude !== null 
+                        })
+                        setGeolocationFilteredPosts(filteredPosts)
                         setSliderIsVisible(true)
                         navigate("/", {relative: "route"})
                     }

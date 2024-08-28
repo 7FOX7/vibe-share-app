@@ -1,7 +1,8 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../contexts/AuthContext"
 import { usePosts } from "../../contexts/PostsContext"
+import { useGeolocation } from "../../contexts/GeolocationContext"
+import { useNavigate } from "react-router-dom"
 import Stepper from "@mui/material/Stepper"
 import Step from "@mui/material/Step"
 import StepLabel from "@mui/material/StepLabel"
@@ -19,11 +20,18 @@ const VerticalStepper = () => {
     const [loading, setLoading] = useState(false); 
     const [activeStep, setActiveStep] = useState(0);
     const {user} = useAuth(); 
-    const {setPosts} = usePosts(); 
+    const {setPosts, setGeolocationFilteredPosts} = usePosts(); 
+    const {geolocation} = useGeolocation(); 
     const navigate = useNavigate(); 
 
     function handleNextStep() {
         setActiveStep((prevStep) => prevStep + 1)
+        if(geolocation) {
+            console.log('latitude: ' + geolocation.latitude + ' longitude: ' + geolocation.longitude)
+        }
+        else {
+            console.log('geolocation is not defined or it is null')
+        }
     }
 
     function handlePrevStep() {
@@ -54,13 +62,19 @@ const VerticalStepper = () => {
                     content: storedContent, 
                     imageUrl: imageUrl, 
                     userId: user.id, 
-                    likes: 0
+                    likes: 0, 
+                    latitude: geolocation ? geolocation.latitude : null, 
+                    longitude: geolocation ? geolocation.longitude : null
                 }
                 const response = await axios.post("http://localhost:8080/posts", postData)
-                console.log(response.statusText)
+                console.log('here is the last row (newly added post): ' + response.data)
                 setPosts((prevPosts) => [
                     ...prevPosts, 
-                    {id: response.data[0].id, username: user.username, ...postData}
+                    response.data[0]
+                ])
+                setGeolocationFilteredPosts((prevPosts) => [
+                    ...prevPosts, 
+                    response.data[0]
                 ])
                 await new Promise((resolve) => setTimeout(resolve, 500))
             }

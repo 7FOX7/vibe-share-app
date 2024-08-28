@@ -8,13 +8,14 @@ import axios from "axios"
 
 const type = "post"
 
-const ActionButtons = ({post, posts, setPosts}) => {
+const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeolocationFilteredPosts}) => {
     const {user} = useAuth(); 
     const navigate = useNavigate(); 
     const [backgroundColor, setBackgroundColor] = useState('tertiary.light'); 
     const [isLiked, setIsLiked] = useState(false); 
 
     useEffect(() => {
+        console.log(`when LIKE button is clicked, posts are rerendered => post we clicked on is rerendered, too!`)
         setInitialBackgroundColor()
     }, [post])
 
@@ -66,7 +67,9 @@ const ActionButtons = ({post, posts, setPosts}) => {
                     likes: likes
                 }
                 const updatedPosts = posts.map(post => post.id === updatedPost.id ? updatedPost : post)
+                const updatedGeolocationPosts = geolocationFilteredPosts.map(post => post.id === updatedPost.id ? updatedPost : post)
                 setPosts(updatedPosts)
+                setGeolocationFilteredPosts(updatedGeolocationPosts)
             }
             catch(err) {
                 if(err.response) {

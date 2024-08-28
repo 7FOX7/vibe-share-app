@@ -2,6 +2,7 @@ import { usePosts } from "../../contexts/PostsContext";
 import { useNavigate } from "react-router-dom";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import { usePostAuthor } from "../../contexts/PostAuthorContext";
+import { useSelectedButton } from "../../contexts/SelectedButtonContext";
 import Box from "@mui/material/Box"; 
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -11,7 +12,9 @@ import daysSinceLastPublish from "../../functionalities/daysSinceLastPublish";
 
 const Posts = () => { 
     const navigate = useNavigate(); 
-    const {posts} = usePosts();    
+    const {selectedButton} = useSelectedButton(); 
+    const {posts, geolocationFilteredPosts} = usePosts();   
+    const currentPosts = selectedButton === "Local" ? geolocationFilteredPosts : posts 
     const {isSmallScreen} = useScreenSize();  
     const {setAuthor} = usePostAuthor(); 
 
@@ -26,7 +29,7 @@ const Posts = () => {
                 width: "100%",   
                 overflow: "hidden"
             }}>
-                {posts && posts.map((post) => {
+                {currentPosts && currentPosts.map((post) => {
                     return (
                         <ImageListItem 
                             key={post.id} 

@@ -77,7 +77,7 @@ app.post('/users', (req, res) => {
 
 app.get('/posts', (req, res) => {
     const q = `
-        SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, posts.likes, users.username FROM posts
+        SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, posts.likes, posts.latitude, posts.longitude, users.username FROM posts
         JOIN users ON users.id = posts.userId
     `
     db.query(q, (err, data) => {
@@ -91,13 +91,19 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/posts', (req, res) => {
-    const {publishDate, content, imageUrl, userId, likes} = req.body; 
-    const q = `INSERT INTO posts (publishDate, content, imageUrl, userId, likes) VALUES (?, ?, ?, ?, ?)`
-    db.query(q, [publishDate, content, imageUrl, userId, likes], (err) => {
+    const {publishDate, content, imageUrl, userId, likes, latitude, longitude} = req.body; 
+    const q = `INSERT INTO posts (publishDate, content, imageUrl, userId, likes, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)`
+    db.query(q, [publishDate, content, imageUrl, userId, likes, latitude, longitude], (err) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }
-        const q2 = `SELECT id FROM posts WHERE content=?`
+        // const q2 = `SELECT id FROM posts WHERE content=?`
+        const q2 = `
+            SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, posts.userId, posts.likes, posts.latitude, posts.longitude, users.username FROM posts
+            JOIN users ON users.id = posts.userId
+            ORDER BY id DESC
+            LIMIT 1
+            `
         db.query(q2, [content], (err, data) => {
             if(err) {
                 return res.status(500).send('There was an error when setting a query: ' + err)
