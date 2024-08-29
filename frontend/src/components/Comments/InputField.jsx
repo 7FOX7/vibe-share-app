@@ -59,43 +59,50 @@ const InputField = ({id, type}) => {
             <CustomModal open={open} handleClose={handleClose} message={message} />
             <Box sx={{
                 position: "fixed", 
-                top: "82%", 
-                height: "18%", 
+                top: `${isSmallScreen ? "82%" : "86%"}`, 
+                height: `${isSmallScreen ? "18%" : "14%"}`, 
                 width: "100%", 
                 display: "flex", 
-                alignItems: "center", 
-                justifyContent: "space-around",
+                justifyContent: "center", 
                 backgroundColor: "white", 
                 paddingTop: "10px", 
                 paddingLeft: "5px"
             }}>
-                <CustomTextArea
-                    placeholder="Start typing here..." 
-                    width="80%"
-                    borderRadius="5px" 
-                    border="1px solid" 
-                    padding="4px 6px"
-                    maxLength={commentMaxLength}
-                    maxRows={commentMaxRows}
-                    onChange={handleValueChange}
-                    ref={textAreaRef}
-                    route={formattedRoute}
-                />
-                <Avatar disabled={value.length === 0 || value.length === commentMaxLength} onClick={handleClick} sx={{
-                    width: `${isSmallScreen ? "40px" : "50px"}`, 
-                    height: `${isSmallScreen ? "40px" : "50px"}`,
-                    border: "none", 
-                    color: "contrastColors.white.main", 
-                    backgroundColor: "primary.main",  
-                    cursor: "pointer", 
-                    paddingLeft: "10px", 
-                    ":disabled": {
-                        backgroundColor: "semiTransparentBlack.main", 
-                        cursor: "default"
-                    }
-                }} component="button">
-                    <SendIcon color="inherit" />
-                </Avatar>
+                <Box sx={{
+                    width: "100%", 
+                    display: "flex", 
+                    alignItems: "center", 
+                    justifyContent: `${isSmallScreen ? "space-around" : "center"}`, 
+                }}>
+                    <CustomTextArea
+                        placeholder="Start typing here..." 
+                        width="80%"
+                        borderRadius="5px" 
+                        border="1px solid" 
+                        padding="4px 6px"
+                        maxLength={commentMaxLength}
+                        maxRows={commentMaxRows}
+                        onChange={handleValueChange}
+                        ref={textAreaRef}
+                        route={formattedRoute}
+                    />
+                    <Avatar disabled={value.length === 0 || value.length === commentMaxLength} onClick={handleClick} sx={{
+                        width: `${isSmallScreen ? "40px" : "45px"}`, 
+                        height: `${isSmallScreen ? "40px" : "45px"}`,
+                        border: "none", 
+                        color: "contrastColors.white.main", 
+                        backgroundColor: "primary.main",  
+                        cursor: "pointer", 
+                        paddingLeft: "10px", 
+                        marginLeft: `${isSmallScreen ? 0 : "30px"}`, 
+                        ":disabled": {
+                            backgroundColor: "semiTransparentBlack.main", 
+                            cursor: "default"
+                        }
+                    }} component="button">
+                        <SendIcon color="inherit" />
+                    </Avatar>
+                </Box>
             </Box>
         </>
     )
