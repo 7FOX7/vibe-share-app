@@ -210,7 +210,10 @@ app.post('/likes', (req, res) => {
 })
 
 app.get('/videos', (req, res) => {
-    const q = `SELECT * FROM videos`; 
+    const q = `
+        SELECT videos.id, publishDate, videoUrl, users.username FROM videos
+        JOIN users ON users.id = videos.userId
+    `; 
     db.query(q, (err, data) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
@@ -222,7 +225,7 @@ app.get('/videos', (req, res) => {
 })
 
 app.post('/videos', (req, res) => {
-    const {publishDate, videoUrl, username} = req.body; 
+    const {publishDate, videoUrl, userId} = req.body; 
     const q1 = `SELECT COUNT(*) AS count FROM videos`
     db.query(q1, (err, data) => {
         if(err) {
@@ -231,8 +234,8 @@ app.post('/videos', (req, res) => {
         else {
             const count = data[0].count
             if(typeof(count) === "number") {
-                const q2 = count === 0 ? `INSERT INTO videos (publishDate, videoUrl, username) VALUES (?, ?, ?)` : `INSERT INTO pending_videos (publishDate, videoUrl, username) VALUES (?, ?, ?)`
-                db.query(q2, [publishDate, videoUrl, username], (err) => {
+                const q2 = count === 0 ? `INSERT INTO videos (publishDate, videoUrl, userId) VALUES (?, ?, ?)` : `INSERT INTO pending_videos (publishDate, videoUrl, userId) VALUES (?, ?, ?)`
+                db.query(q2, [publishDate, videoUrl, userId], (err) => {
                     if(err) {
                         return res.status(500).send('There was an error when setting a q2: ' + err)
                     }
@@ -248,7 +251,18 @@ app.post('/videos', (req, res) => {
 
 app.get('/comments', (req, res) => {
     const {id, postType} = req.query; 
-    const q = postType === "post" ? `SELECT * FROM post_comments WHERE postId=?` : `SELECT * FROM video_comments WHERE videoId=?`; 
+    const q = postType === "post" ? 
+    `
+        SELECT post_comments.id, publishDate, content, postId, users.username FROM post_comments
+        JOIN users ON users.id = post_comments.userId
+        WHERE postId=?
+    ` 
+    : 
+    `
+        SELECT video_comments.id, publishDate, content, videoId, users.username FROM video_comments
+        JOIN users ON users.id = video_comments.userId
+        WHERE videoId=?
+    `; 
     db.query(q, [id], (err, data) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
@@ -258,9 +272,10 @@ app.get('/comments', (req, res) => {
 })
 
 app.post('/comments', (req, res) => {
-    const {publishDate, author, content, id, postType} = req.body; 
-    const q = postType === "post" ? `INSERT INTO post_comments (publishDate, author, content, postId) VALUES(?, ?, ?, ?)` : `INSERT INTO video_comments (publishDate, author, content, videoId) VALUES(?, ?, ?, ?)`
-    db.query(q, [publishDate, author, content, id], (err) => {
+    const {publishDate, content, id, userId, postType} = req.body; 
+    const postId = Number(id)
+    const q = postType === "post" ? `INSERT INTO post_comments (publishDate, content, postId, userId) VALUES(?, ?, ?, ?)` : `INSERT INTO video_comments (publishDate, content, videoId, userId) VALUES(?, ?, ?, ?)`
+    db.query(q, [publishDate, content, postId, userId], (err) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }

@@ -33,7 +33,7 @@ const Main = () => {
             const data = {
                 publishDate: currentDate, 
                 videoUrl: formattedVideoUrl, 
-                username: user.username, 
+                userId: user.id, 
             }
             try {
                 const response = await axios.post('http://localhost:8080/videos', data, {

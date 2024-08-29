@@ -30,9 +30,9 @@ const InputField = ({id, type}) => {
             const currentDate = new Date().toISOString().split('T')[0]
             const postData = {
                 publishDate: currentDate, 
-                author: user.username, 
                 content: content, 
                 id: id, 
+                userId: user.id, 
                 postType: type
             }
             sendComments(postData)

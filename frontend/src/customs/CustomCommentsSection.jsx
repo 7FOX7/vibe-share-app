@@ -11,10 +11,10 @@ const CustomCommentsSection = () => {
             <Box>
                 <Typography variant="h5">{comments.length} comments</Typography>
             </Box>
-            {comments.length > 0 && comments.map((comment, index) => {
-                const firstLetter = comment.author.charAt(0); 
+            {comments.length > 0 && comments.map((comment) => {
+                const firstLetter = comment.username ? comment.username.charAt(0) : '1' 
                 return (
-                    <Paper key={index} elevation={3} sx={{
+                    <Paper key={comment.id} elevation={3} sx={{
                         width: "90%", 
                         display: "flex", 
                         flexDirection: "column",
@@ -31,7 +31,7 @@ const CustomCommentsSection = () => {
                                 {firstLetter}  
                             </Avatar>
                             <Box>
-                                <Typography color="contrastColors.black.main" typography="commentSection.username">{comment.author}</Typography>
+                                <Typography color="contrastColors.black.main" typography="commentSection.username">{comment.username}</Typography>
                             </Box>
                         </Box>
                         <Box sx={{
