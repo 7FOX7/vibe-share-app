@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { memo } from "react";
 import { usePosts } from "../../contexts/PostsContext";
 import { Link } from "react-router-dom";
@@ -20,7 +21,7 @@ const LocalPosts = memo(function LocalPosts() {
         <List>
             {localPostsSorted.map((localPost) => {
                 return (
-                    <>
+                    <Fragment key={localPost.id}>
                         <Divider component="li" />
                         <ListItem disableGutters>
                             <ListItemButton 
@@ -49,7 +50,7 @@ const LocalPosts = memo(function LocalPosts() {
                             </ListItemButton>
                         </ListItem>
                         <Divider component="li" />
-                    </>
+                    </Fragment>
                 )
             })}
         </List>

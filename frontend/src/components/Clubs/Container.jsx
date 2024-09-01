@@ -10,6 +10,7 @@ import axios from "axios";
 
 const showTwoButtons = true; 
 const message = "Are you sure you want to leave the club?"; 
+const primary = "rgb(81, 45, 168)"
 
 const Container = () => {
     const [clubId, setClubId] = useState(null); 
@@ -25,7 +26,7 @@ const Container = () => {
     async function handleClick(e) {
         const {id} = e.target; 
         const backgroundColor = e.currentTarget.style.backgroundColor
-        if(backgroundColor === "red") {
+        if(backgroundColor === primary) {
             try {
                 const data = {
                     userId: user.id, 

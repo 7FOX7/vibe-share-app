@@ -61,6 +61,9 @@ const theme = createTheme({
         clubs: {
             clubTitleColor: {
                 main: "rgba(0, 0, 0, 0.8)"
+            }, 
+            joinedButtonColor: {
+                main: "rgba(0, 0, 0, 0.3)"
             }
         }, 
         notifications: {

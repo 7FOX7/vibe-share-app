@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import GroupIcon from '@mui/icons-material/Group';
 import Button from "@mui/material/Button"
 
+const primary = "rgb(81, 45, 168)"; 
 const ClubsSection = ({clubs, clubIds, handleClick}) => {
     const {isSmallScreen} = useScreenSize(); 
     const maxClubsVisible = isSmallScreen ? 3 : 12; 
@@ -51,28 +52,35 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
                                         alt="club image"
                                     />
                                 </Card>
-                                <ListItemText 
-                                primary={
-                                    <Typography typography="clubs.clubTitle" color="clubs.clubTitleColor">
-                                        {club.title}
-                                    </Typography>
-                                } 
-                                secondary={
-                                    <Grid2 
-                                        container 
-                                        columnSpacing={0.5}>
-                                        <GroupIcon fontSize="small"/>
-                                        <Typography variant="subtitle2">
-                                            {club.members} members
+                                <ListItemText
+                                    primary={
+                                        <Typography typography="clubs.clubTitle" color="clubs.clubTitleColor">
+                                            {club.title}
                                         </Typography>
-                                    </Grid2>
-                                } />
+                                    } 
+                                    secondary={
+                                        <Typography component="div">
+                                            <Grid2 
+                                            container 
+                                            columnSpacing={0.5}
+                                            >
+                                                <GroupIcon fontSize="small"/>
+                                                <Typography variant="subtitle2">
+                                                    {club.members} members
+                                                </Typography>
+                                            </Grid2>
+                                        </Typography>
+                                    } 
+                                />
                             </Grid2>
                             <Grid2>
                                 <Button 
                                     id={club.id} 
-                                    style={{backgroundColor: `${clubIds.includes(club.id) ? "gray" : "red"}`}} 
+                                    style={{backgroundColor: `${clubIds.includes(club.id) ? "rgba(0, 0, 0, 0.3)" : primary}`}} 
                                     onClick={handleClick}
+                                    sx={{
+                                        color: "contrastColors.white.main"
+                                    }}
                                 >
                                     JOIN
                                 </Button>
