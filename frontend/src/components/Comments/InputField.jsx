@@ -42,7 +42,6 @@ const InputField = ({id, type}) => {
             console.log('There was an error when sending a comment')
         }
         finally {
-            console.log('finally was executed!')
             setOpen(true)
         }
     }

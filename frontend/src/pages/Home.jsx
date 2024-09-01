@@ -8,12 +8,13 @@ const Home = () => {
     <Suspense fallback={<div>Loading</div>}>
       <Box sx={{
         width: "100%", 
-        height: "100%", 
+        height: "100vh", 
         display: "flex", 
         flexDirection: "column",
         backgroundColor: "secondary.main", 
         paddingInline: "10px", 
-        paddingTop: "50px"
+        paddingTop: "50px", 
+        overflow: "auto"
       }}>
         <Posts />
       </Box>

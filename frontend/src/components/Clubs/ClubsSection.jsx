@@ -91,7 +91,10 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
             })}
         </Grid2>
         {!viewAll && 
-        <Grid2 sx={{marginTop: "25px"}}>
+        <Grid2 sx={{
+            marginTop: "25px", 
+            height: "20vh"
+        }}>
             <Link 
                 component="button" 
                 typography={isSmallScreen ? "clubs.viewAll_mobile" : "clubs.viewAll_desktop"} 

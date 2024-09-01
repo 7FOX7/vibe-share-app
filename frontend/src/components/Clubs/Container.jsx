@@ -88,17 +88,17 @@ const Container = () => {
     const backgroundImage = useMemo(() => {
         return (
             <Box sx={{
-                position: "absolute", 
-                left: 0, 
+                position: "relative", 
+                left: "-10px", 
                 top: 0, 
-                width: "100%",
+                width: "100vw",
                 height: "200px", 
                 backgroundImage: "url(/images/clubs_nokia_background_image.PNG)", 
                 backgroundSize: "100% 100%", 
                 backgroundRepeat: "no-repeat"
             }} />
         )
-    }, [])
+    }, [isSmallScreen])
 
     return (
         <>
@@ -106,7 +106,7 @@ const Container = () => {
             {isSmallScreen ? backgroundImage : ''}
             <Box sx={{
                 position: "relative", 
-                top: `${isSmallScreen ? "170px" : "50px"}`, 
+                top: "30px", 
                 left: 0, 
                 width: "100%", 
                 display: "flex", 

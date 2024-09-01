@@ -13,7 +13,8 @@ const Chats = () => {
                 flexDirection: "column",
                 backgroundColor: "secondary.main", 
                 paddingInline: "10px", 
-                paddingTop: "50px"
+                paddingTop: "50px", 
+                overflow: "auto"
             }}>
                 <Container />
             </Box>
