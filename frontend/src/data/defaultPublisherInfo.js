@@ -1,4 +1,6 @@
-const currentDate = new Date().toISOString().split('T')[0]; 
+import formatMySqlDate from "../utils/functions/formatMySqlDate";
+
+const currentDate = formatMySqlDate(new Date()); 
 
 const defaultPublisherInfo = [
     {

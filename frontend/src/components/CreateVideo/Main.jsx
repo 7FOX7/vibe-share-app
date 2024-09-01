@@ -7,6 +7,7 @@ import InputFields from "./InputFields";
 import CustomModal from "../../customs/CustomModal";
 import youtubeRegex from "../../utils/regex/youtubeRegex";
 import axios from "axios";
+import formatMySqlDate from "../../utils/functions/formatMySqlDate";
 
 const Main = () => {
     const urlInputRef = useRef(""); 
@@ -29,7 +30,7 @@ const Main = () => {
             const videoId = url.match(youtubeRegex)[1]
             const formattedVideoId = videoId.split('?')[0]
             const formattedVideoUrl = `https://www.youtube.com/embed/${formattedVideoId}?autoplay=1`
-            const currentDate = new Date().toISOString().split('T')[0]
+            const currentDate = formatMySqlDate(new Date()); 
             const data = {
                 publishDate: currentDate, 
                 videoUrl: formattedVideoUrl, 

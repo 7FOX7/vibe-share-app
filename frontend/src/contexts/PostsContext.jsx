@@ -7,6 +7,7 @@ const PostsContext = createContext(null)
 export const PostsProvider = ({children}) => {
     const [posts, setPosts] = useState(null);
     const [geolocationFilteredPosts, setGeolocationFilteredPosts] = useState(null); 
+    
     useEffect(() => {
         fetchPosts()
     }, [])

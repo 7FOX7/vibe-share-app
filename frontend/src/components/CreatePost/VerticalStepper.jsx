@@ -15,6 +15,7 @@ import CustomBackdrop from "../../customs/CustomBackdrop"
 import axios from "axios"
 import arrayBufferToFile from "../../utils/functions/arrayBufferToFile"
 import base64ToArrayBuffer from "../../utils/functions/base64ToArrayBuffer"
+import formatMySqlDate from "../../utils/functions/formatMySqlDate"
 
 const VerticalStepper = () => {
     const [loading, setLoading] = useState(false); 
@@ -47,7 +48,7 @@ const VerticalStepper = () => {
             const {base64, fileName} = storedFileData; 
             const arrayBuffer = base64ToArrayBuffer(base64)
             const file = arrayBufferToFile(arrayBuffer, fileName)
-            const currentDate = new Date().toISOString().split('T')[0]
+            const currentDate = formatMySqlDate(new Date());  
             const formData = new FormData();
             formData.append('image', file)
             try { 

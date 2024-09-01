@@ -8,7 +8,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Typography from "@mui/material/Typography";
-import daysSinceLastPublish from "../../utils/functions/daysSinceLastPublish";
+import formatPostPublishDate from "../../utils/functions/formatPostPublishDate";
 
 const Posts = () => { 
     const navigate = useNavigate(); 
@@ -60,7 +60,7 @@ const Posts = () => {
                                             <Typography color="itemBarTextColor.main">❤️ {post.likes}</Typography>
                                         </Box>
                                         <Box>
-                                            <Typography color="itemBarTextColor.main">🕒 {daysSinceLastPublish(post.publishDate)}d</Typography>
+                                            <Typography color="itemBarTextColor.main">🕒 {formatPostPublishDate(post.publishDate)}</Typography>
                                         </Box>
                                     </Box>
                                 }
