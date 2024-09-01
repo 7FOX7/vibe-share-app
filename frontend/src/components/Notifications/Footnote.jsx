@@ -6,7 +6,7 @@ const Footnote = memo(function Footnote() {
     return (
         <Box sx={{
             marginTop: "10px", 
-            height: "20vh"
+            height: "25vh"
         }}>
             <Typography>🎉 That's all folks!</Typography>
         </Box>

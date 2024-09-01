@@ -93,7 +93,7 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
         {!viewAll && 
         <Grid2 sx={{
             marginTop: "25px", 
-            height: "20vh"
+            height: "25vh"
         }}>
             <Link 
                 component="button" 
