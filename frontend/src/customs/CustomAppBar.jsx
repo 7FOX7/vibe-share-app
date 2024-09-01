@@ -7,17 +7,15 @@ import { useSelectedButton } from "../contexts/SelectedButtonContext";
 import Box from "@mui/material/Box"; 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import filterButtons from "../data/filterButtons";
 import CustomButton from "./CustomButton";
 import CustomSlider from "./CustomSlider";
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import authorAppBar from "../data/authorAppBar";
 import appBarRoutes from "../data/appBarRoutes";
 import { locationMarks } from "../data/sliderMarks";
+import AppBarContent from "../components/Shared/AppBarContent";
 
 const CustomAppBar = () => { 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -110,26 +108,11 @@ const CustomAppBar = () => {
             )
         }
         else {
-            return (
-                <>
-                    <Box onClick={goToPreviousRoute} sx={{
-                        display: "flex", 
-                        alignSelf: "start", 
-                        alignItems: "center", 
-                        cursor: "pointer"
-                    }}>
-                        <ArrowBackIosIcon />
-                        {authorAppBar.includes(formattedRoute) && 
-                            <Typography typography="usernameAppBar">
-                                {author}
-                            </Typography>
-                        }
-                    </Box>
-                </>
-            )
+            const ContentComponent = AppBarContent[formattedRoute] || AppBarContent.default
+            return <ContentComponent goToPreviousRoute={goToPreviousRoute} formattedRoute={formattedRoute} author={author} /> 
         }
     }, [anchorEl, location])
-    
+
     return (
         <AppBar position="fixed" color="secondary" elevation={0}>
             <Box>
