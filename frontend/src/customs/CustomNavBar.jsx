@@ -42,7 +42,7 @@ const CustomNavBar = () => {
                 selectedButton === "Watch" ? navigate('/video-view', {relative: "route"}) : navigate('/', {relative: "route"})
             }
             else {
-                navigate(routeName, {relative: "route"})
+                navigate(`/${routeName}`, {relative: "route"})
             }
         }
         else {
@@ -79,7 +79,7 @@ const CustomNavBar = () => {
                 </Box>
                 <BottomNavigation showLabels sx={{backgroundColor: "inherit", justifyContent: "space-around"}}>
                     <BottomNavigationAction id="homeNavigation" onClick={changeRoute} label="Home" icon={<HomeIcon />} />
-                    <BottomNavigationAction id="groupsNavigation" onClick={changeRoute} label="Groups" icon={<GroupsIcon />} />
+                    <BottomNavigationAction id="clubsNavigation" onClick={changeRoute} label="Clubs" icon={<GroupsIcon />} />
                     <BottomNavigationAction id="notificationsNavigation" onClick={changeRoute} label="Notifications" icon={<NotificationsIcon />} />
                     <BottomNavigationAction id="chatsNavigation" onClick={changeRoute} label="Chats" icon={<TelegramIcon />} />
                 </BottomNavigation>
