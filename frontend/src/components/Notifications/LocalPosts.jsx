@@ -31,13 +31,13 @@ const LocalPosts = memo(function LocalPosts() {
                                     container 
                                     width="100%"
                                     alignItems="center"
-                                    columnSpacing={{xs: 2, md: 6, lg: 15, xl: 20}}
+                                    columnSpacing={{xs: 2, sm: 2, md: 2, lg: 8, xl: 8}}
                                 >
                                     <Grid2 container alignItems="center" columnSpacing={1.2}>
                                         <CampaignRoundedIcon />
                                         <ListItemText primary="Someone has posted near you" secondary={formatPostPublishDate(localPost.publishDate)} />
                                     </Grid2>
-                                    <Card sx={{maxWidth: "55px"}}>
+                                    <Card sx={{width: "55px"}}>
                                         <CardMedia 
                                             component="img"
                                             height="60px"

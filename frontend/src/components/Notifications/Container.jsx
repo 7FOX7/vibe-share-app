@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { useMemo } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { usePosts } from "../../contexts/PostsContext";
+import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import Stats from "./Stats"; 
 import LocalPosts from "./LocalPosts";
@@ -9,6 +11,7 @@ import Footnote from "./Footnote";
 import axios from "axios";
 
 const Container = () => {
+    const {isSmallScreen} = useScreenSize(); 
     const {posts, setGeolocationFilteredPosts} = usePosts(); 
     const [likedPosts, setLikedPosts] = useState([]); 
     const {user} = useAuth(); 
@@ -48,18 +51,36 @@ const Container = () => {
         }
     }
 
-    return (
-        <Box sx={{
-            width: "100%", 
-            display: "flex", 
-            flexDirection: "column", 
-            alignItems: "center", 
-        }}>
-            <Stats likedPosts={likedPosts} />
-            <LocalPosts />
-            <Footnote />
-        </Box>
-    )
+    const content = useMemo(() => {
+        if(isSmallScreen) {
+            return (
+                <Box sx={{
+                    width: "100%", 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    alignItems: "center"
+                }}>
+                    <Stats likedPosts={likedPosts} />
+                    <LocalPosts />
+                    <Footnote />
+                </Box>
+            )
+        }
+        else {
+            return (
+                <Box sx={{
+                    width: "100%", 
+                    display: "flex", 
+                    justifyContent: "space-between"
+                }}>
+                    <LocalPosts />
+                    <Stats likedPosts={likedPosts} />
+                </Box>
+            )
+        }
+    }, [likedPosts, isSmallScreen])
+
+    return content
 }
 
 export default Container
