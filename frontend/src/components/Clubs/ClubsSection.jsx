@@ -53,9 +53,7 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
                                 </Card>
                                 <ListItemText 
                                 primary={
-                                    <Typography fontSize="1.15rem" fontWeight="600" sx={{
-                                        color: "rgba(0, 0, 0, 0.8)"
-                                    }}>
+                                    <Typography typography="clubs.clubTitle" color="clubs.clubTitleColor">
                                         {club.title}
                                     </Typography>
                                 } 
@@ -86,7 +84,13 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
         </Grid2>
         {!viewAll && 
         <Grid2 sx={{marginTop: "25px"}}>
-            <Link component="button" fontSize="1.4rem" onClick={() => setViewAll(true)}>View All</Link>
+            <Link 
+                component="button" 
+                typography={isSmallScreen ? "clubs.viewAll_mobile" : "clubs.viewAll_desktop"} 
+                onClick={() => setViewAll(true)}
+            >
+                View All
+            </Link>
         </Grid2>}
         </>
     )

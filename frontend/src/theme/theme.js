@@ -5,6 +5,11 @@ import brown from "@mui/material/colors/brown"
 import pink from "@mui/material/colors/pink"
 import blue from "@mui/material/colors/blue"
 
+const baseTypography = {
+    fontFamily: '"Poppins", sans-serif', 
+    fontStyle: "normal", 
+}
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -39,49 +44,99 @@ const theme = createTheme({
                 main: "#b28900"
             }
         }, 
-        itemBarTextColor: {
-            main: brown[300]
-        }, 
         semiTransparentBlack: {
             main: "rgba(0, 0, 0, 0.4)"
         }, 
-        linkColor: {
-            main: blue[600], 
-            light: blue[400]
+        registration: {
+            linkColor: {
+                main: blue[600], 
+                light: blue[400]
+            }, 
         }, 
+        home: {
+            itemBarTextColor: {
+                main: brown[300]
+            }, 
+        }, 
+        clubs: {
+            clubTitleColor: {
+                main: "rgba(0, 0, 0, 0.8)"
+            }
+        }, 
+        notifications: {
+
+        }, 
+        chats: {
+            authorUsernameColor: {
+                main: "rgba(0, 0, 0, 0.8)"
+            }, 
+            commentContent: {
+                main: "rgba(0, 0, 0, 0.7)"
+            }
+        }
     }, 
     
     typography: {
+        ...baseTypography, 
         mainContent: {
-            fontFamily: '"Poppins", sans-serif', 
-            fontStyle: "normal", 
+           ...baseTypography 
         }, 
-        inputField: {
-            fontSize: "1.4rem",  
+        home: {
+
         }, 
-        errorMessage: {
-            fontSize: "1.2rem", 
-            fontWeight: "500", 
-            fontStyle: "cursive"
+        global: {
+            appBar: {
+                fontSize: "1.3rem", 
+                fontWeight: "600"
+            }
         }, 
-        stepLabel: {
-            fontSize: "0.8rem", 
-            fontWeight: "600"
-        },
-        usernameAppBar: {
-            fontSize: "1.3rem", 
-            fontWeight: "500"
+        clubs: {
+            clubTitle: {
+                fontSize: "1.15rem",  
+                fontWeight: "600"
+            }, 
+            viewAll_mobile: {
+                fontSize: "1.2rem"
+            }, 
+            viewAll_desktop: {
+                fontSize: "1.3rem"
+            }
         }, 
-        postTextPreview: {
-            fontSize: "1.1rem"
+        notifications: {
+            activityStats: {
+                fontSize: "1.06rem", 
+                fontWeight: "600"
+            }, 
         }, 
-        postTextWideView: {
-            fontSize: "1.45rem", 
-            fontWeight: "500"
+        chats: {
+            authorUsername: {
+                fontSize: "1.15rem", 
+                fontWeight: "600"
+            }, 
+            publishDate: {
+                fontSize: "0.7rem"
+            }
         }, 
-        postVideoButton: {
-            fontSize: "1.15rem", 
-            fontWeight: "600"
+        createPost: {
+            stepLabel: {
+                fontSize: "0.8rem", 
+                fontWeight: "600"
+            },
+            postPreview: {
+                fontSize: "1.1rem"
+            }, 
+        }, 
+        createVideo: {
+            postButton: {
+                fontSize: "1.15rem", 
+                fontWeight: "600"
+            }, 
+        }, 
+        postView: {
+            wideView: {
+                fontSize: "1.45rem", 
+                fontWeight: "500"
+            }, 
         }, 
         customContainer: {
             mainText: {
@@ -92,7 +147,7 @@ const theme = createTheme({
                 fontStyle: "italic"
             }
         }, 
-        commentSection: {
+        customCommentsSection: {
             username: {
                 fontSize: "1.25rem", 
                 fontWeight: "600"

@@ -12,7 +12,7 @@ const AppBarContent =  {
                 display: "flex",
                 alignItems: "center" 
             }}>
-                <Typography typography="appBarText">My Account</Typography>
+                <Typography typography="global.appBar">My Account</Typography>
             </Box>
         )
     }, 
@@ -24,7 +24,7 @@ const AppBarContent =  {
                 display: "flex",
                 alignItems: "center" 
             }}>
-                <Typography typography="appBarText">My Chats</Typography>
+                <Typography typography="global.appBar">My Chats</Typography>
             </Box>
         )
     }, 
@@ -36,7 +36,7 @@ const AppBarContent =  {
                 display: "flex",
                 alignItems: "center" 
             }}>
-                <Typography typography="appBarText">My Clubs</Typography>
+                <Typography typography="global.appBar">My Clubs</Typography>
             </Box>
         )
     }, 
@@ -51,7 +51,7 @@ const AppBarContent =  {
                 }}>
                     <ArrowBackIosIcon />
                     {authorAppBar.includes(formattedRoute) && 
-                        <Typography typography="appBarText">
+                        <Typography typography="global.appBar">
                             {author}
                         </Typography>
                     }

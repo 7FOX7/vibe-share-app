@@ -26,7 +26,7 @@ const BottomSection = ({displayerColor, fillness, passwordMessage, displayerVisi
                 display: "flex", 
                 justifyContent: "center"
             }}>
-                <Link component="button" color="linkColor.main" onClick={handleClick}>
+                <Link component="button" color="registration.linkColor.main" onClick={handleClick}>
                     {isLoginMode ? "Not Registered? Sign up Instead." : "Already Registered? Sign in Instead."}
                 </Link>
             </Box>

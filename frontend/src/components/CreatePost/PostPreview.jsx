@@ -33,7 +33,7 @@ const PostPreview = () => {
                 justifyContent: "center", 
                 textAlign: "center"
             }}>
-                <Typography color="contrastColors.white.main" typography="postTextPreview">
+                <Typography color="contrastColors.white.main" typography="createPost.postPreview">
                     {storedContent ? storedContent : ""}
                 </Typography>
             </Box>

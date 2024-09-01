@@ -13,7 +13,7 @@ const PostButton = ({handleSubmit}) => {
                     backgroundColor: "primary.dark"
                 }
             }} type="submit" onClick={handleSubmit}>
-                <Typography color="contrastColors.white.main" typography="postVideoButton">Post</Typography>
+                <Typography color="contrastColors.white.main" typography="createVideo.postButton">Post</Typography>
             </Button>
         </Box>
     )

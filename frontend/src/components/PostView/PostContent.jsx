@@ -26,7 +26,7 @@ const PostContent = ({post}) => {
                     justifyContent: "center", 
                     textAlign: "center"
                 }}>
-                    <Typography color="contrastColors.white.main" typography="postTextWideView">
+                    <Typography color="contrastColors.white.main" typography="postView.wideView">
                         {post.content}
                     </Typography>
                 </Box>

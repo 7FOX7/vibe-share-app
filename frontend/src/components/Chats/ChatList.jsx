@@ -40,21 +40,19 @@ const ChatList = ({chats}) => {
                                 </Card>
                                 <ListItemText 
                                 primary={
-                                    <Typography fontSize="1.15rem" fontWeight="600" sx={{
-                                        color: "rgba(0, 0, 0, 0.8)"
-                                    }}>
+                                    <Typography typography="chats.authorUsername" color="chats.authorUsernameColor.main">
                                         {chat.authorUsername}
                                     </Typography>
                                 } 
                                 secondary={
-                                    <Typography variant="subtitle2">
+                                    <Typography variant="subtitle2" color="chats.commentContent.main">
                                         {commentContent} ...
                                     </Typography>
                                 } />
                             </Grid2>
                             <Grid2>
                                 <ListItemText primary={
-                                    <Typography fontSize="0.7rem">
+                                    <Typography typography="chats.publishDate">
                                         {formatPublishDate(chat.commentPublishDate)}
                                     </Typography>
                                 } />

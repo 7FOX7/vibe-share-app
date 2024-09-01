@@ -57,10 +57,10 @@ const Posts = () => {
                                         justifyContent: "space-around"
                                     }}>
                                         <Box>
-                                            <Typography color="itemBarTextColor.main">❤️ {post.likes}</Typography>
+                                            <Typography color="home.itemBarTextColor.main">❤️ {post.likes}</Typography>
                                         </Box>
                                         <Box>
-                                            <Typography color="itemBarTextColor.main">🕒 {formatPostPublishDate(post.publishDate)}</Typography>
+                                            <Typography color="home.itemBarTextColor.main">🕒 {formatPostPublishDate(post.publishDate)}</Typography>
                                         </Box>
                                     </Box>
                                 }

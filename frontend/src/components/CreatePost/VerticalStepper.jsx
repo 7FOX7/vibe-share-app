@@ -109,7 +109,7 @@ const VerticalStepper = () => {
                     return (
                         <Step key={stepLabel.id}>
                             <StepLabel>
-                                <Typography typography="stepLabel">
+                                <Typography typography="createPost.stepLabel">
                                     {stepLabel.label}
                                 </Typography>    
                             </StepLabel>

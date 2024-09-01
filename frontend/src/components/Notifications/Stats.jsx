@@ -30,7 +30,7 @@ const Stats = memo(function Stats({likedPosts}) {
                     <Fragment key={activity.id}>
                         <Grid2 textAlign="center" size={{xs: 2.8, md: 2.2, lg: 2}} marginTop={`${isSmallScreen ? "5px" : "20px"}`}>
                             <Typography>{stats[index]}</Typography>
-                            <Typography color="primary" typography="activityStats">{activity.title}</Typography>
+                            <Typography color="primary" typography="notifications.activityStats">{activity.title}</Typography>
                         </Grid2>
                         {index !== arr.length - 1 ? <Divider orientation="vertical" /> : ''}
                     </Fragment>

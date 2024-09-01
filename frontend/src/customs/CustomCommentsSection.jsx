@@ -9,7 +9,7 @@ const CustomCommentsSection = () => {
     return (
         <>
             <Box>
-                <Typography variant="h5">{comments.length} comments</Typography>
+                <Typography variant="h5">{comments.length} {comments.length === 1 ? "comment" : "comments"}</Typography>
             </Box>
             {comments.length > 0 && comments.map((comment) => {
                 const firstLetter = comment.username ? comment.username.charAt(0) : '1' 
@@ -31,7 +31,7 @@ const CustomCommentsSection = () => {
                                 {firstLetter}  
                             </Avatar>
                             <Box>
-                                <Typography color="contrastColors.black.main" typography="commentSection.username">{comment.username}</Typography>
+                                <Typography color="contrastColors.black.main" typography="customCommentsSection.username">{comment.username}</Typography>
                             </Box>
                         </Box>
                         <Box sx={{
