@@ -97,7 +97,6 @@ app.post('/posts', (req, res) => {
         if(err) {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }
-        // const q2 = `SELECT id FROM posts WHERE content=?`
         const q2 = `
             SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, posts.userId, posts.likes, posts.latitude, posts.longitude, users.username FROM posts
             JOIN users ON users.id = posts.userId
@@ -147,9 +146,67 @@ app.post('/upload', upload.single("image"), async (req, res) => {
     }
 })
 
+app.get('/clubs', (req, res) => {
+    const q = 'SELECT * FROM clubs'; 
+    db.query(q, (err, data) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        else {
+            res.status(200).json(data)
+        }
+    })
+})
+
+app.get('/user-clubs', (req, res) => {
+    const q = 'SELECT * FROM user_clubs'; // not using 'SELECT clubId FROM user_clubs' because eventually going to use 'map' anyway
+    db.query(q, (err, data) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        else {
+            res.status(200).json(data)
+        }
+    })
+})
+
+app.post('/user-clubs', (req, res) => {
+    const {userId, clubId, join} = req.body; 
+    const q1 = join ? 'UPDATE clubs SET members = members + 1 WHERE id=?' : 'UPDATE clubs SET members = members - 1 WHERE id=?'
+    db.query(q1, [clubId], (err) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a q1: ' + err)
+        }
+        else {
+            const q2 = join ? 'INSERT INTO user_clubs (userId, clubId) VALUES(?, ?)' : 'DELETE FROM user_clubs WHERE userId=? AND clubId=?'; 
+            db.query(q2, [userId, clubId], (err) => {
+                if(err) {
+                    return res.status(500).send('There was an error when setting a q2: ' + err)
+                }
+                else {
+                    const q3 = 'SELECT * FROM user_clubs'; 
+                    db.query(q3, (err, data) => {
+                        if(err) {
+                            return res.status(500).send('There was an error when setting a q3: ' + err)
+                        }
+                        else {
+                            res.status(200).json(data)
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
+
 app.get('/likes', (req, res) => {
-    const {userId, postId} = req.query
-    const q = `
+    const {userId, postId, getAll} = req.query
+    const q = getAll ? `
+        SELECT * FROM liked_posts
+        RIGHT JOIN posts ON posts.id = liked_posts.postId
+        WHERE liked_posts.userId=?
+    ` : 
+    `
         SELECT postId FROM liked_posts
         WHERE userId=? AND postId=?
     `
@@ -158,7 +215,7 @@ app.get('/likes', (req, res) => {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }
         else {
-            return res.status(200).send(data.length !== 0)
+            return res.status(200).send(data)
         }
     })
 })
@@ -280,6 +337,33 @@ app.post('/comments', (req, res) => {
             return res.status(500).send('There was an error when setting a query: ' + err)
         }
         return res.status(200)
+    })
+})
+
+app.get('/chats', (req, res) => {
+    const {userId} = req.query;
+    const q = `
+        SELECT 
+	        post_comments.id AS commentId, 
+            post_comments.content AS commentContent, 
+            post_comments.publishDate AS commentPublishDate, 
+            post_comments.postId, 
+            post_comments.userId AS commentUserId, 
+            posts.imageUrl, 
+            users.id AS authorId, 
+            users.username AS authorUsername
+        FROM post_comments
+        JOIN posts ON post_comments.postId = posts.id 
+        JOIN users ON posts.userId = users.id
+        WHERE post_comments.userId=?
+    `
+    db.query(q, [userId], (err, data) => {
+        if(err) {
+            return res.status(500).send('There was an error when setting a query: ' + err)
+        }
+        else {
+            return res.status(200).json(data)
+        }
     })
 })
 
