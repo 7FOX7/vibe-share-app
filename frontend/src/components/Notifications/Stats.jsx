@@ -24,7 +24,8 @@ const Stats = memo(function Stats({likedPosts}) {
         <Grid2 
             container 
             justifyContent="center" 
-            alignItems="center" sx={{
+            alignItems="center" 
+            sx={{
                 width: `${isSmallScreen ? "95%" : '50%'}`, 
                 height: `${isSmallScreen ? "90px" : "180px"}`,  
                 backgroundColor: "contrastColors.white.main"

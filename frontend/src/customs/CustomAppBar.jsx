@@ -141,27 +141,3 @@ const CustomAppBar = ({isDarkTheme, setIsDarkTheme}) => {
 }
 
 export default CustomAppBar
-
-/*
-    assuming we will have some kind of global array which will contain the key functions as objects, like: 
-
-    const global = [
-        {
-            function handleSliderChange() {
-                const currentValue = e.target.value (this will give us, for example, 25 kilometers); 
-                const maxValue = maxSliderValues[currentValue]; 
-
-
-                const filteredPosts = posts.filter((post) => {
-                    const distanceInKilometers = getDistance(currentUserLocation, {post.latitude, post.longitude})
-                    return distanceInKilometers <= maxValue    
-                })
-
-                setPosts(filteredPosts)
-            }
-        }
-    ]
-
-    // with this approach we have a problem: 
-
-*/

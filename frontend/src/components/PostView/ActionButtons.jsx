@@ -129,11 +129,3 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
 }
 
 export default ActionButtons
-
-/*
-    the problem: 
-    we need to figure out: when the user is opening the post he already liked, he can see that the post is liked, 
-    and those posts will be displayed in the 'liked' section
-
-
-*/

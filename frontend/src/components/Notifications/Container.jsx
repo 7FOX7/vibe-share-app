@@ -24,7 +24,6 @@ const Container = () => {
     }, [])
 
     useEffect(() => {
-        console.log('you are fetching liked posts')
         fetchLikedPosts()
     }, [])
 

@@ -14,7 +14,6 @@ import Card from "@mui/material/Card";
 import formatPostPublishDate from "../../utils/functions/formatPostPublishDate";
 
 const LocalPosts = memo(function LocalPosts() {
-    console.log('LocalPosts was run!')
     const {geolocationFilteredPosts} = usePosts();
     const localPostsSorted = [...geolocationFilteredPosts]?.sort((currentPost, nextPost) => new Date(nextPost.publishDate) - new Date(currentPost.publishDate))
     return (    

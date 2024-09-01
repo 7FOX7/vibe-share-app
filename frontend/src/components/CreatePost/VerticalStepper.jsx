@@ -27,12 +27,6 @@ const VerticalStepper = () => {
 
     function handleNextStep() {
         setActiveStep((prevStep) => prevStep + 1)
-        if(geolocation) {
-            console.log('latitude: ' + geolocation.latitude + ' longitude: ' + geolocation.longitude)
-        }
-        else {
-            console.log('geolocation is not defined or it is null')
-        }
     }
 
     function handlePrevStep() {
