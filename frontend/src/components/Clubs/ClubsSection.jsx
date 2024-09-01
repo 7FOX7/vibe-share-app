@@ -13,10 +13,10 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
     const {isSmallScreen} = useScreenSize(); 
     const maxClubsVisible = isSmallScreen ? 3 : 12; 
     const [viewAll, setViewAll] = useState(false); 
-    const visibleClubs = viewAll ? clubs : clubs?.slice(0, maxClubsVisible); 
     const isDark = JSON.parse(localStorage.getItem('isDarkTheme')); 
     const primary = `${isDark ? "rgb(0, 204, 194)" : "rgb(81, 45, 168)"}`; 
-
+    const visibleClubs = viewAll ? clubs : clubs?.slice(0, maxClubsVisible); 
+    const clubsCopy = [...visibleClubs].sort((current, next) => next.members - current.members)
     return (
         <>
             <Grid2 
@@ -25,7 +25,7 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
             rowSpacing={{xs: 1.5, lg: 2}}
             columns={{xs: 1, sm: 2, md: 3, lg: 3, xl: 4}}
         >
-            {visibleClubs?.map((club) => {
+            {clubsCopy?.map((club) => {
                 return (
                     <Grid2 container key={club.id} size={1} sx={{
                         backgroundColor: "contrastColors.white.main", 
