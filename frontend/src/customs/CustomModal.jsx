@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const CustomModal = ({open, handleClose, message}) => {
+const CustomModal = ({open, handleClose, handleModalClick='', message, showTwoButtons=false}) => {
     const {isSmallScreen} = useScreenSize(); 
     return (
         <Modal open={open} onClose={handleClose}>
@@ -26,9 +26,16 @@ const CustomModal = ({open, handleClose, message}) => {
                 <Box sx={{width: "fit-content"}}>
                     <Typography>{message}</Typography>
                 </Box>
-                <Box sx={{width: "fit-content"}}>
-                    <Button onClick={handleClose}>OK</Button>
-                </Box>
+                {showTwoButtons ? 
+                    <Box sx={{width: "fit-content", marginTop: "10px"}}>
+                        <Button onClick={handleClose}>NO</Button>
+                        <Button onClick={handleModalClick}>YES</Button>
+                    </Box>
+                    : 
+                    <Box sx={{width: "fit-content", marginTop: "10px"}}>
+                        <Button onClick={handleClose}>OK</Button>
+                    </Box>
+                }
             </Box>
         </Modal>
     )
