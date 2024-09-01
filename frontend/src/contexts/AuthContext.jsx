@@ -26,13 +26,22 @@ export const AuthProvider = ({children}) => {
         const {username} = user
         const existingUser = users.find(_user => _user.username === username)
         if(typeof(existingUser) === "undefined") {
-            updateUsers();
-            setAuthSucceeded(true) 
-            navigate("/", {relative: "route"})
+            if(isValidLength(username)) {    
+                updateUsers();
+                setAuthSucceeded(true) 
+                navigate("/", {relative: "route"})
+            }
+            else {
+                alert('The username contains too many characters!')
+            }
         }
         else {
-            alert('this username already exists!')
+            alert('The username already exists!')
         }
+    }
+
+    function isValidLength(user) {
+        return user.length <= 12
     }
 
     function handleLogin(user) {

@@ -21,8 +21,8 @@ const InputSection = () => {
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     setUser({
-      "username": usernameRef.current.value, 
-      "password": passwordRef.current.value
+      "username": usernameRef.current.value.trim(), 
+      "password": passwordRef.current.value.trim()
     }); 
   }, [isLoginMode])
 
