@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useEffect } from "react"; 
 import { useAuth } from "../../contexts/AuthContext";
+import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import ChatList from "./ChatList";
 import axios from "axios";
+import Box from "@mui/material/Box";
 
 const Container = () => {
+    const {isSmallScreen} = useScreenSize(); 
     const [chats, setChats] = useState(null); 
     const {user} = useAuth(); 
     
@@ -35,9 +38,11 @@ const Container = () => {
     }
 
     return (
-        <>
+        <Box sx={{
+            width: `${isSmallScreen ? "100%" : "50%"}`
+        }}>
             <ChatList chats={chats} />
-        </>
+        </Box>
     )
 }
 

@@ -19,12 +19,13 @@ const ChatList = ({chats}) => {
                     <ListItemButton 
                         disableGutters
                         component={Link}
-                        to={`/comments/post/${chat.postId}/${chat.authorUsername}`}>
+                        to={`/comments/post/${chat.postId}/${chat.authorUsername}`}
+                    >
                         <Grid2 
                             container 
                             width="100%"
                             justifyContent="space-between"
-                            columnSpacing={{xs: 4, md: 7, lg: 12}}
+                            columnSpacing={{xs: 2, sm: 1, md: 2, lg: 5}}
                         >
                             <Grid2 
                                 container 
