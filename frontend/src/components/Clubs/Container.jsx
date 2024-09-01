@@ -10,7 +10,6 @@ import axios from "axios";
 
 const showTwoButtons = true; 
 const message = "Are you sure you want to leave the club?"; 
-const primary = "rgb(81, 45, 168)"
 
 const Container = () => {
     const [clubId, setClubId] = useState(null); 
@@ -18,6 +17,8 @@ const Container = () => {
     const {user} = useAuth(); 
     const {isSmallScreen} = useScreenSize(); 
     const {clubs, fetchClubs, clubIds, fetchClubIds} = useClubs(); 
+    const isDark = JSON.parse(localStorage.getItem('isDarkTheme')); 
+    const primary = `${isDark ? "rgb(0, 204, 194)" : "rgb(81, 45, 168)"}`; 
 
     function handleClose() {
         setOpen(false); 

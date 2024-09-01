@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import theme from "../theme/theme";
+import theme from "../themes/theme";
 
 const ScreenSizeContext = createContext(''); 
 
