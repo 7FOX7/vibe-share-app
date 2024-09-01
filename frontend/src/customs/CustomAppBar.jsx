@@ -26,6 +26,8 @@ const CustomAppBar = () => {
     const pathName = location.pathname;
     const formattedRoute = pathName.substring(1, pathName.length).split('/')[0] 
 
+    console.log('app bar was rerendered')
+
     const open = Boolean(anchorEl)
 
     const handleClick = useCallback((e) => {
@@ -35,6 +37,11 @@ const CustomAppBar = () => {
     const goToPreviousRoute = useCallback(() => {
         navigate(-1)
     }, [])
+
+    const goToSettings = useCallback(() => {
+        setAnchorEl(null)
+        navigate('/settings', {relative: "route"})
+    })
 
     const handleClose = useCallback(() => {
         setAnchorEl(null)
@@ -96,7 +103,7 @@ const CustomAppBar = () => {
                         onClose={handleClose}
                         open={open}
                     >
-                        <MenuItem>
+                        <MenuItem onClick={goToSettings}>
                             settings
                         </MenuItem>
                         <MenuItem>

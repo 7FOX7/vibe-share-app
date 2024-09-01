@@ -12,6 +12,7 @@ import CreateVideo from './pages/CreateVideo'
 import PostView from './pages/PostView'
 import VideoView from './pages/VideoView'
 import Comments from './pages/Comments'
+import Settings from './pages/Settings'
 import AskLocation from './pages/AskLocation'
 import NoPage from './pages/NoPage'
 import Layer from './components/Shared/Layer'
@@ -78,6 +79,11 @@ const App = () => {
                             <Route path="/create-video" element={
                               <ProtectedRoute>
                                 <CreateVideo />
+                              </ProtectedRoute>
+                            } />
+                            <Route path="/settings" element={
+                              <ProtectedRoute>
+                                <Settings />
                               </ProtectedRoute>
                             } />
                             <Route path="/comments/:type/:id/:author" element={

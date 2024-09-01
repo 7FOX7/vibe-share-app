@@ -4,8 +4,9 @@ const currentDate = formatMySqlDate(new Date());
 
 const defaultPublisherInfo = [
     {
+        id: 118, 
         publishDate: currentDate, 
-        username: "video_owned_by" 
+        username: "best_user" 
     }
 ]
 

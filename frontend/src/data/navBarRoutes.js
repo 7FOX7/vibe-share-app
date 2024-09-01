@@ -1,9 +1,10 @@
 const navBarRoutes = [
     "/", 
     "/video-view", 
-    "/notifications", 
+    "/notifications",
+    "/settings",  
     "/clubs", 
-    "/chats"
+    "/chats", 
 ]
 
 export default navBarRoutes
