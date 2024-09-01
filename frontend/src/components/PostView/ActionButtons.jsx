@@ -20,7 +20,8 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
     }, [post])
 
     async function setInitialBackgroundColor() {
-        const postIsLiked = await checkIfPostIsLiked()
+        const data = await checkIfPostIsLiked()
+        const postIsLiked = data.length !== 0
         setIsLiked(postIsLiked)
         setBackgroundColor(postIsLiked ? "tertiary.main" : "tertiary.light")
     }
@@ -71,7 +72,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
                 setPosts(updatedPosts)
                 setGeolocationFilteredPosts(updatedGeolocationPosts)
             }
-            catch(err) {
+            catch (err) {
                 if(err.response) {
                     console.log('Something is wrong with the server: ' + err)
                 }
