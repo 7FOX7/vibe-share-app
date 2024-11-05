@@ -35,7 +35,7 @@ const Container = () => {
                     join: true
                 }
                 await axios.post("http://localhost:8080/user-clubs", data)
-                await fetchClubIds()
+                await fetchClubIds(user.id)
                 await fetchClubs()
             }
             catch (err) {
@@ -63,7 +63,7 @@ const Container = () => {
                 clubId: clubId
             }
             await axios.post("http://localhost:8080/user-clubs", data)
-            await fetchClubIds()
+            await fetchClubIds(user.id)
             await fetchClubs()
         }
         catch (err) {

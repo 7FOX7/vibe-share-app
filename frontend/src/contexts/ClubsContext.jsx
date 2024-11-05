@@ -11,10 +11,6 @@ export const ClubsProvider = ({children}) => {
         fetchClubs()
     }, [])
 
-    useEffect(() => {
-        fetchClubIds()
-    }, [])
-
     async function fetchClubs() {
         try {
             const response = await axios.get("http://localhost:8080/clubs")
@@ -33,9 +29,13 @@ export const ClubsProvider = ({children}) => {
         }
     }
 
-    async function fetchClubIds() {
+    async function fetchClubIds(userId) {
         try {
-            const response = await axios.get("http://localhost:8080/user-clubs")
+            const response = await axios.get("http://localhost:8080/user-clubs", {
+                params: {
+                    userId
+                }
+            })
             const clubIds = response.data.map((club) => club.clubId) // we are using 'map' because we want to get an ARRAY of club ids
             setClubIds(clubIds)
         }

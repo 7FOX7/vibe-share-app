@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { usePosts } from "../../contexts/PostsContext";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
+import { useClubs } from "../../contexts/ClubsContext";
 import Box from "@mui/material/Box"; 
 import Stats from "./Stats"; 
 import LocalPosts from "./LocalPosts";
@@ -15,6 +16,7 @@ const Container = () => {
     const {posts, setGeolocationFilteredPosts} = usePosts(); 
     const [likedPosts, setLikedPosts] = useState([]); 
     const {user} = useAuth(); 
+    const {fetchClubIds} = useClubs(); 
 
     useEffect(() => {
         const filteredPosts = posts.filter((post) => {
@@ -24,6 +26,7 @@ const Container = () => {
     }, [])
 
     useEffect(() => {
+        fetchClubIds(user.id)
         fetchLikedPosts()
     }, [])
 

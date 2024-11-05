@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useScreenSize } from "../contexts/ScreenSizeContext";
 import { useSelectedButton } from "../contexts/SelectedButtonContext";
+import { useAuth } from "../contexts/AuthContext";
+import { useClubs } from "../contexts/ClubsContext";
 import Box from "@mui/material/Box"; 
 import Paper from "@mui/material/Paper"; 
 import BottomNavigation from "@mui/material/BottomNavigation"; 
@@ -24,6 +26,8 @@ const CustomNavBar = () => {
     const navigate = useNavigate(); 
     const {selectedButton} = useSelectedButton(); 
     const {screenHeight, isSmallScreen} = useScreenSize(); 
+    const {user} = useAuth(); 
+    const {fetchClubIds} = useClubs(); 
     const top = `${Math.floor(screenHeight - 55)}px`; 
 
     function handleOpen() {
@@ -34,20 +38,21 @@ const CustomNavBar = () => {
         setOpen(false)
     }
 
-    function changeRoute(e) {
+    async function changeRoute(e) {
         const id = e.currentTarget.id
         const routeName = id.split('N')[0]
-        if(routeName) {
-            if(routeName === 'home') {
-                selectedButton === "Watch" ? navigate('/video-view', {relative: "route"}) : navigate('/', {relative: "route"})
-            }
-            else {
-                navigate(`/${routeName}`, {relative: "route"})
-            }
-        }
-        else {
+        if(!routeName) {
             navigate(`/non-existing-page`, {relative: "route"})
+            return
         }
+        if(routeName === 'home') {
+            selectedButton === "Watch" ? navigate('/video-view', {relative: "route"}) : navigate('/', {relative: "route"})
+            return
+        }
+        else if(routeName === 'clubs') {
+            await fetchClubIds(user.id)
+        }
+        navigate(`/${routeName}`, {relative: "route"})
     }
 
     return (
