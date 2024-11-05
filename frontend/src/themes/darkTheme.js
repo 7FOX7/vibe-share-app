@@ -43,6 +43,22 @@ const darkTheme = createTheme({
         semiTransparentBlack: {
             main: "rgba(0, 0, 0, 0.4)"
         }, 
+        global: {
+            navbarText: {
+                main: "#fff"
+            }, 
+            verticalStepper: {
+                labelText: {
+                    main: "#fff"
+                }
+            }, 
+            inputText: {
+                main: "#fff"
+            }, 
+            textAreaCaption: {
+                main: "#fff"
+            }
+        },
         registration: {
             linkColor: {
                 main: blue[600], 
@@ -63,14 +79,23 @@ const darkTheme = createTheme({
             }
         }, 
         notifications: {
-
+            localPostsText: {
+                main: "#fff"
+            }
         }, 
         chats: {
-            authorUsernameColor: {
-                main: "rgba(0, 0, 0, 0.8)"
-            }, 
-            commentContent: {
-                main: "rgba(0, 0, 0, 0.7)"
+            chatListText: {
+                main: "#fff"
+            }
+        }, 
+        postView: {
+            slideButtons: {
+                main: "#fff"
+            }
+        },
+        settings: {
+            text: {
+                main: "#fff"
             }
         }
     }, 
@@ -149,6 +174,12 @@ const darkTheme = createTheme({
         customCommentsSection: {
             username: {
                 fontSize: "1.25rem", 
+                fontWeight: "600"
+            }
+        }, 
+        settings: {
+            text: {
+                fontSize: "1.3rem", 
                 fontWeight: "600"
             }
         }

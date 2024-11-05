@@ -9,6 +9,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Typography from "@mui/material/Typography";
 import formatPostPublishDate from "../../utils/functions/formatPostPublishDate";
+import { useTheme } from "@emotion/react";
 
 const Posts = () => { 
     const navigate = useNavigate(); 
@@ -17,6 +18,7 @@ const Posts = () => {
     const currentPosts = selectedButton === "Local" ? geolocationFilteredPosts : posts 
     const {isSmallScreen} = useScreenSize();  
     const {setAuthor} = usePostAuthor(); 
+    const theme = useTheme(); 
 
     function handleOpen(id, username) {
         setAuthor(username)
@@ -51,22 +53,25 @@ const Posts = () => {
                                 }} 
                             />
                             <ImageListItemBar 
+                                sx={{
+                                    color: theme.palette.home.itemBarTextColor.main
+                                }}
                                 title={
                                     <Box sx={{
                                         display: "flex", 
                                         justifyContent: "space-around"
                                     }}>
                                         <Box>
-                                            <Typography color="home.itemBarTextColor.main">❤️ {post.likes}</Typography>
+                                            <Typography>❤️ {post.likes}</Typography>
                                         </Box>
                                         <Box>
-                                            <Typography color="home.itemBarTextColor.main">🕒 {formatPostPublishDate(post.publishDate)}</Typography>
+                                            <Typography>🕒 {formatPostPublishDate(post.publishDate)}</Typography>
                                         </Box>
                                     </Box>
                                 }
                                 position="below"
                                 subtitle={
-                                    <Typography variant="body2">by {post.username}</Typography>
+                                    <Typography variant="body2" color="primary">by {post.username}</Typography>
                                 } 
                             />
                         </ImageListItem>

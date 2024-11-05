@@ -41,12 +41,12 @@ const ChatList = ({chats}) => {
                                 </Card>
                                 <ListItemText 
                                 primary={
-                                    <Typography typography="chats.authorUsername" color="chats.authorUsernameColor.main">
+                                    <Typography typography="chats.authorUsername">
                                         {chat.authorUsername}
                                     </Typography>
                                 } 
                                 secondary={
-                                    <Typography variant="subtitle2" color="chats.commentContent.main">
+                                    <Typography variant="subtitle2">
                                         {commentContent} ...
                                     </Typography>
                                 } />

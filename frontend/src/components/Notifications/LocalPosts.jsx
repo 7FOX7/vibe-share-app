@@ -1,6 +1,7 @@
+import { usePosts } from "../../contexts/PostsContext";
+import { useTheme } from "@emotion/react";
 import { Fragment } from "react";
 import { memo } from "react";
-import { usePosts } from "../../contexts/PostsContext";
 import { Link } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -8,13 +9,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import CampaignRoundedIcon from '@mui/icons-material/CampaignRounded';
-import { Grid2 } from "@mui/material"; 
+import { Grid2, Typography } from "@mui/material"; 
 import CardMedia from "@mui/material/CardMedia"; 
 import Card from "@mui/material/Card"; 
 import formatPostPublishDate from "../../utils/functions/formatPostPublishDate";
 
 const LocalPosts = memo(function LocalPosts() {
     const {geolocationFilteredPosts} = usePosts();
+    const theme = useTheme()
     const localPostsSorted = [...geolocationFilteredPosts]?.sort((currentPost, nextPost) => new Date(nextPost.publishDate) - new Date(currentPost.publishDate))
     return (    
         <List>
@@ -22,7 +24,7 @@ const LocalPosts = memo(function LocalPosts() {
                 return (
                     <Fragment key={localPost.id}>
                         <Divider component="li" />
-                        <ListItem disableGutters>
+                        <ListItem disableGutters sx={{color: theme.palette.notifications.localPostsText.main}}>
                             <ListItemButton 
                                 disableGutters
                                 component={Link}
@@ -35,7 +37,7 @@ const LocalPosts = memo(function LocalPosts() {
                                 >
                                     <Grid2 container alignItems="center" columnSpacing={1.2}>
                                         <CampaignRoundedIcon />
-                                        <ListItemText primary="Someone has posted near you" secondary={formatPostPublishDate(localPost.publishDate)} />
+                                        <ListItemText primary="Someone has posted near you" secondary={<Typography variant="body2" color="primary">{formatPostPublishDate(localPost.publishDate)}</Typography>} />
                                     </Grid2>
                                     <Card sx={{width: "55px"}}>
                                         <CardMedia 

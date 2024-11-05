@@ -17,7 +17,8 @@ const CustomSlider = ({marks}) => {
             display: "flex", 
             alignItems: "center", 
             justifyContent: "center", 
-            marginTop: "8px"
+            marginTop: "8px", 
+            color: "red"
         }}>
             <Box sx={{
                 width: `${isSmallScreen ? "220px" : "300px"}`
@@ -31,6 +32,7 @@ const CustomSlider = ({marks}) => {
                     color="primary"
                     onChange={(e) => handleSliderChange(e, posts, setGeolocationFilteredPosts, geolocation)}
                 />
+
             </Box>
         </Box>
     )

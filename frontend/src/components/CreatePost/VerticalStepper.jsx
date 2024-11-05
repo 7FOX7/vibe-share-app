@@ -3,6 +3,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import { usePosts } from "../../contexts/PostsContext"
 import { useGeolocation } from "../../contexts/GeolocationContext"
 import { useNavigate } from "react-router-dom"
+import { useTheme } from "@emotion/react"
 import Stepper from "@mui/material/Stepper"
 import Step from "@mui/material/Step"
 import StepLabel from "@mui/material/StepLabel"
@@ -24,6 +25,7 @@ const VerticalStepper = () => {
     const {setPosts, setGeolocationFilteredPosts} = usePosts(); 
     const {geolocation} = useGeolocation(); 
     const navigate = useNavigate(); 
+    const theme = useTheme(); 
 
     function handleNextStep() {
         setActiveStep((prevStep) => prevStep + 1)
@@ -101,9 +103,9 @@ const VerticalStepper = () => {
             <Stepper orientation="vertical" activeStep={activeStep} sx={{width: "80%"}}>
                 {stepLabels.map(stepLabel => {
                     return (
-                        <Step key={stepLabel.id}>
+                        <Step key={stepLabel.id} sx={{color: theme.palette.global.verticalStepper.labelText.main}}>
                             <StepLabel>
-                                <Typography typography="createPost.stepLabel">
+                                <Typography typography="createPost.stepLabel" sx={{color: theme.palette.global.verticalStepper.labelText.main}}>
                                     {stepLabel.label}
                                 </Typography>    
                             </StepLabel>

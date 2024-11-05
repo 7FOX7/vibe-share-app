@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
+import { useTheme } from "@emotion/react";
 import ListItemText from "@mui/material/ListItemText";
 import { Grid2 } from "@mui/material"; 
 import CardMedia from "@mui/material/CardMedia"; 
@@ -10,11 +11,10 @@ import GroupIcon from '@mui/icons-material/Group';
 import Button from "@mui/material/Button"
 
 const ClubsSection = ({clubs, clubIds, handleClick}) => {
-    const {isSmallScreen} = useScreenSize(); 
-    const maxClubsVisible = isSmallScreen ? 3 : 12; 
     const [viewAll, setViewAll] = useState(false); 
-    const isDark = JSON.parse(localStorage.getItem('isDarkTheme')); 
-    const primary = `${isDark ? "rgb(0, 204, 194)" : "rgb(81, 45, 168)"}`; 
+    const {isSmallScreen} = useScreenSize(); 
+    const theme = useTheme(); 
+    const maxClubsVisible = isSmallScreen ? 3 : 12; 
     const visibleClubs = viewAll ? clubs : clubs?.slice(0, maxClubsVisible); 
     const clubsCopy = [...visibleClubs].sort((current, next) => next.members - current.members)
     return (
@@ -77,7 +77,7 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
                             <Grid2>
                                 <Button 
                                     id={club.id} 
-                                    style={{backgroundColor: `${clubIds.includes(club.id) ? "rgba(0, 0, 0, 0.3)" : primary}`}} 
+                                    style={{backgroundColor: `${clubIds.includes(club.id) ? "rgba(0, 0, 0, 0.3)" : theme.palette.primary.main}`}} 
                                     onClick={handleClick}
                                     sx={{
                                         color: "contrastColors.white.main"

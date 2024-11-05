@@ -5,11 +5,13 @@ import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import ChatList from "./ChatList";
 import axios from "axios";
 import Box from "@mui/material/Box";
+import { useTheme } from "@emotion/react";
 
 const Container = () => {
     const {isSmallScreen} = useScreenSize(); 
     const [chats, setChats] = useState(null); 
     const {user} = useAuth(); 
+    const theme = useTheme(); 
     
     useEffect(() => {
         fetchChats()
@@ -39,7 +41,8 @@ const Container = () => {
 
     return (
         <Box sx={{
-            width: `${isSmallScreen ? "100%" : "50%"}`
+            width: `${isSmallScreen ? "100%" : "50%"}`, 
+            color: theme.palette.chats.chatListText.main
         }}>
             <ChatList chats={chats} />
         </Box>

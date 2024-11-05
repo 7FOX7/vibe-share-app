@@ -4,6 +4,7 @@ import { useScreenSize } from "../contexts/ScreenSizeContext";
 import { useSelectedButton } from "../contexts/SelectedButtonContext";
 import { useAuth } from "../contexts/AuthContext";
 import { useClubs } from "../contexts/ClubsContext";
+import { useTheme } from "@emotion/react";
 import Box from "@mui/material/Box"; 
 import Paper from "@mui/material/Paper"; 
 import BottomNavigation from "@mui/material/BottomNavigation"; 
@@ -28,6 +29,7 @@ const CustomNavBar = () => {
     const {screenHeight, isSmallScreen} = useScreenSize(); 
     const {user} = useAuth(); 
     const {fetchClubIds} = useClubs(); 
+    const theme = useTheme(); 
     const top = `${Math.floor(screenHeight - 55)}px`; 
 
     function handleOpen() {
@@ -83,10 +85,10 @@ const CustomNavBar = () => {
                     </Fab>
                 </Box>
                 <BottomNavigation showLabels sx={{backgroundColor: "inherit", justifyContent: "space-around"}}>
-                    <BottomNavigationAction id="homeNavigation" onClick={changeRoute} label="Home" icon={<HomeIcon />} />
-                    <BottomNavigationAction id="clubsNavigation" onClick={changeRoute} label="Clubs" icon={<GroupsIcon />} />
-                    <BottomNavigationAction id="notificationsNavigation" onClick={changeRoute} label="Notifications" icon={<NotificationsIcon />} />
-                    <BottomNavigationAction id="chatsNavigation" onClick={changeRoute} label="Chats" icon={<TelegramIcon />} />
+                    <BottomNavigationAction id="homeNavigation" onClick={changeRoute} label="Home" icon={<HomeIcon />} sx={{color: theme.palette.global.navbarText.main}} />
+                    <BottomNavigationAction id="clubsNavigation" onClick={changeRoute} label="Clubs" icon={<GroupsIcon />} sx={{color: theme.palette.global.navbarText.main}} />
+                    <BottomNavigationAction id="notificationsNavigation" onClick={changeRoute} label="Notifications" icon={<NotificationsIcon />} sx={{color: theme.palette.global.navbarText.main}} />
+                    <BottomNavigationAction id="chatsNavigation" onClick={changeRoute} label="Chats" icon={<TelegramIcon />} sx={{color: theme.palette.global.navbarText.main}} />
                 </BottomNavigation>
             </Paper>
         </>

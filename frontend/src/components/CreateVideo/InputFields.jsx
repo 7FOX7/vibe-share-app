@@ -1,5 +1,6 @@
 import { useState }from "react";
 import { useMemo } from "react";
+import { useTheme } from "@emotion/react";
 import CustomInput from "../../customs/CustomInput"
 import CustomTextArea from "../../customs/CustomTextArea"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -7,8 +8,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { postMaxLength } from "../../data/inputMaxLength";
 
 const InputFields = ({urlInputRef}) => {
-    const [inputValue, setInputValue] = useState("")
-
+    const [, setInputValue] = useState("")
+    const theme = useTheme(); 
     function handleInput() {
         setInputValue(urlInputRef.current.value) 
     }
@@ -25,7 +26,7 @@ const InputFields = ({urlInputRef}) => {
                 width="85%" 
                 border="3px solid #ffcf33" 
                 background="transparent" 
-                color="#fff" 
+                color={theme.palette.global.inputText.main}
                 minRows={8}
                 maxLength={postMaxLength} 
             />
@@ -41,7 +42,7 @@ const InputFields = ({urlInputRef}) => {
                 border="3px solid #ffcf33" 
                 fontSize="1rem" 
                 padding="4px 6px" 
-                color="#fff" 
+                color={theme.palette.global.inputText.main}
                 icon={
                     urlInputRef.current.value === "" || !urlInputRef.current ? 
                     <ContentCopyIcon sx={{

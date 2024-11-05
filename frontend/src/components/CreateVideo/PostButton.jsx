@@ -6,7 +6,7 @@ const PostButton = ({handleSubmit}) => {
     return (
         <Box>
             <Button sx={{
-                backgroundColor: "primary.dark", 
+                backgroundColor: "primary.main", 
                 paddingInline: "12px", 
                 paddingBlock: "8px", 
                 ":hover": {

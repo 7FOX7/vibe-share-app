@@ -17,7 +17,7 @@ import appBarRoutes from "../data/appBarRoutes";
 import { locationMarks } from "../data/sliderMarks";
 import AppBarContent from "../components/Shared/AppBarContent";
 
-const CustomAppBar = ({isDarkTheme, setIsDarkTheme}) => { 
+const CustomAppBar = ({setIsDarkTheme}) => { 
     const [anchorEl, setAnchorEl] = useState(null);
     const {selectedButton, setSelectedButton, sliderIsVisible} = useSelectedButton();
     const {author} = usePostAuthor(); 
@@ -42,10 +42,11 @@ const CustomAppBar = ({isDarkTheme, setIsDarkTheme}) => {
     }, [])
 
     const handleThemeSetting = useCallback(() => {
-        localStorage.setItem('isDarkTheme', isDarkTheme === true ? false : true)
-        setIsDarkTheme((prevVal) => !prevVal)
+        const isDarkTheme = JSON.parse(localStorage.getItem('isDarkTheme'))     // true/false
+        localStorage.setItem('isDarkTheme', !isDarkTheme)
+        setIsDarkTheme((prevTheme) => !prevTheme)
         setAnchorEl(null)
-    }, [isDarkTheme])
+    }, [])
 
     const handleClose = useCallback(() => {
         setAnchorEl(null)
@@ -111,7 +112,7 @@ const CustomAppBar = ({isDarkTheme, setIsDarkTheme}) => {
                             Settings
                         </MenuItem>
                         <MenuItem onClick={handleThemeSetting}>
-                            {isDarkTheme ? "Light Mode" : "Dark Mode"}
+                            Switch Theme
                         </MenuItem>
                     </Menu>
                     {sliderIsVisible && <CustomSlider marks={locationMarks} />}

@@ -1,9 +1,11 @@
 import { useScreenSize } from "../../contexts/ScreenSizeContext"
+import { useTheme } from "@emotion/react"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 
 const Main = () => {
-    const {isSmallScreen} = useScreenSize(); 
+    const {isSmallScreen} = useScreenSize();
+    const theme = useTheme();  
     return (
         <Box sx={{
             width: "100%", 
@@ -24,7 +26,7 @@ const Main = () => {
             <Box sx={{
                 textAlign: "center"
             }}>
-                <Typography variant="h5">We are actively working on this page!</Typography>
+                <Typography typography={theme.typography.settings.text} sx={{color: theme.palette.settings.text.main}}>We are actively working on this page!</Typography>
             </Box>
         </Box>
     )
