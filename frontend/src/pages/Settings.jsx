@@ -12,7 +12,7 @@ const Settings = () => {
                 backgroundColor: "secondary.main", 
                 paddingInline: "10px", 
                 paddingTop: "50px", 
-                overflow: "hidden"
+                overflow: "hidden auto"
             }}>
                 <Main />
             </Box>

@@ -13,7 +13,8 @@ const AskLocation = () => {
                 flexDirection: "column",
                 backgroundColor: "secondary.main", 
                 paddingInline: "10px", 
-                paddingTop: "50px"
+                paddingTop: "50px", 
+                overflow: "hidden auto"
             }}>
                 <Main />
             </Box>

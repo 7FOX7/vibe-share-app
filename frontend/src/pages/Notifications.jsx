@@ -12,7 +12,7 @@ const Notifications = () => {
                 backgroundColor: "secondary.main", 
                 paddingInline: "10px", 
                 paddingTop: "50px", 
-                overflow: "auto"
+                overflow: "hidden auto"
             }}>
                 <Container />
             </Box>

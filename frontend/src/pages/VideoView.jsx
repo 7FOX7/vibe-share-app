@@ -16,7 +16,7 @@ const VideoView = () => {
         width: "100%", 
         height: "100vh",  
         paddingTop: "50px", 
-        overflowY: "hidden"
+        overflow: "hidden auto"
       }}>
         <VideoFragment />
       </Box>
