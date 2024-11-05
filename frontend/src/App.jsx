@@ -18,7 +18,7 @@ import Comments from './pages/Comments'
 import Settings from './pages/Settings'
 import AskLocation from './pages/AskLocation'
 import NoPage from './pages/NoPage'
-import Layer from './components/Shared/Layer'
+import Layout from './components/Shared/Layout'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { ScreenSizeProvider } from './contexts/ScreenSizeContext'
 import { AuthProvider } from './contexts/AuthContext'
@@ -50,7 +50,7 @@ const App = () => {
                       <VideosProvider>
                         <PostAuthorProvider>
                           <SelectedButtonProvider>
-                            <Layer isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme}>
+                            <Layout setIsDarkTheme={setIsDarkTheme}>
                               <Routes>
                                 <Route path="/registration" element={<Registration />} />
                                 <Route path="/" element={
@@ -110,7 +110,7 @@ const App = () => {
                                 } />
                                 <Route path="*" element={<NoPage />} />
                               </Routes>
-                            </Layer>
+                            </Layout>
                           </SelectedButtonProvider>
                         </PostAuthorProvider>
                       </VideosProvider>

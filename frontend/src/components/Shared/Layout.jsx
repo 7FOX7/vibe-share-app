@@ -4,13 +4,14 @@ import CustomAppBar from "../../customs/CustomAppBar"
 import CustomNavBar from "../../customs/CustomNavBar"
 import navBarRoutes from "../../data/navBarRoutes"
 
-const Layer = ({children, isDarkTheme, setIsDarkTheme}) => {
+const Layout = ({children, setIsDarkTheme}) => {
     const {authSucceeded} = useAuth(); 
     const location = useLocation();
+    console.log('layer is renrendered')
     if(authSucceeded) {
         return (
             <>
-                <CustomAppBar isDarkTheme={isDarkTheme} setIsDarkTheme={setIsDarkTheme} />
+                <CustomAppBar setIsDarkTheme={setIsDarkTheme} />
                 {children}
                 {navBarRoutes.includes(location.pathname) && <CustomNavBar />}
             </>
@@ -19,4 +20,4 @@ const Layer = ({children, isDarkTheme, setIsDarkTheme}) => {
     return children
 }
 
-export default Layer
+export default Layout
