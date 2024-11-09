@@ -64,7 +64,9 @@ const VerticalStepper = () => {
                     longitude: geolocation ? geolocation.longitude : null
                 }
                 const response = await axios.post("http://localhost:8080/posts", postData)
-                console.log('here is the last row (newly added post): ' + response.data)
+                for(let val of response.data) {
+                    val.username = val.username.username
+                }
                 setPosts((prevPosts) => [
                     ...prevPosts, 
                     response.data[0]

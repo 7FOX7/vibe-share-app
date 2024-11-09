@@ -14,6 +14,9 @@ export const CommentsProvider = ({children}) => {
                     postType: postType
                 }
             }); 
+            for(let val of response.data) {
+                val.username = val.username.username
+            }
             setComments(response.data)
             console.log('comments were fetched successfully: ' +  response.statusText)
         }
@@ -33,6 +36,13 @@ export const CommentsProvider = ({children}) => {
     async function sendComments(postData) {
         try {
             const response = await axios.post(`http://localhost:8080/comments`, postData); 
+            for(let val of response.data) {
+                val.username = val.username.username
+            }
+            for(let val of response.data) {
+                console.log(val)
+            }
+            setComments(response.data)
             console.log('comments were posted successfully: ' + response.statusText)
         }
         catch (err) {

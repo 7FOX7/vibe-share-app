@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useEffect } from "react"; 
 import { useAuth } from "../../contexts/AuthContext";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
+import { useTheme } from "@emotion/react";
 import ChatList from "./ChatList";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import { useTheme } from "@emotion/react";
 
 const Container = () => {
     const {isSmallScreen} = useScreenSize(); 
@@ -24,6 +24,11 @@ const Container = () => {
                     userId: user.id, 
                 }
             })
+            for(let val of response.data) {
+                if(val.authorId) val.authorId = val.authorId.id
+                if(val.authorUsername) val.authorUsername = val.authorUsername.username
+                if(val.imageUrl) val.imageUrl = val.imageUrl.imageUrl
+            }
             setChats(response.data)
         }
         catch (err) {

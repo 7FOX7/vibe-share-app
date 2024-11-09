@@ -14,10 +14,12 @@ export const PostsProvider = ({children}) => {
 
     async function fetchPosts() {
         try {
-            const response = await axios.get("http://localhost:8080/posts"); 
+            const response = await axios.get("http://localhost:8080/posts");
+            for(let val of response.data) {
+                val.username = val.username.username
+            }
             setPosts(response.data)
             setGeolocationFilteredPosts(response.data)
-            console.log('posts were fetched successfully: ' +  response.statusText)
         }
         catch(err) {
             if(err.response) {
