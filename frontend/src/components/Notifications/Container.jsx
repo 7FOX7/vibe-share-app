@@ -35,7 +35,7 @@ const Container = () => {
             const response = await axios.get('http://localhost:8080/likes', {
                 params: {
                     userId: user.id, 
-                    getAll: true
+                    getCount: true
                 }
             })
             setLikedPosts(response.data)
