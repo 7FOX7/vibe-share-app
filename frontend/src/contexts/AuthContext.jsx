@@ -59,8 +59,7 @@ export const AuthProvider = ({children}) => {
     async function fetchData() {
         try {
             const response = await axios.get("http://localhost:8080/users")
-            setUsers(response.data);
-            console.log('user data was fetched successfully: ' +  response.statusText) 
+            setUsers(response.data); 
         }
         catch (err) {
             if(err.response) {
@@ -76,12 +75,12 @@ export const AuthProvider = ({children}) => {
     }
 
     async function updateUsers() {  
-        const userData = {
-            username: user.username, 
-            password: user.password
-        }
-
         try {
+            const userData = {
+                username: user.username, 
+                password: user.password
+            }
+
             const response = await axios.post(`http://localhost:8080/users`, userData)
             const users = response.data
             const newUser = users.find(_user => _user.username === userData.username)
