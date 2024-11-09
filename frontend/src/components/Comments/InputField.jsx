@@ -36,6 +36,7 @@ const InputField = ({id, type}) => {
                 userId: user.id, 
                 postType: type
             }
+            textAreaRef.current.value = ""
             sendComments(postData)
         }
         catch (err) {
