@@ -16,8 +16,8 @@ const Stats = memo(function Stats({likedPosts}) {
     const {clubIds} = useClubs(); 
 
     const userPosts = posts.filter((post) => post.username === user.username).length; 
-    const userLikes = likedPosts ? likedPosts.length : ''; 
-    const userClubs = clubIds ? clubIds.length : ''; 
+    const userLikes = likedPosts ? likedPosts : 0; 
+    const userClubs = clubIds ? clubIds.length : 0; 
     const stats = [userPosts, userLikes, userClubs]
 
     return (
