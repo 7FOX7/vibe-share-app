@@ -21,7 +21,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
 
     async function setInitialBackgroundColor() {
         const data = await checkIfPostIsLiked()
-        const postIsLiked = data.length !== 0
+        const postIsLiked = data === 1
         setIsLiked(postIsLiked)
         setBackgroundColor(postIsLiked ? "tertiary.main" : "tertiary.light")
     }
