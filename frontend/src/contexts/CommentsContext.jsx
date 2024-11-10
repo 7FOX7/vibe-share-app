@@ -36,13 +36,6 @@ export const CommentsProvider = ({children}) => {
     async function sendComments(postData) {
         try {
             const response = await _axios.post(`/comments`, postData); 
-            for(let val of response.data) {
-                val.username = val.username.username
-            }
-            for(let val of response.data) {
-                console.log(val)
-            }
-            setComments(response.data)
             console.log('comments were posted successfully: ' + response.statusText)
         }
         catch (err) {
