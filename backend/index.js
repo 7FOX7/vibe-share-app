@@ -110,26 +110,6 @@ async function fetchUsers(req, res) {
 }
 
 async function postUsers(req, res) {
-    // try {
-    //     const {username, password} = req.body; 
-    //     const q = `INSERT INTO users (username, password) VALUES (?, ?)`
-    //     await pool.query(q, [username, password], (err) => {
-    //         if(err) {
-    //             return res.status(500).send('There was an error when setting a query: ' + err)
-    //         }
-    //         const q2 = `SELECT * FROM users`
-    //         pool.query(q2, undefined, (err, data) => {
-    //             if(err) {
-    //                 return res.status(500).send('There was an error when setting a query: ' + err)
-    //             }
-    //             res.status(200).json(data)
-    //         })
-    //     })
-    // }
-    // catch (err) {
-    //     console.log(err)
-    // }
-
     try {
         const {username, password} = req.body; 
         const result = await client.from('users').insert({username: username, password: password}).select('*')
@@ -142,25 +122,6 @@ async function postUsers(req, res) {
 }
 
 async function fetchPosts(req, res) {
-    // try {
-    //     const q = `
-    //     SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, 
-    //     posts.likes, posts.latitude, posts.longitude, users.username FROM posts
-    //     JOIN users ON users.id = posts.userId
-    //     `
-    //     await pool.query(q, undefined, (err, data) => {
-    //         if(err) {
-    //             res.status(500).send('There was an error when setting a query: ' + err)
-    //         }
-    //         else {
-    //             res.json(data)
-    //         }
-    //     })
-    // }
-    // catch (err) {
-    //     console.log(err)
-    // }
-
     try {
         const result = await client.from('posts').select(`id, publishDate, content, imageUrl, likes, latitude, longitude, username: users (username)`)
 
@@ -172,31 +133,6 @@ async function fetchPosts(req, res) {
 }
 
 async function postPosts(req, res) {
-    // try {
-    //     const {publishDate, content, imageUrl, userId, likes, latitude, longitude} = req.body; 
-    //     const q = `INSERT INTO posts (publishDate, content, imageUrl, userId, likes, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)`
-    //     await pool.query(q, [publishDate, content, imageUrl, userId, likes, latitude, longitude], (err) => {
-    //         if(err) {
-    //             return res.status(500).send('There was an error when setting a query: ' + err)
-    //         }
-    //         const q2 = `
-    //             SELECT posts.id, posts.publishDate, posts.content, posts.imageUrl, posts.userId, posts.likes, posts.latitude, posts.longitude, users.username FROM posts
-    //             JOIN users ON users.id = posts.userId
-    //             ORDER BY id DESC
-    //             LIMIT 1
-    //             `
-    //         pool.query(q2, [content], (err, data) => {
-    //             if(err) {
-    //                 return res.status(500).send('There was an error when setting a query: ' + err)
-    //             }
-    //             res.status(200).json(data)
-    //         })
-    //     })
-    // }
-    // catch (err) {
-    //     console.log(err)
-    // }
-
     try {
         const {publishDate, content, imageUrl, userId, likes, latitude, longitude} = req.body; 
         const result = await client.from('posts').insert({
@@ -254,15 +190,6 @@ async function uploadImage(req, res) {
 
 async function fetchClubs(req, res) {
     try {
-        // const q = 'SELECT * FROM clubs'; 
-        // await pool.query(q, undefined, (err, data) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a query: ' + err)
-        //     }
-        //     else {
-        //         res.status(200).json(data)
-        //     }
-        // })
         const result = await client.from('clubs').select('*')
 
         res.status(200).json(result.data)
@@ -274,17 +201,6 @@ async function fetchClubs(req, res) {
 
 async function fetchUserClubs(req, res) {
     try {
-    //     const {userId} = req.query
-    //     const q = `SELECT * FROM user_clubs WHERE userId = ${userId}`; // not using 'SELECT clubId FROM user_clubs' because eventually going to use 'map' anyway
-    //     await pool.query(q, undefined, (err, data) => {
-    //     if(err) {
-    //         return res.status(500).send('There was an error when setting a query: ' + err)
-    //     }
-    //     else {
-    //         res.status(200).json(data)
-    //     }
-    // })
-
         const {userId} = req.query
         const result = await client.from('user_clubs').select('*').eq('userId', userId)
 
@@ -311,35 +227,6 @@ async function postUserClubs(req, res) {
             .catch(err => res.status(500).send('There was an error when extracting from user clubs (q3)' + err))
         })
         .catch(err => res.status(500).send('There was an error when updating members (q1) ' + err))
-
-
-        // const q1 = join ? 'UPDATE clubs SET members = members + 1 WHERE id=?' : 'UPDATE clubs SET members = members - 1 WHERE id=?'
-        // pool.query(q1, [clubId], (err) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a q1: ' + err)
-        //     }
-        //     else {
-        //         const q2 = join ? 'INSERT INTO user_clubs (userId, clubId) VALUES(?, ?)' : 'DELETE FROM user_clubs WHERE userId=? AND clubId=?'; 
-        //         pool.query(q2, [userId, clubId], (err) => {
-        //             if(err) {
-        //                 return res.status(500).send('There was an error when setting a q2: ' + err)
-        //             }
-        //             else {
-        //                 const q3 = 'SELECT * FROM user_clubs'; 
-        //                 pool.query(q3, undefined, (err, data) => {
-        //                     if(err) {
-        //                         return res.status(500).send('There was an error when setting a q3: ' + err)
-        //                     }
-        //                     else {
-        //                         res.status(200).json(data)
-        //                     }
-        //                 })
-        //             }
-        //         })
-        //     }
-        // })
-
-
     }
     catch (err) {
         console.log(err)
@@ -352,32 +239,6 @@ async function fetchLikes(req, res) {
         const result = getCount ? await client.from('liked_posts').select(undefined, {head: true, count: "exact"}).eq('userId', userId) : await client.from('liked_posts').select(undefined, {head: true, count: "exact"}).eq('userId', userId).eq('postId', postId)
 
         res.status(200).json(result.count)
-
-
-        // let q; 
-        // const params = [userId]
-        // if(getAll) {
-        //     q = `
-        //         SELECT * FROM liked_posts
-        //         RIGHT JOIN posts ON posts.id = liked_posts.postId
-        //         WHERE liked_posts.userId=?
-        //     `
-        // }
-        // else {
-        //     q = `
-        //         SELECT postId FROM liked_posts
-        //         WHERE userId=? AND postId=?
-        //     `
-        //     params.push(postId)
-        // }
-        // await pool.query(q, params, (err, data) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a query: ' + err)
-        //     }
-        //     else {
-        //         return res.status(200).send(data)
-        //     }
-        // })
     }
     catch (err) {
         console.log(err)
@@ -462,19 +323,6 @@ async function fetchVideos(req, res) {
         const result = await client.from('videos').select('id, publishDate, videoUrl, username: users (username)')
         
         res.status(200).json(result.data)
-
-        // const q = `
-        //     SELECT videos.id, publishDate, videoUrl, users.username FROM videos
-        //     JOIN users ON users.id = videos.userId
-        // `; 
-        // await pool.query(q, undefined, (err, data) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a query: ' + err)
-        //     }
-        //     else {
-        //         res.json(data)
-        //     }
-        // })
     }
     catch (err) {
         console.log(err)
@@ -498,29 +346,6 @@ async function postVideos(req, res) {
         })
         
         res.status(200).send('Your video has been put in a queue!') 
-        
-
-        // const q1 = `SELECT COUNT(*) AS count FROM videos`
-        // await pool.query(q1, undefined, (err, data) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a q1: ' + err)
-        //     }
-        //     else {
-        //         const count = data[0].count
-        //         if(typeof(count) === "number") {
-        //             const q2 = count === 0 ? `INSERT INTO videos (publishDate, videoUrl, userId) VALUES (?, ?, ?)` : `INSERT INTO pending_videos (publishDate, videoUrl, userId) VALUES (?, ?, ?)`
-        //             pool.query(q2, [publishDate, videoUrl, userId], (err) => {
-        //                 if(err) {
-        //                     return res.status(500).send('There was an error when setting a q2: ' + err)
-        //                 }
-        //                 return res.status(200).send('Your video has been put in a queue!')
-        //             }) 
-        //         }
-        //         else {
-        //             return res.status(500).send('count does not return a number')
-        //         }
-        //     }
-        // })
     }
     catch (err) {
         console.log(err)
@@ -534,25 +359,6 @@ async function fetchComments(req, res) {
         const result = postType === "post" ? await client.from('post_comments').select('id, publishDate, content, postId, username: users (username)').eq('postId', id) : await client.from('video_comments').select('id, publishDate, content, videoId, username: users (username)').eq('videoId', id)
 
         res.status(200).json(result.data)
-
-        // const q = postType === "post" ? 
-        // `
-        //     SELECT post_comments.id, publishDate, content, postId, users.username FROM post_comments
-        //     JOIN users ON users.id = post_comments.userId
-        //     WHERE postId=?
-        // ` 
-        // : 
-        // `
-        //     SELECT video_comments.id, publishDate, content, videoId, users.username FROM video_comments
-        //     JOIN users ON users.id = video_comments.userId
-        //     WHERE videoId=?
-        // `; 
-        // await pool.query(q, [id], (err, data) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a query: ' + err)
-        //     }
-        //     res.status(200).json(data)
-        // })
     }
     catch (err) {
         console.log(err)
@@ -562,8 +368,6 @@ async function fetchComments(req, res) {
 async function postComments(req, res) {
     try {
         const {publishDate, content, id, userId, postType} = req.body; 
-
-        // console.log('id ' + typeof(id))
         postType === "post" ? await client.from("post_comments").insert({
             publishDate: publishDate, 
             content: content, 
@@ -577,13 +381,6 @@ async function postComments(req, res) {
         })
 
         res.status(200).send('Comment was sent successfully!')
-        // const q = postType === "post" ? `INSERT INTO post_comments (publishDate, content, postId, userId) VALUES(?, ?, ?, ?)` : `INSERT INTO video_comments (publishDate, content, videoId, userId) VALUES(?, ?, ?, ?)`
-        // await pool.query(q, [publishDate, content, postId, userId], (err) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a query: ' + err)
-        //     }
-        //     return res.status(200)
-        // })
     }
     catch (err) {
         console.log(err)
@@ -593,7 +390,6 @@ async function postComments(req, res) {
 async function fetchChats(req, res) {
     try {
         const {userId} = req.query;
-
         const result = await client.from('post_comments').select('commentId:id, commentPublishDate:publishDate, commentContent:content, postId, commentUserId:userId, imageUrl:posts (imageUrl), authorId:users (id), authorUsername:users (username)').eq('userId', userId)
 
         res.status(200).json(result.data)
