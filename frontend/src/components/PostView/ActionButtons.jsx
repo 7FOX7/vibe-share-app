@@ -4,7 +4,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
-import axios from "axios"
+import _axios from "../../../axios.config"
 
 const type = "post"
 
@@ -28,7 +28,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
 
     async function checkIfPostIsLiked() {
         try {
-            const response = await axios.get('http://localhost:8080/likes', {
+            const response = await _axios.get('/likes', {
                 params: {
                     userId: user.id, 
                     postId: post.id
@@ -57,7 +57,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
                     postId: post.id, 
                     isLiked: isLiked
                 }
-                const response = await axios.post('http://localhost:8080/likes', data, {
+                const response = await _axios.post('/likes', data, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

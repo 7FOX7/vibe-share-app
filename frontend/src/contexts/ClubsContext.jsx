@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import axios from "axios";
+import _axios from "../../axios.config";
 
 const ClubsContext = createContext(null); 
 
@@ -13,7 +13,7 @@ export const ClubsProvider = ({children}) => {
 
     async function fetchClubs() {
         try {
-            const response = await axios.get("http://localhost:8080/clubs")
+            const response = await _axios.get("/clubs")
             setClubs(response.data)
         }
         catch (err) {
@@ -31,7 +31,7 @@ export const ClubsProvider = ({children}) => {
 
     async function fetchClubIds(userId) {
         try {
-            const response = await axios.get("http://localhost:8080/user-clubs", {
+            const response = await _axios.get("/user-clubs", {
                 params: {
                     userId
                 }

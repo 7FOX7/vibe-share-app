@@ -1,6 +1,6 @@
 import {useState, useEffect, createContext, useContext} from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
+import _axios from "../../axios.config"
 
 const AuthContext = createContext('default')
 
@@ -58,7 +58,7 @@ export const AuthProvider = ({children}) => {
 
     async function fetchData() {
         try {
-            const response = await axios.get("http://localhost:8080/users")
+            const response = await _axios.get("/users")
             setUsers(response.data); 
         }
         catch (err) {
@@ -81,7 +81,7 @@ export const AuthProvider = ({children}) => {
                 password: user.password
             }
 
-            const response = await axios.post(`http://localhost:8080/users`, userData)
+            const response = await _axios.post(`/users`, userData)
             const users = response.data
             const newUser = users.find(_user => _user.username === userData.username)
             setUser(newUser)

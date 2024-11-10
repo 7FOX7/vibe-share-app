@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import { useTheme } from "@emotion/react";
+import _axios from "../../../axios.config";
 import ChatList from "./ChatList";
-import axios from "axios";
 import Box from "@mui/material/Box";
 
 const Container = () => {
@@ -19,7 +19,7 @@ const Container = () => {
 
     async function fetchChats() {
         try {
-            const response = await axios.get('http://localhost:8080/chats', {
+            const response = await _axios.get('/chats', {
                 params: {
                     userId: user.id, 
                 }

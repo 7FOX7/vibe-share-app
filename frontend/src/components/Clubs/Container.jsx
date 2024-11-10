@@ -6,7 +6,7 @@ import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box"; 
 import ClubsSection from "./ClubsSection";
 import CustomModal from "../../customs/CustomModal"; 
-import axios from "axios";
+import _axios from "../../../axios.config";
 
 const showTwoButtons = true; 
 const message = "Are you sure you want to leave the club?"; 
@@ -34,7 +34,7 @@ const Container = () => {
                     clubId: id, 
                     join: true
                 }
-                await axios.post("http://localhost:8080/user-clubs", data)
+                await _axios.post("/user-clubs", data)
                 await fetchClubIds(user.id)
                 await fetchClubs()
             }
@@ -62,7 +62,7 @@ const Container = () => {
                 userId: user.id, 
                 clubId: clubId
             }
-            await axios.post("http://localhost:8080/user-clubs", data)
+            await _axios.post("/user-clubs", data)
             await fetchClubIds(user.id)
             await fetchClubs()
         }

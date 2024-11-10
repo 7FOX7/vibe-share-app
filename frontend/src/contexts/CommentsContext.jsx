@@ -1,5 +1,5 @@
 import { useState, createContext, useContext } from "react"; 
-import axios from "axios";
+import _axios from "../../axios.config";
 
 const CommentsContext = createContext(null); 
 
@@ -8,7 +8,7 @@ export const CommentsProvider = ({children}) => {
 
     async function fetchComments(id, postType) {
         try {
-            const response = await axios.get(`http://localhost:8080/comments`, {
+            const response = await _axios.get(`/comments`, {
                 params: {
                     id: id, 
                     postType: postType
@@ -35,7 +35,7 @@ export const CommentsProvider = ({children}) => {
 
     async function sendComments(postData) {
         try {
-            const response = await axios.post(`http://localhost:8080/comments`, postData); 
+            const response = await _axios.post(`/comments`, postData); 
             for(let val of response.data) {
                 val.username = val.username.username
             }

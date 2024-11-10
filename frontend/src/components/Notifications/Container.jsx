@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import Stats from "./Stats"; 
 import LocalPosts from "./LocalPosts";
 import Footnote from "./Footnote";
-import axios from "axios";
+import _axios from "../../../axios.config";
 
 const Container = () => {
     const {isSmallScreen} = useScreenSize(); 
@@ -32,7 +32,7 @@ const Container = () => {
 
     async function fetchLikedPosts() {
         try {
-            const response = await axios.get('http://localhost:8080/likes', {
+            const response = await _axios.get('/likes', {
                 params: {
                     userId: user.id, 
                     getCount: true

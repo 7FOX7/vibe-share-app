@@ -1,5 +1,5 @@
 import { useState, createContext, useContext } from "react";
-import axios from "axios";
+import _axios from "../../axios.config";
 
 const VideosContext = createContext([]); 
 
@@ -8,7 +8,7 @@ export const VideosProvider = ({children}) => {
 
     async function fetchVideos() {
         try {
-            const response = await axios.get('http://localhost:8080/videos'); 
+            const response = await _axios.get('/videos'); 
             for(let val of response.data) {
                 val.username = val.username.username
             }
