@@ -6,8 +6,8 @@ import PostButton from "./PostButton";
 import InputFields from "./InputFields";
 import CustomModal from "../../customs/CustomModal";
 import youtubeRegex from "../../utils/regex/youtubeRegex";
-import axios from "axios";
-import formatMySqlDate from "../../utils/functions/formatMySqlDate";
+import _axios from "../../../axios.config";
+import formatSqlDate from "../../utils/functions/formatSqlDate";
 
 const Main = () => {
     const urlInputRef = useRef(""); 
@@ -30,14 +30,14 @@ const Main = () => {
             const videoId = url.match(youtubeRegex)[1]
             const formattedVideoId = videoId.split('?')[0]
             const formattedVideoUrl = `https://www.youtube.com/embed/${formattedVideoId}?autoplay=1`
-            const currentDate = formatMySqlDate(new Date()); 
+            const currentDate = formatSqlDate(new Date()); 
             const data = {
                 publishDate: currentDate, 
                 videoUrl: formattedVideoUrl, 
                 userId: user.id, 
             }
             try {
-                const response = await axios.post('http://localhost:8080/videos', data, {
+                const response = await _axios.post('/videos', data, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

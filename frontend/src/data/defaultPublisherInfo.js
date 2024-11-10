@@ -1,6 +1,6 @@
-import formatMySqlDate from "../utils/functions/formatMySqlDate";
+import formatSqlDate from "../utils/functions/formatSqlDate";
 
-const currentDate = formatMySqlDate(new Date()); 
+const currentDate = formatSqlDate(new Date()); 
 
 const defaultPublisherInfo = [
     {

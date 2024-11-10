@@ -13,10 +13,10 @@ import stepLabels from "../../data/stepLabels"
 import Content from "./Content"
 import Buttons from "./Buttons"
 import CustomBackdrop from "../../customs/CustomBackdrop"
-import axios from "axios"
+import _axios from "../../../axios.config"
 import arrayBufferToFile from "../../utils/functions/arrayBufferToFile"
 import base64ToArrayBuffer from "../../utils/functions/base64ToArrayBuffer"
-import formatMySqlDate from "../../utils/functions/formatMySqlDate"
+import formatSqlDate from "../../utils/functions/formatSqlDate"
 
 const VerticalStepper = () => {
     const [loading, setLoading] = useState(false); 
@@ -44,11 +44,11 @@ const VerticalStepper = () => {
             const {base64, fileName} = storedFileData; 
             const arrayBuffer = base64ToArrayBuffer(base64)
             const file = arrayBufferToFile(arrayBuffer, fileName)
-            const currentDate = formatMySqlDate(new Date());  
+            const currentDate = formatSqlDate(new Date());  
             const formData = new FormData();
             formData.append('image', file)
             try { 
-                const uploadResponse = await axios.post("http://localhost:8080/upload", formData, {
+                const uploadResponse = await _axios.post("/upload", formData, {
                     headers: {
                         "Content-Type": 'multipart/form-data'
                     }
@@ -63,7 +63,7 @@ const VerticalStepper = () => {
                     latitude: geolocation ? geolocation.latitude : null, 
                     longitude: geolocation ? geolocation.longitude : null
                 }
-                const response = await axios.post("http://localhost:8080/posts", postData)
+                const response = await _axios.post("/posts", postData)
                 for(let val of response.data) {
                     val.username = val.username.username
                 }
