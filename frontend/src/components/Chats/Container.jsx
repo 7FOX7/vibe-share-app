@@ -47,7 +47,8 @@ const Container = () => {
     return (
         <Box sx={{
             width: `${isSmallScreen ? "100%" : "50%"}`, 
-            color: theme.palette.chats.chatListText.main
+            color: theme.palette.chats.chatListText.main, 
+            marginBottom: "50px"
         }}>
             <ChatList chats={chats} />
         </Box>

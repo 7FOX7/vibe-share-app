@@ -8,14 +8,15 @@ const Comments = () => {
         <Suspense falback={<div>Loading</div>}>
             <Box sx={{
                 width: "100%", 
-                height: "100vh", 
+                height: "100%", 
                 display: "flex", 
                 flexDirection: "column", 
                 alignItems: "center", 
                 paddingInline: "10px",
                 backgroundColor: "contrastColors.white.main",  
                 paddingTop: "70px", 
-                marginBottom: "40px", 
+                paddingBottom: "30px", 
+                marginBottom: "70px", 
                 overflow: "hidden auto"
             }}>
                 <CommentSection />

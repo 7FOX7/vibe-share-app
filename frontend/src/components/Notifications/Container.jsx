@@ -60,7 +60,8 @@ const Container = () => {
                     width: "100%", 
                     display: "flex", 
                     flexDirection: "column", 
-                    alignItems: "center"
+                    alignItems: "center", 
+                    marginBottom: "80px"
                 }}>
                     <Stats likedPosts={likedPosts} />
                     <LocalPosts />
@@ -73,7 +74,8 @@ const Container = () => {
                 <Box sx={{
                     width: "100%", 
                     display: "flex", 
-                    justifyContent: "space-between"
+                    justifyContent: "space-between", 
+                    marginBottom: "50px"
                 }}>
                     <LocalPosts />
                     <Stats likedPosts={likedPosts} />

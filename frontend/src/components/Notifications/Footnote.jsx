@@ -8,7 +8,6 @@ const Footnote = memo(function Footnote() {
     return (
         <Box sx={{
             marginTop: "10px", 
-            height: "25vh"
         }}>
             <Typography sx={{color: theme.palette.notifications.localPostsText.main}}>🎉 That's all folks!</Typography>
         </Box>

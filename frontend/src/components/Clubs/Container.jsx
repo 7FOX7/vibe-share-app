@@ -112,7 +112,8 @@ const Container = () => {
                 width: "100%", 
                 display: "flex", 
                 flexDirection: "column", 
-                alignItems: "center"
+                alignItems: "center", 
+                marginBottom: "100px"
             }}>
                 <ClubsSection clubs={clubs} clubIds={clubIds} handleClick={handleClick} />
             </Box>

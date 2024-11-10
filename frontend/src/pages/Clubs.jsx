@@ -12,7 +12,6 @@ const Clubs = () => {
                 backgroundColor: "secondary.main", 
                 paddingInline: "10px", 
                 paddingTop: "50px", 
-                marginBottom: "40px", 
                 overflow: "hidden auto"
             }}>
                 <Container />
