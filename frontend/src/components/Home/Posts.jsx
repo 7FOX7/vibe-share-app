@@ -29,7 +29,7 @@ const Posts = () => {
         <Box sx={{
             marginBottom: "40px"
         }}>
-            <ImageList cols={isSmallScreen ? 2 : 4} gap={8} sx={{ 
+            <ImageList cols={isSmallScreen ? 2 : 4} gap={10} sx={{ 
                 width: "100%",   
                 overflow: "hidden"
             }}>
