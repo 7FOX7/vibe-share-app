@@ -31,19 +31,18 @@ app.get('/', (req, res) => {
 })
 
 const storage = new Storage({
-    projectId: process.env.PROJECT_ID, 
     credentials: {
         type: process.env.TYPE,
         project_id: process.env.PROJECT_ID,
         private_key_id: process.env.PRIVATE_KEY_ID,
-        private_key: process.env.PRIVATE_KEY,
+        private_key: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
         client_email: process.env.CLIENT_EMAIL,
         client_id: process.env.CLIENT_ID,
         auth_uri: process.env.AUTH_URI,
         token_uri: process.env.TOKEN_URI,
         auth_provider_x509_cert_url: process.env.AUTH_PROVIDER_X509_CERT_URL,
         client_x509_cert_url: process.env.CLIENT_X509_CERT_URL,
-        universe_domain: process.env.UNIVERSE_DOMAIN
+        universe_domain: process.env.UNIVERSE_DOMAIN, 
     }
 })
 
@@ -172,31 +171,40 @@ async function uploadImage(req, res) {
     }
 
     try {
-        const processImageBuffer = sharp(req.file.buffer)
+        const buffer = await sharp(req.file.buffer)
             .toFormat('webp')
-            .resize(380)
-            .toBuffer()
-            .then((data) => {
-                const blob = bucket.file(req.file.originalname)
-                const blobStream = blob.createWriteStream({
-                    resumable: false, 
-                    contentType: "image/webp"
-                })
-                blobStream.on('error', (err) => {
-                    res.status(500).send(err.message)
-                })
-                blobStream.on('finish', () => {
-                    const publicUrl = `https://storage.cloud.google.com/${bucket.name}/${blob.name}`
-                    res.status(200).json(publicUrl)
-                })
-                blobStream.end(data)
+            .resize({
+                width: 300,
+                height: 300
             })
+            .toBuffer();
+
+        const blob = bucket.file(req.file.originalname)
+
+        const writable = blob.createWriteStream({
+            resumable: false, 
+            contentType: "image/webp",
+            metadata: {
+                contentType: 'image/webp',
+            },
+        }) 
+
+        writable
+            .on('finish', () => {
+                const publicUrl = `https://storage.cloud.google.com/${bucket.name}/${blob.name}`;
+                res.status(200).json(publicUrl);
+            })
+            .on('error', (err) => {
+                res.status(500).send('Could not write into a file: ' + err);
+            })
+        
+        writable.end(buffer)
     }
     catch(err) {
         if(err.code === "LIMIT_FILE_SIZE") {
             return res.status(500).send('File size cannot be larger than 25MB!')
         }
-        res.status(500).send(err)
+        res.status(500).send(err.message)
     }
 }
 
@@ -280,50 +288,6 @@ async function postLikes(req, res) {
         //     .catch(err => res.status(500).send('There was an error when setting a query: ' + err))
         // })
         // .catch(err => console.error('There was an error when setting a query: ' + err))
-
-        // if(!isLiked) {
-        //     const q = `INSERT INTO liked_posts (userId, postId) VALUES(?, ?)`   
-        //     await pool.query(q, [userId, postId], (err) => {
-        //         if(err) {
-        //             return res.status(500).send('There was an error when setting a query: ' + err)
-        //         }    
-        //         const q2 = `UPDATE posts SET likes = likes + 1 WHERE id=?`
-        //         pool.query(q2, [postId], (err) => {
-        //             if(err) {
-        //                 return res.status(500).send('There was an error when setting a query: ' + err)
-        //             }  
-        //             const q3 = `SELECT likes FROM posts WHERE id=?`
-        //             pool.query(q3, [postId], (err, data) => {
-        //                 if(err) {
-        //                     return res.status(500).send('There was an error when setting a query: ' + err)
-        //                 }   
-        //                 res.status(200).json(data) 
-        //             })  
-        //         })
-        //     })  
-            
-        // }
-        // else {
-        //     const q = `DELETE FROM liked_posts WHERE userId=? AND postId=?`   
-        //     await pool.query(q, [userId, postId], (err) => {
-        //         if(err) {
-        //             return res.status(500).send('There was an error when setting a query: ' + err)
-        //         }    
-        //         const q2 = `UPDATE posts SET likes = likes - 1 WHERE id=?`
-        //         pool.query(q2, [postId], (err) => {
-        //             if(err) {
-        //                 return res.status(500).send('There was an error when setting a query: ' + err)
-        //             }  
-        //             const q3 = `SELECT likes FROM posts WHERE id=?`
-        //             pool.query(q3, [postId], (err, data) => {
-        //                 if(err) {
-        //                     return res.status(500).send('There was an error when setting a query: ' + err)
-        //                 }   
-        //                 res.status(200).json(data) 
-        //             })  
-        //         })
-        //     })
-        // }
     }
     catch(err) {
         console.log(err)
@@ -405,29 +369,6 @@ async function fetchChats(req, res) {
         const result = await client.from('post_comments').select('commentId:id, commentPublishDate:publishDate, commentContent:content, postId, commentUserId:userId, imageUrl:posts (imageUrl), authorId:users (id), authorUsername:users (username)').eq('userId', userId)
 
         res.status(200).json(result.data)
-        // const q = `
-            // SELECT 
-            //     post_comments.id AS commentId, 
-            //     post_comments.content AS commentContent, 
-            //     post_comments.publishDate AS commentPublishDate, 
-            //     post_comments.postId, 
-            //     post_comments.userId AS commentUserId, 
-            //     posts.imageUrl, 
-            //     users.id AS authorId, 
-            //     users.username AS authorUsername
-            // FROM post_comments
-            // JOIN posts ON post_comments.postId = posts.id 
-            // JOIN users ON posts.userId = users.id
-            // WHERE post_comments.userId=?
-        // `
-        // await pool.query(q, [userId], (err, data) => {
-        //     if(err) {
-        //         return res.status(500).send('There was an error when setting a query: ' + err)
-        //     }
-        //     else {
-        //         return res.status(200).json(data)
-        //     }
-        // })
     }   
     catch (err) {
         console.log(err)
