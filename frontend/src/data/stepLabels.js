@@ -1,16 +1,15 @@
-import { nanoid } from "nanoid"
 
 const stepLabels = [
     {
-        id: nanoid(5), 
+        id: "#WriteYourThoughts", 
         label: "Write Your Thoughts", 
     }, 
     {
-        id: nanoid(5), 
+        id: "#PickImage", 
         label: "Pick Image", 
     }, 
     {
-        id: nanoid(5), 
+        id: "#Preview", 
         label: "Preview", 
     }, 
 ]
