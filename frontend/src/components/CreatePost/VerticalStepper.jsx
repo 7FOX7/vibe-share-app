@@ -92,7 +92,7 @@ const VerticalStepper = () => {
             }
         }
         else {
-            alert('Please, make sure to submit at least one image and a text')
+            alert('Please make sure to submit at least one image and a text')
         }
     }
 

@@ -31,11 +31,11 @@ export const AuthProvider = ({children}) => {
                 navigate("/", {relative: "route"})
             }
             else {
-                alert('The username contains too many characters!')
+                alert('The username contains too many characters')
             }
         }
         else {
-            alert('The username already exists!')
+            alert('This username already exists')
         }
     }
 
@@ -52,7 +52,7 @@ export const AuthProvider = ({children}) => {
             navigate("/", {relative: "route"})
         }
         else {
-            alert('user is not found!')
+            alert('User is not found')
         }
     }
 

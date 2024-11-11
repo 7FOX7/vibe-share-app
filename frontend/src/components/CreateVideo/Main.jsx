@@ -58,7 +58,7 @@ const Main = () => {
             }
         } 
         else {
-            alert('Url is Not Valid!')
+            alert('URL is not valid')
         }
     }
 
