@@ -7,7 +7,6 @@ import navBarRoutes from "../../data/navBarRoutes"
 const Layout = ({children, setIsDarkTheme}) => {
     const {authSucceeded} = useAuth(); 
     const location = useLocation();
-    console.log('layer is renrendered')
     if(authSucceeded) {
         return (
             <>

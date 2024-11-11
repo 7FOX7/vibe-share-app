@@ -18,17 +18,17 @@ export const CommentsProvider = ({children}) => {
                 val.username = val.username.username
             }
             setComments(response.data)
-            console.log('comments were fetched successfully: ' +  response.statusText)
+            console.error('comments were fetched successfully: ' +  response.statusText)
         }
         catch (err) {
             if(err.response) {
-                console.log('Something is wrong with the server: ' + err.response.data)
+                console.error('Something is wrong with the server: ' + err.response.data)
             }
             else if(err.request) {
-                console.log('Something is wrong with the client')
+                console.error('Something is wrong with the client')
             }
             else {
-                console.log(err)
+                console.error(err)
             }
         }
     }
@@ -36,17 +36,17 @@ export const CommentsProvider = ({children}) => {
     async function sendComments(postData) {
         try {
             const response = await _axios.post(`/comments`, postData); 
-            console.log('comments were posted successfully: ' + response.statusText)
+            console.error('comments were posted successfully: ' + response.statusText)
         }
         catch (err) {
             if(err.response) {
-                console.log('Something is wrong with the server: ' + err.response.data)
+                console.error('Something is wrong with the server: ' + err.response.data)
             }
             else if(err.request) {
-                console.log('Something is wrong with the client')
+                console.error('Something is wrong with the client')
             }
             else {
-                console.log(err)
+                console.error(err)
             }
         }
     }

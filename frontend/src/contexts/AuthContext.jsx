@@ -63,13 +63,13 @@ export const AuthProvider = ({children}) => {
         }
         catch (err) {
             if(err.response) {
-                console.log('Something is wrong with the server')
+                console.error('Something is wrong with the server')
             }
             else if(err.request) {
-                console.log('Something is wrong with the client')
+                console.error('Something is wrong with the client')
             }
             else {
-                console.log(err)
+                console.error(err)
             }
         }
     }
@@ -89,13 +89,13 @@ export const AuthProvider = ({children}) => {
         }
         catch(err) {
             if(err.response) {
-                console.log('Something is wrong with the server')
+                console.error('Something is wrong with the server')
             }
             else if(err.request) {
-                console.log('Something is wrong with the client')
+                console.error('Something is wrong with the client')
             }
             else {
-                console.log(err)
+                console.error(err)
             }
         }
     }

@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 
 const Layer = () => {
     const {isSmallScreen} = useScreenSize(); 
-    console.log('LAYER IS rerendered')
     return (
         <Box sx={{
             backgroundColor: "secondary.main", 

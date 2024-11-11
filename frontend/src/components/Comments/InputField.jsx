@@ -37,7 +37,7 @@ const InputField = ({id, type}) => {
             sendComments(postData)
         }
         catch (err) {
-            console.log('There was an error when sending a comment')
+            console.error('There was an error when sending a comment')
         }
         finally {
             setOpen(true)

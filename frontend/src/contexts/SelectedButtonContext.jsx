@@ -20,13 +20,11 @@ export const SelectedButtonProvider = ({children}) => {
                     setPosts(postsCopy)
                     setSliderIsVisible(false)
                     navigate("/", {relative: "route"})
-                    console.log('POPULAR was clicked')
                 break; 
     
                 case "Watch": 
                     navigate("/video-view", {relative: "route"})
                     setSliderIsVisible(false)
-                    console.log('WATCH was clicked')
                 break; 
     
                 case "Recent": 
@@ -38,7 +36,6 @@ export const SelectedButtonProvider = ({children}) => {
                     setPosts(postsCopy)
                     setSliderIsVisible(false)
                     navigate("/", {relative: "route"})
-                    console.log('RECENT was clicked')
                 break; 
     
                 case "Local": 
@@ -55,7 +52,6 @@ export const SelectedButtonProvider = ({children}) => {
                         setSliderIsVisible(true)
                         navigate("/", {relative: "route"})
                     }
-                    console.log('LOCAL was clicked')
                 break; 
             } 
         }

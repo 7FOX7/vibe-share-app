@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import theme from './themes/theme.js'
 import darkTheme from './themes/darkTheme.js'
-import Typography from '@mui/material/Typography'
 import ProtectedRoute from './utils/components/ProtectedRoute'
 import Registration from './pages/Registration'
 import Home from './pages/Home'
@@ -32,7 +31,6 @@ import { SelectedButtonProvider } from './contexts/SelectedButtonContext'
 
 const App = () => { 
   const [isDarkTheme, setIsDarkTheme] = useState(false)
-  console.log('APP IS RERENDERED')
   useEffect(() => {
     const isDark = JSON.parse(localStorage.getItem('isDarkTheme')); 
     isDark ? setIsDarkTheme(true) : setIsDarkTheme(false)
@@ -126,9 +124,3 @@ const App = () => {
 }
 
 export default App
-
-/*
-    the problems: 
-    1. when we delete a liked post from the 'liked_post' table, the id is not reset, it is increasing 
-    everytime the user is liking/unliking the post
-*/

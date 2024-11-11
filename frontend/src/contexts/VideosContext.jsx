@@ -13,17 +13,17 @@ export const VideosProvider = ({children}) => {
                 val.username = val.username.username
             }
             setVideos(response.data)
-            console.log('videos were fetched successfully: ' +  response.statusText)
+            console.error('videos were fetched successfully: ' +  response.statusText)
         }
         catch (err) {
             if(err.response) {
-                console.log('Something is wrong with the server: ' + err.response.data)
+                console.error('Something is wrong with the server: ' + err.response.data)
             }
             else if(err.request) {
-                console.log('Something is wrong with the client')
+                console.error('Something is wrong with the client')
             }
             else {
-                console.log(err)
+                console.error(err)
             }
         }
     }

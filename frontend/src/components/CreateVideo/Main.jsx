@@ -44,13 +44,13 @@ const Main = () => {
             }
             catch (err) {
                 if(err.response) {
-                    console.log('Something is wrong with the server: ' + err)
+                    console.error('Something is wrong with the server: ' + err)
                 }
                 else if(err.request) {
-                    console.log('Something is wrong with the client: ' + err)
+                    console.error('Something is wrong with the client: ' + err)
                 }
                 else {
-                    console.log(err)
+                    console.error(err)
                 }
             }
             finally {

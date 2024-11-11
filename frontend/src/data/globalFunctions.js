@@ -16,7 +16,6 @@ export function handleSliderChange(e, posts, setGeolocationFilteredPosts, geoloc
     // const moscowGeolocation = {"latitude": 43.651070, "longitude": -79.347015}
     // const newYorkGeolocation = {"latitude": 40.730610, "longitude": -73.935242}
     // const distance = calculateDistance(moscowGeolocation, newYorkGeolocation)
-    // console.log('The distance between two cities in meters: ' + Math.floor(distance / 1000))
 }
 
 const globalFunctions = [

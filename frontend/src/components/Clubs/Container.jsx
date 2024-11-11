@@ -40,13 +40,13 @@ const Container = () => {
             }
             catch (err) {
                 if(err.response) {
-                    console.log('Something is wrong with the server: ' + err.response.data)
+                    console.error('Something is wrong with the server: ')
                 }
                 else if(err.request) {
-                    console.log('Something is wrong with the client')
+                    console.error('Something is wrong with the client')
                 }
                 else {
-                    console.log(err)
+                    console.error(err)
                 }
             }
         }
@@ -68,13 +68,13 @@ const Container = () => {
         }
         catch (err) {
             if(err.response) {
-                console.log('Something is wrong with the server: ' + err.response.data)
+                console.error('Something is wrong with the server: ' + err.response.data)
             }
             else if(err.request) {
-                console.log('Something is wrong with the client')
+                console.error('Something is wrong with the client')
             }
             else {
-                console.log(err)
+                console.error(err)
             }
         }
         finally {
