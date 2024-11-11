@@ -145,9 +145,10 @@ async function fetchPosts(req, res) {
 
 async function postPosts(req, res) {
     try {
-        const {publishDate, content, imageUrl, userId, likes, latitude, longitude} = req.body; 
+        // const {publishDate, content, imageUrl, userId, likes, latitude, longitude} = req.body; 
+        const {content, imageUrl, userId, likes, latitude, longitude} = req.body; 
         const result = await client.from('posts').insert({
-            publishDate: publishDate,
+            // publishDate: publishDate,
             content: content, 
             imageUrl: imageUrl, 
             userId: userId, 
@@ -307,16 +308,15 @@ async function fetchVideos(req, res) {
 
 async function postVideos(req, res) {
     try {
-        const {publishDate, videoUrl, userId} = req.body; 
+        // const {publishDate, videoUrl, userId} = req.body; 
+        const {videoUrl, userId} = req.body; 
         const q = await client.from('videos').select('*', {
             count: "exact"
         })
-        console.log('count ' + q.count)
-
         const table = q.count === 0 ? 'videos' : 'pending_videos'
 
         await client.from(table).insert({
-            publishDate: publishDate, 
+            // publishDate: publishDate, 
             videoUrl: videoUrl, 
             userId: userId
         })
@@ -343,14 +343,15 @@ async function fetchComments(req, res) {
 
 async function postComments(req, res) {
     try {
-        const {publishDate, content, id, userId, postType} = req.body; 
+        // const {publishDate, content, id, userId, postType} = req.body; 
+        const {content, id, userId, postType} = req.body; 
         postType === "post" ? await client.from("post_comments").insert({
-            publishDate: publishDate, 
+            // publishDate: publishDate, 
             content: content, 
             postId: id,     
             userId: userId
         }) : await client.from("video_comments").insert({
-            publishDate: publishDate, 
+            // publishDate: publishDate, 
             content: content, 
             videoId: id,     
             userId: userId

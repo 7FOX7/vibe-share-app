@@ -16,7 +16,6 @@ import CustomBackdrop from "../../customs/CustomBackdrop"
 import _axios from "../../../axios.config"
 import arrayBufferToFile from "../../utils/functions/arrayBufferToFile"
 import base64ToArrayBuffer from "../../utils/functions/base64ToArrayBuffer"
-import formatSqlDate from "../../utils/functions/formatSqlDate"
 
 const VerticalStepper = () => {
     const [loading, setLoading] = useState(false); 
@@ -44,7 +43,6 @@ const VerticalStepper = () => {
             const {base64, fileName} = storedFileData; 
             const arrayBuffer = base64ToArrayBuffer(base64)
             const file = arrayBufferToFile(arrayBuffer, fileName)
-            const currentDate = formatSqlDate(new Date());  
             const formData = new FormData();
             formData.append('image', file)
             try { 
@@ -55,7 +53,6 @@ const VerticalStepper = () => {
                 })
                 const imageUrl = uploadResponse.data
                 const postData = {
-                    publishDate: currentDate, 
                     content: storedContent, 
                     imageUrl: imageUrl, 
                     userId: user.id, 

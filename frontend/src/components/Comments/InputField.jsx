@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar"
 import CustomTextArea from "../../customs/CustomTextArea"
 import CustomModal from "../../customs/CustomModal"; 
 import SendIcon from '@mui/icons-material/Send';
-import formatSqlDate from "../../utils/functions/formatSqlDate"; 
 
 const message = "Comment was sent sucessfully!"; 
 
@@ -28,9 +27,7 @@ const InputField = ({id, type}) => {
     async function handleClick() {
         try {
             const content = textAreaRef.current.value; 
-            const currentDate = formatSqlDate(new Date());  
             const postData = {
-                publishDate: currentDate, 
                 content: content, 
                 id: id, 
                 userId: user.id, 
