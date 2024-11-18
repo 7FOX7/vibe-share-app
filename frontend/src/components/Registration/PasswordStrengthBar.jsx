@@ -22,7 +22,8 @@ const PasswordStrengthBar = ({displayerColor, fillness, passwordMessage, display
         display: "flex", 
         justifyContent: "center",
         alignItems: "center",  
-        overflow: "hidden"
+        overflow: "hidden", 
+        marginTop: "12px"
       }}>
         <Typography color={displayerColor}>{passwordMessage}</Typography>
       </Box>
