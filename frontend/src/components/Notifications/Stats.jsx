@@ -3,22 +3,23 @@ import { useScreenSize } from "../../contexts/ScreenSizeContext"
 import { usePosts } from "../../contexts/PostsContext"
 import { useAuth } from "../../contexts/AuthContext"
 import { useClubs } from "../../contexts/ClubsContext"
+import { useUserLikesCount } from "../../contexts/UserLikesCountContext"
 import { Divider } from "@mui/material"
 import activityStats from "../../data/activityStats"
 import Typography from "@mui/material/Typography"
 import { Grid2 } from "@mui/material"
 import Box from "@mui/material/Box"
 
-const Stats = memo(function Stats({likedPosts}) {
+const Stats = memo(function Stats() {
     const {isSmallScreen} = useScreenSize(); 
     const {user} = useAuth(); 
     const {posts} = usePosts(); 
     const {clubIds} = useClubs(); 
+    const {userLikesCount} = useUserLikesCount(); 
 
     const userPosts = posts.filter((post) => post.username === user.username).length; 
-    const userLikes = likedPosts ? likedPosts : 0; 
     const userClubs = clubIds ? clubIds.length : 0; 
-    const stats = [userPosts, userLikes, userClubs]
+    const stats = [userPosts, userLikesCount, userClubs]
 
     return (
         <Grid2 

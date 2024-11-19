@@ -14,7 +14,6 @@ import _axios from "../../../axios.config";
 const Container = () => {
     const {isSmallScreen} = useScreenSize(); 
     const {posts, setGeolocationFilteredPosts} = usePosts(); 
-    const [likedPosts, setLikedPosts] = useState([]); 
     const {user} = useAuth(); 
     const {fetchClubIds} = useClubs(); 
 
@@ -27,31 +26,7 @@ const Container = () => {
 
     useEffect(() => {
         fetchClubIds(user.id)
-        fetchLikedPosts()
     }, [])
-
-    async function fetchLikedPosts() {
-        try {
-            const response = await _axios.get('/likes', {
-                params: {
-                    userId: user.id, 
-                    getCount: true
-                }
-            })
-            setLikedPosts(response.data)
-        }
-        catch (err) {
-            if(err.response) {
-                console.error('Something is wrong with the server: ' + err)
-            }
-            else if(err.request) {
-                console.error('Something is wrong with the client: ' + err)
-            }
-            else {
-                console.error(err)
-            }
-        }
-    }
 
     const content = useMemo(() => {
         if(isSmallScreen) {
@@ -63,7 +38,7 @@ const Container = () => {
                     alignItems: "center", 
                     marginBottom: "80px"
                 }}>
-                    <Stats likedPosts={likedPosts} />
+                    <Stats />
                     <LocalPosts />
                     <Footnote />
                 </Box>
@@ -78,11 +53,11 @@ const Container = () => {
                     marginBottom: "50px"
                 }}>
                     <LocalPosts />
-                    <Stats likedPosts={likedPosts} />
+                    <Stats />
                 </Box>
             )
         }
-    }, [likedPosts, isSmallScreen])
+    }, [isSmallScreen])
 
     return content
 }
