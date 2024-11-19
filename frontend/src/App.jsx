@@ -28,6 +28,7 @@ import { VideosProvider } from './contexts/VideosContext'
 import { CommentsProvider } from './contexts/CommentsContext'
 import { PostAuthorProvider } from './contexts/PostAuthorContext'
 import { SelectedButtonProvider } from './contexts/SelectedButtonContext'
+import { UserLikesCountProvider } from './contexts/UserLikesCountContext.jsx'
 
 const App = () => { 
   const [isDarkTheme, setIsDarkTheme] = useState(false)
@@ -48,67 +49,69 @@ const App = () => {
                       <VideosProvider>
                         <PostAuthorProvider>
                           <SelectedButtonProvider>
-                            <Layout setIsDarkTheme={setIsDarkTheme}>
-                              <Routes>
-                                <Route path="/registration" element={<Registration />} />
-                                <Route path="/" element={
-                                  <ProtectedRoute>
-                                    <Home />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/notifications" element={
-                                  <ProtectedRoute>
-                                    <Notifications />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/chats" element={
-                                  <ProtectedRoute>
-                                    <Chats />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/clubs" element={
-                                  <ProtectedRoute>
-                                    <Clubs />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/post-view/:id/:author" element={
-                                  <ProtectedRoute>
-                                    <PostView />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/video-view" element={
-                                  <ProtectedRoute>
-                                    <VideoView />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/create-post" element={
-                                  <ProtectedRoute>
-                                    <CreatePost />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/create-video" element={
-                                  <ProtectedRoute>
-                                    <CreateVideo />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/settings" element={
-                                  <ProtectedRoute>
-                                    <Settings />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/comments/:type/:id/:author" element={
-                                  <ProtectedRoute>
-                                    <Comments />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="/ask-location" element={
-                                  <ProtectedRoute>
-                                    <AskLocation />
-                                  </ProtectedRoute>
-                                } />
-                                <Route path="*" element={<NoPage />} />
-                              </Routes>
-                            </Layout>
+                            <UserLikesCountProvider>
+                              <Layout setIsDarkTheme={setIsDarkTheme}>
+                                <Routes>
+                                  <Route path="/registration" element={<Registration />} />
+                                  <Route path="/" element={
+                                    <ProtectedRoute>
+                                      <Home />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/notifications" element={
+                                    <ProtectedRoute>
+                                      <Notifications />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/chats" element={
+                                    <ProtectedRoute>
+                                      <Chats />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/clubs" element={
+                                    <ProtectedRoute>
+                                      <Clubs />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/post-view/:id/:author" element={
+                                    <ProtectedRoute>
+                                      <PostView />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/video-view" element={
+                                    <ProtectedRoute>
+                                      <VideoView />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/create-post" element={
+                                    <ProtectedRoute>
+                                      <CreatePost />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/create-video" element={
+                                    <ProtectedRoute>
+                                      <CreateVideo />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/settings" element={
+                                    <ProtectedRoute>
+                                      <Settings />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/comments/:type/:id/:author" element={
+                                    <ProtectedRoute>
+                                      <Comments />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="/ask-location" element={
+                                    <ProtectedRoute>
+                                      <AskLocation />
+                                    </ProtectedRoute>
+                                  } />
+                                  <Route path="*" element={<NoPage />} />
+                                </Routes>
+                              </Layout>
+                            </UserLikesCountProvider>
                           </SelectedButtonProvider>
                         </PostAuthorProvider>
                       </VideosProvider>
