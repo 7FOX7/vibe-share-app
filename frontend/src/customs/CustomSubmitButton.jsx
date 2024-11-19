@@ -10,7 +10,7 @@ const CustomSubmitButton = ({onClick, formComplete}) => {
             background: "#000", 
             color: "contrastColors.white.main", 
             borderRadius: "50px",
-            transition: "0.5s", 
+            transition: "0.2s", 
             ":hover": {
               background: "rgb(80, 80, 80)",
             }, 
