@@ -12,7 +12,8 @@ const Registration = () => {
         paddingTop: "50px", 
         paddingBottom: "10px", 
         paddingInline: "10px",
-        overflow: "hidden auto"
+        position: "fixed", 
+        overflow: "hidden"
       }}
     >
         <WelcomeSection />
