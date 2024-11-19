@@ -24,7 +24,6 @@ const PostWrapper = () => {
     }, [index, currentPosts])
 
     useEffect(() => {
-        console.log('I would run')
         navigate(`/post-view/${post.id}/${post.username}`, {relative: "route"})
     }, [index])
 
@@ -50,7 +49,7 @@ const PostWrapper = () => {
             flexDirection: "column", 
             alignItems: "center", 
             justifyContent: "space-evenly", 
-            width: `${isSmallScreen ? "100%" : "55%"}`, 
+            width: `${isSmallScreen ? "92%" : "50%"}`, 
             height: "100%"
         }}>
             <Post 

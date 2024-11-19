@@ -1,14 +1,16 @@
+import { useScreenSize } from "../../contexts/ScreenSizeContext";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 
 const PostContent = ({post}) => {
+    const {isSmallScreen} = useScreenSize(); 
     return (
         <>
             <Paper elevation={8} sx={{ 
                 width: "100%", 
-                height: "70%", 
-                backgroundImage: `url(${post ? post.imageUrl : "/images/post_background_image__default.jpg"})`, 
+                height: `${isSmallScreen ? "60%" : "70%"}`, 
+                backgroundImage: `url(${post ? post.imageUrl : "/images/default-field.webp"})`, 
                 backgroundSize: "100% 100%", 
                 backgroundRepeat: "no-repeat", 
                 borderRadius: "10px",
