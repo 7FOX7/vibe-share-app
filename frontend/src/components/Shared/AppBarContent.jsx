@@ -40,10 +40,10 @@ const AppBarContent =  {
             </Box>
         )
     }, 
-    default: ({goToPreviousRoute, formattedRoute, author}) => {
+    default: ({goBack, formattedRoute, author}) => {
         return (
             <>
-                <Box onClick={goToPreviousRoute} sx={{
+                <Box onClick={goBack} sx={{
                     display: "flex", 
                     alignSelf: "start", 
                     alignItems: "center", 
@@ -58,7 +58,7 @@ const AppBarContent =  {
                 </Box>
             </>
         )
-    } 
+    }, 
 }
 
 export default AppBarContent

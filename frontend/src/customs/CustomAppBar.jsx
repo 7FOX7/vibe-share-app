@@ -32,9 +32,9 @@ const CustomAppBar = ({setIsDarkTheme}) => {
         setAnchorEl(e.currentTarget)
     }, [])
 
-    const goToPreviousRoute = useCallback(() => {
-        navigate(-1)
-    }, [])
+    const goBack = useCallback(() => {
+        formattedRoute === "post-view" ? navigate('/', {relative: "route"}) : navigate(-1)
+    }, [formattedRoute])
 
     const goToSettings = useCallback(() => {
         setAnchorEl(null)
@@ -121,7 +121,7 @@ const CustomAppBar = ({setIsDarkTheme}) => {
         }
         else {
             const ContentComponent = AppBarContent[formattedRoute] || AppBarContent.default
-            return <ContentComponent goToPreviousRoute={goToPreviousRoute} formattedRoute={formattedRoute} author={author} /> 
+            return <ContentComponent goBack={goBack} formattedRoute={formattedRoute} author={author} /> 
         }
     }, [anchorEl, location])
 
