@@ -268,7 +268,7 @@ async function fetchLikes(req, res) {
 
 async function postLikes(req, res) {
     try {
-        const {userId, postId, isLiked} = req.body; 
+        const {userId, postId, isLiked} = req.body;
         console.log('post id: ' + postId)
         const change = isLiked ? -1 : 1; 
         console.log('change ' + change)
@@ -276,9 +276,14 @@ async function postLikes(req, res) {
         console.log('likes: ' + likes.data[0].likes + change)
         await client.from('posts').update({"likes": likes.data[0].likes + change}).eq('id', postId)
         isLiked ? await client.from('liked_posts').delete().eq('userId', userId).eq('postId', postId) : await client.from('liked_posts').insert({userId: userId, postId: postId})
-        const result = await client.from('posts').select('likes').eq('id', postId)
+        const postLikes = await client.from('posts').select('likes').eq('id', postId)
+        const userLikesCount = await client.from('liked_posts').select(undefined, {head: true, count: "exact"}).eq('userId', userId)
 
-        res.status(200).json(result.data)
+        console.log('postLikeCount: ' + postLikes.data[0].likes); 
+        console.log('userLikesCount: ' + userLikesCount.count); 
+
+        const result = [postLikes.data[0].likes, userLikesCount.count]
+        res.status(200).json(result)
         // 
         // const modifyLikedPosts = isLiked ? client.from('liked_posts').delete().eq('userId', userId).eq('postId', postId) : client.from('liked_posts').insert({userId: userId, postId: postId})
 

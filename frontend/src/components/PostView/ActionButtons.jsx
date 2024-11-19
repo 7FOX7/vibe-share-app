@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { useAuth } from "../../contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
+import { useUserLikesCount } from "../../contexts/UserLikesCountContext"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import _axios from "../../../axios.config"
@@ -14,6 +15,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
     const [backgroundColor, setBackgroundColor] = useState('tertiary.light'); 
     const [isLiked, setIsLiked] = useState(false); 
     const [isDisabled, setIsDisabled] = useState(false); 
+    const {setUserLikesCount} = useUserLikesCount()
 
     useEffect(() => {
         setInitialBackgroundColor()
@@ -63,13 +65,16 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
                         'Content-Type': 'application/json'
                     }
                 })
-                const likes = await response.data[0].likes
+
+                console.log('her eis the response: ' + response.data[0])
                 const updatedPost = {
                     ...post, 
-                    likes: likes
+                    likes: response.data[0]//  likes count for the current post (user is viewing right now)
                 }
+
                 const updatedPosts = posts.map(post => post.id === updatedPost.id ? updatedPost : post)
                 const updatedGeolocationPosts = geolocationFilteredPosts.map(post => post.id === updatedPost.id ? updatedPost : post)
+                setUserLikesCount(response.data[1])     // likes count of the current user (for stats display)
                 setPosts(updatedPosts)
                 setGeolocationFilteredPosts(updatedGeolocationPosts)
             }
