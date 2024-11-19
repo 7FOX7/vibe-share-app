@@ -93,6 +93,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
     }
 
     async function handleComments() {
+        if(!post) return alert('Hmm... Something is wrong. Failed to fetch comments')
         const id = post.id; 
         const author = post.username; 
         navigate(`/comments/${type}/${id}/${author}`)

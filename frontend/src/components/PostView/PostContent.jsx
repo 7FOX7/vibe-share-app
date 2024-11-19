@@ -27,7 +27,7 @@ const PostContent = ({post}) => {
                     textAlign: "center"
                 }}>
                     <Typography color="contrastColors.white.main" typography="postView.wideView">
-                        {post.content}
+                        {post?.content}
                     </Typography>
                 </Box>
             </Paper>
