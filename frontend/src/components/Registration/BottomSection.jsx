@@ -5,11 +5,13 @@ import Link from "@mui/material/Link"
 import PasswordStrengthBar from "./PasswordStrengthBar"
 import CustomSubmitButton from "../../customs/CustomSubmitButton"
 
-const BottomSection = ({displayerColor, fillness, passwordMessage, displayerVisibility, onClick, formComplete}) => {
+const BottomSection = ({displayerColor, fillness, passwordMessage, displayerVisibility, onClick, clearForm, formComplete}) => {
     const {isSmallScreen} = useScreenSize(); 
     const {isLoginMode, setIsLoginMode} = useAuth(); 
 
-    function handleClick() {
+    function handleClick(e) {
+        e.preventDefault()
+        clearForm()
         setIsLoginMode((prevMode) => !prevMode)
     }
 

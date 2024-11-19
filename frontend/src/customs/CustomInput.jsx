@@ -34,6 +34,8 @@ const CustomInput = forwardRef(function CustomInput(props, ref) {
         value={props.value}
         onChange={props.onChange} 
         disableUnderline={true} 
+        onSubmitCapture={() => console.log('wanna submit capture?')}
+        onSubmit={() => console.log('wanna just submit?')}
     />
 })
 
