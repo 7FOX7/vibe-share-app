@@ -13,6 +13,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
     const navigate = useNavigate(); 
     const [backgroundColor, setBackgroundColor] = useState('tertiary.light'); 
     const [isLiked, setIsLiked] = useState(false); 
+    const [isDisabled, setIsDisabled] = useState(false); 
 
     useEffect(() => {
         setInitialBackgroundColor()
@@ -50,6 +51,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
 
     async function handleLike() {
         if(post) {
+            setIsDisabled(true)
             try {
                 const data = {
                     userId: user.id, 
@@ -82,6 +84,11 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
                     console.error(err)
                 }
             } 
+            finally {
+                setTimeout(() => {
+                    setIsDisabled(false)
+                }, 1000)
+            }
         }
     }
 
@@ -98,30 +105,41 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
                 display: "flex", 
                 justifyContent: "space-evenly"
             }}>
-                <Button sx={{
-                    display: "flex", 
-                    alignItems: "center", 
-                    paddingBlock: "9px", 
-                    paddingInline: "9%", 
-                    backgroundColor: backgroundColor,
-                    borderRadius: "50px",
-                    cursor: "pointer", 
-                    ":hover": {
-                        backgroundColor: backgroundColor 
-                    }
-                }} onClick={handleLike}>Like {post.likes}</Button>
-                <Button sx={{
-                    display: "flex", 
-                    alignItems: "center", 
-                    paddingBlock: "9px", 
-                    paddingInline: "9%", 
-                    backgroundColor: "tertiary.light",
-                    borderRadius: "50px",
-                    cursor: "pointer", 
-                    ":hover": {
-                        backgroundColor: "tertiary.light" 
-                    }
-                }} onClick={handleComments}>Chat</Button>
+                <Button 
+                    aria-disabled={isDisabled}
+                    sx={{
+                        display: "flex", 
+                        alignItems: "center", 
+                        paddingBlock: "9px", 
+                        paddingInline: "9%", 
+                        backgroundColor: backgroundColor,
+                        borderRadius: "50px",
+                        cursor: "pointer", 
+                        ":hover": {
+                            backgroundColor: backgroundColor 
+                        },
+                        ":disabled": {
+                            cursor: "default", 
+                            backgroundColor: "tertiary.light"
+                        }
+                    }} 
+                    disabled={isDisabled} 
+                    onClick={handleLike}>Like {post.likes}</Button>
+
+                <Button 
+                    sx={{
+                        display: "flex", 
+                        alignItems: "center", 
+                        paddingBlock: "9px", 
+                        paddingInline: "9%", 
+                        backgroundColor: "tertiary.light",
+                        borderRadius: "50px",
+                        cursor: "pointer", 
+                        ":hover": {
+                            backgroundColor: "tertiary.light" 
+                        }
+                    }} 
+                    onClick={handleComments}>Chat</Button>
             </Box>
         </>
     )

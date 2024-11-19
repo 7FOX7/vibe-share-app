@@ -16,7 +16,8 @@ const Container = () => {
     const [open, setOpen] = useState(false); 
     const {user} = useAuth(); 
     const {isSmallScreen} = useScreenSize(); 
-    const {clubs, fetchClubs, clubIds, fetchClubIds} = useClubs(); 
+    const {clubs, fetchClubs, clubIds, fetchClubIds} = useClubs();
+    const [isDisabled, setIsDisabled] = useState(false);  
     const isDark = JSON.parse(localStorage.getItem('isDarkTheme')); 
     const primary = `${isDark ? "rgb(0, 204, 194)" : "rgb(81, 45, 168)"}`; 
 
@@ -28,6 +29,7 @@ const Container = () => {
         const {id} = e.target; 
         const backgroundColor = e.currentTarget.style.backgroundColor
         if(backgroundColor === primary) {
+            setIsDisabled(true)
             try {
                 const data = {
                     userId: user.id, 
@@ -48,6 +50,11 @@ const Container = () => {
                 else {
                     console.error(err)
                 }
+            }
+            finally {
+                setTimeout(() => {
+                    setIsDisabled(false)
+                }, 1000)
             }
         }
         else {
@@ -115,7 +122,7 @@ const Container = () => {
                 alignItems: "center", 
                 marginBottom: "100px"
             }}>
-                <ClubsSection clubs={clubs} clubIds={clubIds} handleClick={handleClick} />
+                <ClubsSection clubs={clubs} clubIds={clubIds} handleClick={handleClick} isDisabled={isDisabled} />
             </Box>
         </>
     )

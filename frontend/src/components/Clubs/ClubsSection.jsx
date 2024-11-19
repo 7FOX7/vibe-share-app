@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import GroupIcon from '@mui/icons-material/Group';
 import Button from "@mui/material/Button"
 
-const ClubsSection = ({clubs, clubIds, handleClick}) => {
+const ClubsSection = ({clubs, clubIds, handleClick, isDisabled}) => {
     const [viewAll, setViewAll] = useState(false); 
     const {isSmallScreen} = useScreenSize(); 
     const theme = useTheme(); 
@@ -20,11 +20,11 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
     return (
         <>
             <Grid2 
-            container
-            columnSpacing={2}
-            rowSpacing={{xs: 1.5, lg: 2}}
-            columns={{xs: 1, sm: 2, md: 3, lg: 3, xl: 4}}
-        >
+                container
+                columnSpacing={2}
+                rowSpacing={{xs: 1.5, lg: 2}}
+                columns={{xs: 1, sm: 2, md: 3, lg: 3, xl: 4}}
+            >
             {clubsCopy?.map((club) => {
                 return (
                     <Grid2 container key={club.id} size={1} sx={{
@@ -76,12 +76,19 @@ const ClubsSection = ({clubs, clubIds, handleClick}) => {
                             </Grid2>
                             <Grid2>
                                 <Button 
-                                    id={club.id} 
-                                    style={{backgroundColor: `${clubIds.includes(club.id) ? "rgba(0, 0, 0, 0.3)" : theme.palette.primary.main}`}} 
+                                    id={club.id}
+                                    aria-disabled={isDisabled} 
+                                    style={{backgroundColor: `${clubIds.includes(club.id) ? "rgb(150, 150, 150)" : theme.palette.primary.main}`}} 
                                     onClick={handleClick}
                                     sx={{
-                                        color: "contrastColors.white.main"
+                                        color: "contrastColors.white.main", 
+                                        ":disabled": {
+                                            cursor: "default", 
+                                            color: "rgb(180, 180, 180)",
+                                            backgroundColor: "rgba(0, 0, 0, 0.2)" 
+                                        }
                                     }}
+                                    disabled={isDisabled}
                                 >
                                     JOIN
                                 </Button>
