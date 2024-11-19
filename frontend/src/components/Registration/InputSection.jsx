@@ -15,14 +15,11 @@ const InputSection = () => {
   const [fillness, setFillness] = useState(null);
   const [passwordMessage, setPasswordMessage] = useState(null);  
   const [formComplete, setFormComplete] = useState(false); 
-  const {setUser, isLoginMode} = useAuth();
+  const {handleLoginRegistration, isLoginMode} = useAuth(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUser({
-      "username": usernameRef.current.value, 
-      "password": passwordRef.current.value
-    }); 
+    handleLoginRegistration(usernameRef.current.value, passwordRef.current.value)
   }
 
   const clearForm = useCallback(() => {
@@ -36,20 +33,20 @@ const InputSection = () => {
     setFormComplete(false)
   }, [])
 
-  const handleLogin = useCallback(() => {
+  const validateLogin = useCallback(() => {
     usernameRef.current.value !== "" && passwordRef.current.value !== "" ? setFormComplete(true) : setFormComplete(false)
   }, [])
 
-  const handleRegistration = useCallback(() => {
+  const validateRegistration = useCallback(() => {
     usernameRef.current.value !== "" && strongRegex.test(passwordRef.current.value) ? setFormComplete(true) : setFormComplete(false);
   }, [])
 
   function handleUsernameInput() {
-    isLoginMode ? handleLogin() : handleRegistration() 
+    isLoginMode ? validateLogin() : validateRegistration() 
   }
 
   function handlePasswordInput() {
-    !isLoginMode ? (handleRegistration(), checkForPasswordStrength()) : handleLogin()
+    !isLoginMode ? (validateRegistration(), checkForPasswordStrength()) : validateLogin()
   }
   
   function checkForPasswordStrength() {

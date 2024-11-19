@@ -8,51 +8,49 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null); 
     const [users, setUsers] = useState(null); 
     const [isLoginMode, setIsLoginMode] = useState(false); 
-    const [authSucceeded, setAuthSucceeded] = useState(false); 
-
+    const [authSucceeded, setAuthSucceeded] = useState(false);
     const navigate = useNavigate(); 
+    
     useEffect(() => {
         fetchData()
     }, [])
-    
-    useEffect(() => {
-        if(user && !authSucceeded) {
-            isLoginMode ? handleLogin(user) : handleRegister(user) 
-        } 
-    }, [user])
-
-    function handleRegister(user) {
-        const {username} = user
-        const existingUser = users.find(_user => _user.username === username)
-        if(typeof(existingUser) === "undefined") {
-            if(isValidLength(username)) {    
-                updateUsers();
-                setAuthSucceeded(true) 
-                navigate("/", {relative: "route"})
-            }
-            else {
-                alert('The username contains too many characters')
-            }
-        }
-        else {
-            alert('This username already exists')
-        }
-    }
 
     function isValidLength(user) {
         return user.length <= 12
     }
 
-    function handleLogin(user) {
-        const {username, password} = user
-        const existingUser = users.find(_user => _user.username === username)
-        if(typeof(existingUser) !== "undefined" && existingUser.password === password) {
-            setUser(existingUser)
-            setAuthSucceeded(true)
-            navigate("/", {relative: "route"})
+    async function handleLoginRegistration(username, password) {
+        if(isLoginMode) {
+            const existingUser = users.find(_user => _user.username === username)
+            if(typeof(existingUser) !== "undefined" && existingUser.password === password) {
+                setUser(existingUser)
+                setAuthSucceeded(true)
+                navigate("/", {relative: "route"})
+            }
+            else {
+                alert('User is not found')
+            }
         }
         else {
-            alert('User is not found')
+            try {
+                const existingUser = users.find(_user => _user.username === username)
+                if(typeof(existingUser) === "undefined") {
+                    if(isValidLength(username)) {    
+                        await updateUsers(username, password);
+                        setAuthSucceeded(true) 
+                        navigate("/", {relative: "route"})
+                    }
+                    else {
+                        alert('The username contains too many characters')
+                    }
+                }
+                else {
+                    alert('This username already exists')
+                }
+            }
+            catch (err) {
+                console.error(err)
+            }
         }
     }
 
@@ -74,11 +72,11 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    async function updateUsers() {  
+    async function updateUsers(username, password) {  
         try {
             const userData = {
-                username: user.username, 
-                password: user.password
+                username, 
+                password
             }
 
             const response = await _axios.post(`/users`, userData)
@@ -100,7 +98,7 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    return <AuthContext.Provider value={{user, setUser, isLoginMode, setIsLoginMode, authSucceeded}}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{user, isLoginMode, setIsLoginMode, authSucceeded, handleLoginRegistration}}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {
