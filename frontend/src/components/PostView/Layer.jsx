@@ -9,10 +9,11 @@ const Layer = () => {
             backgroundColor: "secondary.main", 
             display: "flex", 
             justifyContent: "center", 
-            width: "100vw", 
+            width: "100%", 
             height: "100vh", 
             paddingInline: `${isSmallScreen ? "50px" : "80px"}`, 
-            paddingTop: "50px"
+            paddingTop: "50px", 
+            overflow: "hidden"
         }}>
             <PostWrapper />
         </Box>
