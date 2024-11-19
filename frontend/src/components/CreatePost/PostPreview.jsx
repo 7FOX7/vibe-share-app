@@ -17,7 +17,7 @@ const PostPreview = () => {
                 width: "100%", 
                 height: "100%", 
                 borderRadius: "10px", 
-                backgroundImage: `url(${storedImage ? storedImage : "/images/post_background_image__default.jpg"})`, 
+                backgroundImage: `url(${storedImage ? storedImage : "/images/default-field.webp"})`, 
                 backgroundRepeat: "no-repeat", 
                 backgroundSize: "100% 100%", 
             }} />
@@ -33,7 +33,7 @@ const PostPreview = () => {
                 justifyContent: "center", 
                 textAlign: "center"
             }}>
-                <Typography color="contrastColors.white.main" typography="createPost.postPreview">
+                <Typography color="contrastColors.black.main" typography="createPost.postPreview">
                     {storedContent ? storedContent : ""}
                 </Typography>
             </Box>
