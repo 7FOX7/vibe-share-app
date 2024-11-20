@@ -18,8 +18,8 @@ const darkTheme = createTheme({
             dark: "#000143"
         }, 
         tertiary: {
-            main: "#00052a",
-            light: "#00094d", 
+            main: "#2e246e",
+            light: "#6c6596", 
         }, 
         contrastColors: {
             white: {

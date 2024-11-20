@@ -16,7 +16,7 @@ const ActionButtons = ({post, posts, geolocationFilteredPosts, setPosts, setGeol
     const [isLiked, setIsLiked] = useState(false); 
     const [isDisabled, setIsDisabled] = useState(false); 
     const {setUserLikesCount} = useUserLikesCount()
-
+    
     useEffect(() => {
         setInitialBackgroundColor()
     }, [post])
