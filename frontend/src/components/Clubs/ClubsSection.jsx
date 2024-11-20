@@ -45,7 +45,9 @@ const ClubsSection = ({clubs, clubIds, handleClick, isDisabled}) => {
                                 container 
                                 columnSpacing={1.2}>
                                 <Card sx={{
-                                    maxWidth: "55px"}}>
+                                    maxWidth: "60px", 
+                                    minWidth: "60px"
+                                }} elevation={3}>
                                     <CardMedia 
                                         component="img"
                                         height="100%"
